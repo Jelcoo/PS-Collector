@@ -1,6 +1,6 @@
 FROM php:8.4-fpm-alpine
 
-WORKDIR /app
+WORKDIR /app/php
 COPY . ./
 
 RUN apk add --no-cache mysql-client supervisor \
