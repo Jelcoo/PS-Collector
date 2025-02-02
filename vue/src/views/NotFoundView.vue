@@ -11,7 +11,7 @@ import { faHouse } from '@fortawesome/free-solid-svg-icons'
     </p>
     <RouterLink
       to="/"
-      class="bg-cyan-600 mt-4 p-2 inline-block rounded-lg text-white font-semibold hover:bg-cyan-700 border-2 border-cyan-600"
+      class="bg-sky-600 mt-4 p-2 inline-block rounded-lg text-white font-semibold hover:bg-sky-500 border-2 border-sky-600"
       ><FontAwesomeIcon :icon="faHouse" class="mr-2" />Go back to the homepage</RouterLink
     >
   </div>

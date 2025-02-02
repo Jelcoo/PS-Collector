@@ -45,7 +45,7 @@ onClickOutside(dropdown, () => (open.value = false))
 <style scoped>
 .hovertransition {
   &::before {
-    background-color: #216fe3;
+    background-color: #0ea5e9; /* sky-500 */
   }
 }
 </style>
