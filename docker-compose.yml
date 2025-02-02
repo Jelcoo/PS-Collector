@@ -1,36 +1,55 @@
 services:
-    nginx:
-        image: nginx:latest
+    vue-dev:
+        image: node:22
+        working_dir: /app
+        volumes:
+            - ./vue:/app
+            - /app/node_modules
+        command: sh -c "corepack enable && pnpm install && pnpm run dev --host"
         ports:
-            - "80:80"
+            - "5173:5173"
+        environment:
+            - NODE_ENV=development
+        depends_on:
+            - php
+    php:
+        image: php:8.4-fpm-alpine
+        container_name: php_app
+        volumes:
+            - ./php:/var/www/html
+        depends_on:
+            - mysql
+
+    nginx:
+        image: nginx:alpine
+        container_name: nginx_server
         volumes:
             - ./nginx.conf:/etc/nginx/nginx.conf
-            - ./:/app
-    php:
-        build:
-            context: .
-            dockerfile: PHP.Dockerfile
+            - ./php:/var/www/html
+        ports:
+            - "8080:80"
+        depends_on:
+            - php
+
+    mysql:
+        image: mariadb:latest
+        environment:
+            MYSQL_ROOT_PASSWORD: 'secret123'
+            MYSQL_USER: 'developer'
+            MYSQL_PASSWORD: 'secret123'
+            MYSQL_DATABASE: 'demodb'
         volumes:
-            - ./:/app
-    # mysql:
-    #     image: mariadb:latest
-    #     environment:
-    #         MYSQL_ROOT_PASSWORD: 'secret123'
-    #         MYSQL_USER: 'developer'
-    #         MYSQL_PASSWORD: 'secret123'
-    #         MYSQL_DATABASE: 'pscdb'
-    #     volumes:
-    #         - mysqldata:/var/lib/mysql
-    #         - ./sql:/docker-entrypoint-initdb.d
-    #     ports:
-    #         - 3306:3306
-    # phpmyadmin:
-    #     image: phpmyadmin:latest
-    #     ports:
-    #         - 8080:80
-    #     environment:
-    #         - PMA_HOST=mysql
-    #         - PMA_USER=root
-    #         - PMA_PASSWORD=secret123
+            - mysqldata:/var/lib/mysql
+            - ./sql:/docker-entrypoint-initdb.d
+        ports:
+            - 3306:3306
+    phpmyadmin:
+        image: phpmyadmin:latest
+        ports:
+            - 8081:80
+        environment:
+            - PMA_HOST=mysql
+            - PMA_USER=root
+            - PMA_PASSWORD=secret123
 volumes:
     mysqldata: {}
