@@ -2,11 +2,10 @@ name: Lint
 
 on:
   push:
-    branches:
-      - "main"
-  pull_request:
-    branches:
-      - "main"
+
+defaults:
+  run:
+    working-directory: php
 
 jobs:
   lint:
