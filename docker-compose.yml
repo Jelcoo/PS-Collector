@@ -5,7 +5,10 @@ services:
         volumes:
             - ./vue:/app
             - /app/node_modules
-        command: sh -c "corepack enable && pnpm install && pnpm run dev --host"
+        entrypoint: sh -c "
+            npm install -g pnpm@latest-10 && \
+            pnpm install && \
+            pnpm run dev --host"
         ports:
             - "5173:5173"
         environment:
@@ -18,7 +21,11 @@ services:
         volumes:
             - ./php:/var/www/html
         working_dir: /var/www/html
-        entrypoint: sh -c "apk add --no-cache curl git && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && composer install && php-fpm"
+        entrypoint: sh -c "
+            apk add --no-cache curl git && \
+            curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
+            composer install && \
+            php-fpm"
         depends_on:
             - mysql
 
