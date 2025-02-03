@@ -38,5 +38,5 @@
 import { RouterLink } from 'vue-router'
 import NavbarDropdown from '@/components/NavbarDropdown.vue'
 
-const user = true
+const user = false
 </script>

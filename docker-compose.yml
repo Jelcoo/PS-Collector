@@ -23,6 +23,7 @@ services:
         working_dir: /var/www/html
         entrypoint: sh -c "
             apk add --no-cache curl git && \
+            docker-php-ext-install pdo pdo_mysql && \
             curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
             composer install && \
             php-fpm"

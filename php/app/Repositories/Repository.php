@@ -15,12 +15,13 @@ class Repository
         $this->connect();
     }
 
+    protected function getConnection(): \PDO
+    {
+        return $this->pdoConnection;
+    }
+
     private function connect(): \PDO
     {
-        if (isset($this->pdoConnection)) {
-            return $this->pdoConnection;
-        }
-
         $host = Config::getKey('DB_HOST');
         $port = Config::getKey('DB_PORT');
         $database = Config::getKey('DB_NAME');

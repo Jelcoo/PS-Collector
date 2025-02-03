@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class User
+class User extends Model
 {
     public int $id;
     public string $username;
@@ -11,4 +11,15 @@ class User
     public string $email;
     public string $password;
     public string $created_at;
+
+    public function __construct(array $user)
+    {
+        $this->id = $user['id'];
+        $this->username = $user['username'];
+        $this->first_name = $user['first_name'];
+        $this->last_name = $user['last_name'];
+        $this->email = $user['email'];
+        $this->password = $user['password'];
+        $this->created_at = $user['created_at'];
+    }
 }
