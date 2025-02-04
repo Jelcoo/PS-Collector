@@ -2,7 +2,6 @@
 
 namespace App\Middleware;
 
-use App\Application\Session;
 use App\Application\Response;
 use App\Helpers\JwtHelper;
 
@@ -10,8 +9,6 @@ class EnsureAuthenticated implements Middleware
 {
     public function verify(array $params = []): bool
     {
-        $response = new Response();
-        
         if (!isset($_SERVER['HTTP_AUTHORIZATION'])) {
             $this->unauthorized();
         }

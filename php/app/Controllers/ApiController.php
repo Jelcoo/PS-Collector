@@ -20,7 +20,7 @@ class ApiController extends Controller
     {
         return [
             'success' => true,
-            'user' => 'me',
+            'user' => $this->getSession()->toArray(),
         ];
     }
 }
