@@ -42,6 +42,8 @@
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user';
 import { Form as VeeForm, Field, ErrorMessage, type GenericObject, type SubmissionContext } from 'vee-validate';
+import { onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import * as yup from 'yup';
 
 const validationSchema = yup.object({
@@ -50,12 +52,19 @@ const validationSchema = yup.object({
 });
 
 const userStore = useUserStore();
+const router = useRouter();
+
+onMounted(() => {
+    if (userStore.isAuthenticated) {
+        router.push('/');
+    }
+});
 
 const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
     userStore
         .login(values.email, values.password)
-        .then((res) => {
-            console.log(res);
+        .then(() => {
+            router.push('/');
         })
         .catch((error) => {
             if (error.response.status === 401) {
