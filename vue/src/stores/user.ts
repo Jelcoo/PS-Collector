@@ -9,7 +9,7 @@ export const useUserStore = defineStore('user', {
         last_name: '',
         email: '',
         created_at: '',
-        token: localStorage.getItem('token'),
+        token: localStorage.getItem('token') || '',
     }),
     getters: {
         fullName: (state) => `${state.first_name} ${state.last_name}`,
@@ -61,6 +61,10 @@ export const useUserStore = defineStore('user', {
                     })
                     .catch((error) => reject(error));
             });
+        },
+        logout() {
+            localStorage.removeItem('token');
+            this.$reset();
         },
     },
 });

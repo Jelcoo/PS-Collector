@@ -17,7 +17,9 @@
             class="absolute top-full right-0 bg-neutral-600 p-2 rounded-b-lg w-max flex flex-col divide-y-1 divide-gray-500"
         >
             <RouterLink to="/account" class="block text-xl text-white no-underline py-1">Account</RouterLink>
-            <RouterLink to="/logout" class="block text-xl text-white no-underline py-1">Logout</RouterLink>
+            <button class="hover:cursor-pointer block text-xl text-white no-underline py-1" @click="logout">
+                Logout
+            </button>
         </div>
     </button>
 </template>
@@ -28,16 +30,24 @@ import { onClickOutside } from '@vueuse/core';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { useUserStore } from '@/stores/user';
+import { useRouter } from 'vue-router';
 
 const dropdown = ref(null);
 const open = ref(false);
 const userStore = useUserStore();
+const router = useRouter();
 
 const toggleOpen = () => {
     open.value = !open.value;
 };
 
 onClickOutside(dropdown, () => (open.value = false));
+
+const logout = () => {
+    userStore.logout();
+    open.value = false;
+    router.push('/');
+};
 </script>
 
 <style scoped>
