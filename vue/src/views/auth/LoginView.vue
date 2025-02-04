@@ -41,7 +41,7 @@
 
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user';
-import { Form as VeeForm, Field, ErrorMessage, type GenericObject, useForm } from 'vee-validate';
+import { Form as VeeForm, Field, ErrorMessage, type GenericObject, type SubmissionContext } from 'vee-validate';
 import * as yup from 'yup';
 
 const validationSchema = yup.object({
@@ -49,18 +49,25 @@ const validationSchema = yup.object({
     password: yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
 });
 
-const { setErrors } = useForm();
 const userStore = useUserStore();
 
-const onSubmit = (values: GenericObject) => {
+const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
     userStore
         .login(values.email, values.password)
         .then((res) => {
             console.log(res);
         })
         .catch((error) => {
-            console.log(error);
-            setErrors(error.response.data.errors);
+            if (error.response.status === 401) {
+                actions.setErrors({
+                    password: error.response.data.error,
+                });
+            } else if (error.response.status === 422) {
+                actions.setErrors({
+                    email: error.response.data.errors.email,
+                    password: error.response.data.errors.password,
+                });
+            }
         });
 };
 </script>
