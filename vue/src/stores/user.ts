@@ -9,7 +9,7 @@ export const useUserStore = defineStore('user', {
         last_name: '',
         email: '',
         created_at: '',
-        token: '',
+        token: localStorage.getItem('token'),
     }),
     getters: {
         fullName: (state) => `${state.first_name} ${state.last_name}`,
@@ -40,12 +40,11 @@ export const useUserStore = defineStore('user', {
             });
         },
         autoLogin() {
-            const token = localStorage.getItem('token');
-            if (!token) {
+            if (!this.token) {
                 return;
             }
 
-            axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.token;
 
             return new Promise((resolve, reject) => {
                 axios
@@ -57,7 +56,6 @@ export const useUserStore = defineStore('user', {
                         this.last_name = res.data.user.last_name;
                         this.email = res.data.user.email;
                         this.created_at = res.data.user.created_at;
-                        this.token = token;
 
                         resolve(this);
                     })
