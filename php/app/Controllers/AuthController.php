@@ -64,7 +64,7 @@ class AuthController extends Controller
 
         $validator = new Validator();
         $validation = $validator->validate($data, [
-            'username' => 'required',
+            'email' => 'required',
             'password' => 'required',
         ]);
 
@@ -73,7 +73,7 @@ class AuthController extends Controller
         }
 
         try {
-            $user = $this->userRepository->getUserByUsernameOrEmail($data['username']);
+            $user = $this->userRepository->getUserByUsernameOrEmail($data['email']);
         } catch (\Exception $e) {
             return [
                 'success' => false,
@@ -100,6 +100,7 @@ class AuthController extends Controller
         return [
             'success' => true,
             'token' => $jwtToken,
+            'user' => $user->toArray(),
         ];
     }
 }

@@ -11,6 +11,17 @@ const router = createRouter({
             component: HomeView,
         },
         {
+            path: '/auth',
+            name: 'auth',
+            children: [
+                {
+                    path: 'login',
+                    name: 'auth.login',
+                    component: () => import('@/views/auth/LoginView.vue'),
+                },
+            ],
+        },
+        {
             path: '/:catchAll(.*)',
             name: '404',
             component: NotFoundView,
