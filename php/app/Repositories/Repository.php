@@ -50,4 +50,9 @@ class Repository
 
         return $this->pdoConnection;
     }
+
+    public function prepare($sql): \PDOStatement
+    {
+        return $this->getConnection()->prepare($sql);
+    }
 }

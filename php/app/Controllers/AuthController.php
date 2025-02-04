@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Repositories\UserRepository;
+use App\Validation\UniqueRule;
 use Rakit\Validation\Validator;
 
 class AuthController extends Controller
@@ -19,11 +20,13 @@ class AuthController extends Controller
     {
         $data = json_decode(file_get_contents('php://input'), true) ?? [];
 
-        $validation = (new Validator)->validate($data, [
-            'username' => 'required|max:255',
+        $validator = new Validator();
+        $validator->addValidator('unique', new UniqueRule());
+        $validation = $validator->validate($data, [
+            'username' => 'required|unique:users,username|max:255',
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|unique:users,email|max:255',
             'password' => 'required|min:6',
         ]);
 
