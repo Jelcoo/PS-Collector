@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use App\Config\Config;
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 class JwtHelper
 {
@@ -24,9 +25,14 @@ class JwtHelper
         return JWT::encode($payload, Config::getKey('JWT_SECRET'), 'HS256');
     }
 
-    public static function decodeToken($token)
+    public static function isValidToken($token): bool
     {
-        $headers = new \stdClass();
-        return JWT::decode($token, Config::getKey('JWT_SECRET'), $headers);
+        try {
+            JWT::decode($token, new Key(Config::getKey('JWT_SECRET'), 'HS256'));
+        } catch (\Exception) {
+            return false;
+        }
+
+        return true;
     }
 }

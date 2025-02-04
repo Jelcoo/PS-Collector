@@ -15,4 +15,12 @@ class ApiController extends Controller
             'message' => 'Hello World!'
         ];
     }
+
+    public function me(): array
+    {
+        return [
+            'success' => true,
+            'user' => 'me',
+        ];
+    }
 }
