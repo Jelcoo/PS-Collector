@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Helpers\JwtHelper;
 use App\Repositories\UserRepository;
 use App\Validation\UniqueRule;
 use Rakit\Validation\Validator;
@@ -49,8 +50,11 @@ class AuthController extends Controller
             ];
         }
 
-        // TODO: return JWT
-        return $createdUser->toArray();
+        $jwtToken = JwtHelper::generateToken($createdUser);
+        return [
+            'success' => true,
+            'token' => $jwtToken,
+        ];
     }
 
     public function login(): array
@@ -90,7 +94,10 @@ class AuthController extends Controller
             ];
         }
 
-        // TODO: return JWT
-        return $user->toArray();
+        $jwtToken = JwtHelper::generateToken($user);
+        return [
+            'success' => true,
+            'token' => $jwtToken,
+        ];
     }
 }

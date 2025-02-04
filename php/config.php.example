@@ -1,10 +1,14 @@
 <?php
 
 return $config = [
+    'APP_URL' => 'http://localhost',
     'APP_ENV' => 'production',
+
     'DB_HOST' => 'mysql',
     'DB_PORT' => 3306,
     'DB_USER' => 'developer',
     'DB_PASSWORD' => 'secret123',
-    'DB_NAME' => 'pscdb'
+    'DB_NAME' => 'pscdb',
+
+    'JWT_SECRET' => 'secret',
 ];

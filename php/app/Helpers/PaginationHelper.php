@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-class Pagination
+class PaginationHelper
 {
     public static function paginate(array $data, int $totalRecords, int $perPage = 25, int $currentPage = 1): mixed
     {
