@@ -34,7 +34,7 @@ class UserRepository extends Repository
         $queryBuilder = new QueryBuilder($this->getConnection());
 
         $userId = $queryBuilder->table('users')->insert($data);
-        $user = $this->getUserById($userId);
+        $user = $this->getUserById((int) $userId);
 
         return $user;
     }
