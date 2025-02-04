@@ -57,6 +57,7 @@ class AuthController extends Controller
 
         return [
             'token' => $jwtToken,
+            'user' => $createdUser->toArray(),
         ];
     }
 

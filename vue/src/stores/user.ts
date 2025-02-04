@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from '@/axios';
+import type { AxiosResponse } from 'axios';
 
 export const useUserStore = defineStore('user', {
     state: () => ({
@@ -16,6 +17,25 @@ export const useUserStore = defineStore('user', {
         isAuthenticated: (state) => !!state.token,
     },
     actions: {
+        register(username: string, first_name: string, last_name: string, email: string, password: string) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .post('/auth/register', {
+                        username,
+                        first_name,
+                        last_name,
+                        email,
+                        password,
+                    })
+                    .then((res) => {
+                        this.setUserResponse(res);
+                        this.token = res.data.token;
+                        localStorage.setItem('token', res.data.token);
+                        resolve(res);
+                    })
+                    .catch((error) => reject(error));
+            });
+        },
         login(email: string, password: string) {
             return new Promise((resolve, reject) => {
                 axios
@@ -24,17 +44,11 @@ export const useUserStore = defineStore('user', {
                         password,
                     })
                     .then((res) => {
-                        this.id = res.data.user.id;
-                        this.username = res.data.user.username;
-                        this.first_name = res.data.user.first_name;
-                        this.last_name = res.data.user.last_name;
-                        this.email = res.data.user.email;
-                        this.created_at = res.data.user.created_at;
+                        this.setUserResponse(res);
                         this.token = res.data.token;
 
                         localStorage.setItem('token', res.data.token);
-
-                        resolve(this);
+                        resolve(res);
                     })
                     .catch((error) => reject(error));
             });
@@ -50,17 +64,19 @@ export const useUserStore = defineStore('user', {
                 axios
                     .get('/me')
                     .then((res) => {
-                        this.id = res.data.user.id;
-                        this.username = res.data.user.username;
-                        this.first_name = res.data.user.first_name;
-                        this.last_name = res.data.user.last_name;
-                        this.email = res.data.user.email;
-                        this.created_at = res.data.user.created_at;
-
-                        resolve(this);
+                        this.setUserResponse(res);
+                        resolve(res);
                     })
                     .catch((error) => reject(error));
             });
+        },
+        setUserResponse(res: AxiosResponse) {
+            this.id = res.data.user.id;
+            this.username = res.data.user.username;
+            this.first_name = res.data.user.first_name;
+            this.last_name = res.data.user.last_name;
+            this.email = res.data.user.email;
+            this.created_at = res.data.user.created_at;
         },
         logout() {
             localStorage.removeItem('token');
