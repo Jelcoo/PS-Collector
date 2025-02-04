@@ -52,4 +52,45 @@ class AuthController extends Controller
         // TODO: return JWT
         return $createdUser->toArray();
     }
+
+    public function login(): array
+    {
+        $data = json_decode(file_get_contents('php://input'), true) ?? [];
+
+        $validator = new Validator();
+        $validation = $validator->validate($data, [
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+
+        if ($validation->fails()) {
+            return $validation->errors()->toArray();
+        }
+
+        try {
+            $user = $this->userRepository->getUserByUsernameOrEmail($data['username']);
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage(),
+            ];
+        }
+
+        if (!$user) {
+            return [
+                'success' => false,
+                'error' => 'Invalid login credentials',
+            ];
+        }
+
+        if (!password_verify($data['password'], $user->password)) {
+            return [
+                'success' => false,
+                'error' => 'Invalid login credentials',
+            ];
+        }
+
+        // TODO: return JWT
+        return $user->toArray();
+    }
 }
