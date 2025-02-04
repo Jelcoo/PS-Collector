@@ -34,14 +34,22 @@ class AuthController extends Controller
             return $validation->errors()->toArray();
         }
 
-        $createdUser = $this->userRepository->createUser([
-            'username' => $data['username'],
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'password' => password_hash($data['password'], PASSWORD_DEFAULT),
-        ]);
+        try {
+            $createdUser = $this->userRepository->createUser([
+                'username' => $data['username'],
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'],
+                'email' => $data['email'],
+                'password' => password_hash($data['password'], PASSWORD_DEFAULT),
+            ]);
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage(),
+            ];
+        }
 
+        // TODO: return JWT
         return $createdUser->toArray();
     }
 }
