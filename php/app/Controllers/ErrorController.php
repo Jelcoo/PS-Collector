@@ -7,7 +7,7 @@ class ErrorController extends Controller
     public function error404(): array
     {
         return [
-            'code' => 404,
+            'status' => 404,
             'message' => 'Page not found',
         ];
     }
@@ -15,7 +15,7 @@ class ErrorController extends Controller
     public function error500(string $error): array
     {
         return [
-            'code' => 500,
+            'status' => 500,
             'message' => $error,
         ];
     }

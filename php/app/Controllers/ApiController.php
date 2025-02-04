@@ -19,7 +19,6 @@ class ApiController extends Controller
     public function me(): array
     {
         return [
-            'success' => true,
             'user' => $this->getSession()->toArray(),
         ];
     }

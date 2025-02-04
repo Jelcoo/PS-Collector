@@ -32,7 +32,10 @@ class AuthController extends Controller
         ]);
 
         if ($validation->fails()) {
-            return $validation->errors()->toArray();
+            return [
+                'status' => 422,
+                'errors' => $validation->errors()->toArray(),
+            ];
         }
 
         try {
@@ -43,17 +46,16 @@ class AuthController extends Controller
                 'email' => $data['email'],
                 'password' => password_hash($data['password'], PASSWORD_DEFAULT),
             ]);
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             return [
-                'success' => false,
-                'error' => $e->getMessage(),
+                'status' => 500,
+                'error' => 'Something went wrong',
             ];
         }
 
         $jwtToken = JwtHelper::generateToken($createdUser);
 
         return [
-            'success' => true,
             'token' => $jwtToken,
         ];
     }
@@ -69,28 +71,24 @@ class AuthController extends Controller
         ]);
 
         if ($validation->fails()) {
-            return $validation->errors()->toArray();
+            return [
+                'status' => 422,
+                'errors' => $validation->errors()->toArray(),
+            ];
         }
 
         try {
             $user = $this->userRepository->getUserByUsernameOrEmail($data['email']);
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             return [
-                'success' => false,
-                'error' => $e->getMessage(),
+                'status' => 500,
+                'error' => 'Something went wrong',
             ];
         }
 
-        if (!$user) {
+        if (!$user || !password_verify($data['password'], $user->password)) {
             return [
-                'success' => false,
-                'error' => 'Invalid login credentials',
-            ];
-        }
-
-        if (!password_verify($data['password'], $user->password)) {
-            return [
-                'success' => false,
+                'status' => 401,
                 'error' => 'Invalid login credentials',
             ];
         }
@@ -98,7 +96,6 @@ class AuthController extends Controller
         $jwtToken = JwtHelper::generateToken($user);
 
         return [
-            'success' => true,
             'token' => $jwtToken,
             'user' => $user->toArray(),
         ];
