@@ -2,9 +2,9 @@
 
 namespace App\Helpers;
 
-use App\Config\Config;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use App\Config\Config;
 
 class JwtHelper
 {
@@ -40,6 +40,7 @@ class JwtHelper
     {
         $jwtToken = explode(' ', $_SERVER['HTTP_AUTHORIZATION'])[1];
         $decoded = JWT::decode($jwtToken, new Key(Config::getKey('JWT_SECRET'), 'HS256'));
+
         return $decoded->data->id ?? null;
     }
 }

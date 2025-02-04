@@ -2,8 +2,8 @@
 
 namespace App\Controllers;
 
-use App\Helpers\JwtHelper;
 use App\Models\User;
+use App\Helpers\JwtHelper;
 use App\Repositories\UserRepository;
 
 class Controller

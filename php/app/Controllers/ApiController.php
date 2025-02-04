@@ -12,7 +12,7 @@ class ApiController extends Controller
     public function index(): array
     {
         return [
-            'message' => 'Hello World!'
+            'message' => 'Hello World!',
         ];
     }
 

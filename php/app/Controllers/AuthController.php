@@ -3,9 +3,9 @@
 namespace App\Controllers;
 
 use App\Helpers\JwtHelper;
-use App\Repositories\UserRepository;
 use App\Validation\UniqueRule;
 use Rakit\Validation\Validator;
+use App\Repositories\UserRepository;
 
 class AuthController extends Controller
 {
@@ -51,6 +51,7 @@ class AuthController extends Controller
         }
 
         $jwtToken = JwtHelper::generateToken($createdUser);
+
         return [
             'success' => true,
             'token' => $jwtToken,
@@ -95,6 +96,7 @@ class AuthController extends Controller
         }
 
         $jwtToken = JwtHelper::generateToken($user);
+
         return [
             'success' => true,
             'token' => $jwtToken,

@@ -2,8 +2,8 @@
 
 namespace App\Middleware;
 
-use App\Application\Response;
 use App\Helpers\JwtHelper;
+use App\Application\Response;
 
 class EnsureAuthenticated implements Middleware
 {

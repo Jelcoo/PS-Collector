@@ -8,7 +8,7 @@ class ErrorController extends Controller
     {
         return [
             'code' => 404,
-            'message' => 'Page not found'
+            'message' => 'Page not found',
         ];
     }
 
@@ -16,7 +16,7 @@ class ErrorController extends Controller
     {
         return [
             'code' => 500,
-            'message' => $error
+            'message' => $error,
         ];
     }
 }

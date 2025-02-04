@@ -2,8 +2,8 @@
 
 namespace App\Repositories;
 
-use App\Helpers\QueryBuilder;
 use App\Models\User;
+use App\Helpers\QueryBuilder;
 
 /**
  * @method self useDatabase(string $database)
@@ -32,7 +32,7 @@ class UserRepository extends Repository
     public function createUser(array $data): User
     {
         $queryBuilder = new QueryBuilder($this->getConnection());
-        
+
         $userId = $queryBuilder->table('users')->insert($data);
         $user = $this->getUserById($userId);
 

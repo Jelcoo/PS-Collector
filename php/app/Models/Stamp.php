@@ -9,7 +9,7 @@ class Stamp extends Model
     public string $name;
     public bool $used;
     public bool $damaged;
-    public string|null $image_uuid;
+    public ?string $image_uuid;
     public string $created_at;
 
     public function __construct(array $stamp)

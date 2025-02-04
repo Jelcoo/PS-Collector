@@ -2,12 +2,12 @@
 
 namespace App\Validation;
 
-use App\Repositories\Repository;
 use Rakit\Validation\Rule;
+use App\Repositories\Repository;
 
 class UniqueRule extends Rule
 {
-    protected $message = ":attribute :value has been used";
+    protected $message = ':attribute :value has been used';
 
     protected $fillableParams = ['table', 'column'];
 
