@@ -10,6 +10,8 @@ class Model
 
     public function toArray(): array
     {
-        return get_object_vars($this);
+        $excludedProperties = array_merge(['hidden'], $this->hidden ?? []);
+
+        return array_diff_key(get_object_vars($this), array_flip($excludedProperties));
     }
 }

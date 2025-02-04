@@ -12,6 +12,8 @@ class User extends Model
     public string $password;
     public string $created_at;
 
+    public array $hidden = ['password'];
+
     public function __construct(array $user)
     {
         $this->id = $user['id'];
