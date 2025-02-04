@@ -51,12 +51,13 @@ export const useUserStore = defineStore('user', {
                 axios
                     .get('/me')
                     .then((res) => {
-                        this.id = res.data.id;
-                        this.username = res.data.username;
-                        this.first_name = res.data.first_name;
-                        this.last_name = res.data.last_name;
-                        this.email = res.data.email;
-                        this.created_at = res.data.created_at;
+                        this.id = res.data.user.id;
+                        this.username = res.data.user.username;
+                        this.first_name = res.data.user.first_name;
+                        this.last_name = res.data.user.last_name;
+                        this.email = res.data.user.email;
+                        this.created_at = res.data.user.created_at;
+                        this.token = token;
 
                         resolve(this);
                     })

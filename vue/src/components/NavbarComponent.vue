@@ -10,7 +10,7 @@
                 >Collections</RouterLink
             >
             <div class="flex">
-                <template v-if="user">
+                <template v-if="userStore.isAuthenticated">
                     <NavbarDropdown />
                 </template>
                 <template v-else>
@@ -35,6 +35,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import NavbarDropdown from '@/components/NavbarDropdown.vue';
+import { useUserStore } from '@/stores/user';
 
-const user = false;
+const userStore = useUserStore();
 </script>

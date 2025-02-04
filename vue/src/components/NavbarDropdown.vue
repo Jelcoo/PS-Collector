@@ -8,7 +8,7 @@
     >
         <div id="userdisplay" class="flex items-center">
             <FontAwesomeIcon :icon="faUser" class="mr-2" />
-            Username
+            <span>{{ userStore.username }}</span>
         </div>
 
         <div
@@ -27,9 +27,11 @@ import { ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { useUserStore } from '@/stores/user';
 
 const dropdown = ref(null);
 const open = ref(false);
+const userStore = useUserStore();
 
 const toggleOpen = () => {
     open.value = !open.value;
