@@ -11,6 +11,9 @@ class Collection extends Model
     public CollectionAccessEnum $access;
     public string $created_at;
 
+    public User|null $author;
+    public int|null $stampCount;
+
     public function __construct(array $collection)
     {
         $this->id = $collection['id'];

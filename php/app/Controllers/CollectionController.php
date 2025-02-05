@@ -22,9 +22,10 @@ class CollectionController extends Controller
     {
         $page = $_GET['page'] ?? 1;
         $perPage = $_GET['size'] ?? 25;
+        $with = $this->getWithRelations();
 
         try {
-            $collections = $this->collectionRepository->getAll();
+            $collections = $this->collectionRepository->getAll($with);
             $pagedCollections = PaginationHelper::paginate($collections, count($collections), $perPage, $page);
         } catch (\Exception) {
             return [

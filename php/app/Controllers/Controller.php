@@ -27,4 +27,11 @@ class Controller
 
         return $this->session;
     }
+
+    protected function getWithRelations()
+    {
+        $with = $_GET['with'] ?? '';
+
+        return explode(',', $with);
+    }
 }

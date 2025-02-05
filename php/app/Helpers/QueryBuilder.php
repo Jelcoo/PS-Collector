@@ -42,7 +42,11 @@ class QueryBuilder
     public function where(string $column, string $operator, $value): self
     {
         $placeholder = ':' . str_replace('.', '_', $column) . count($this->conditions);
-        $this->conditions[] = "$column $operator $placeholder";
+        if (!empty($this->conditions)) {
+            $this->conditions[] = "AND $column $operator $placeholder";
+        } else {
+            $this->conditions[] = "$column $operator $placeholder";
+        }
         $this->bindings[$placeholder] = $value;
 
         return $this;
