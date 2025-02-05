@@ -67,7 +67,12 @@ export const useUserStore = defineStore('user', {
                         this.setUserResponse(res);
                         resolve(res);
                     })
-                    .catch((error) => reject(error));
+                    .catch((error) => {
+                        if (error.response.status === 401) {
+                            this.logout();
+                        }
+                        reject(error);
+                    });
             });
         },
         setUserResponse(res: AxiosResponse) {
