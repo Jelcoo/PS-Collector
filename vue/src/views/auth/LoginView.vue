@@ -6,25 +6,11 @@
             <VeeForm v-slot="{ handleSubmit }" :validation-schema="validationSchema" as="div">
                 <form @submit="handleSubmit($event, onSubmit)">
                     <div class="mb-4">
-                        <label class="block text-neutral-300 mb-2" for="email">Email</label>
-                        <Field
-                            name="email"
-                            type="email"
-                            class="w-full p-3 bg-neutral-800 text-neutral-100 rounded-lg border border-neutral-600 focus:ring-2 focus:ring-sky-500 outline-none"
-                            placeholder="Enter your email"
-                        />
-                        <ErrorMessage name="email" class="text-red-400 text-sm mt-1" />
+                        <FormInput name="email" label="Email" type="email" />
                     </div>
 
                     <div class="mb-4">
-                        <label class="block text-neutral-300 mb-2" for="password">Password</label>
-                        <Field
-                            name="password"
-                            type="password"
-                            class="w-full p-3 bg-neutral-800 text-neutral-100 rounded-lg border border-neutral-600 focus:ring-2 focus:ring-sky-500 outline-none"
-                            placeholder="Enter your password"
-                        />
-                        <ErrorMessage name="password" class="text-red-400 text-sm mt-1" />
+                        <FormInput name="password" label="Password" type="password" />
                     </div>
 
                     <button
@@ -41,9 +27,10 @@
 
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user';
-import { Form as VeeForm, Field, ErrorMessage, type GenericObject, type SubmissionContext } from 'vee-validate';
+import { Form as VeeForm, type GenericObject, type SubmissionContext } from 'vee-validate';
 import { useRouter } from 'vue-router';
 import * as yup from 'yup';
+import FormInput from '@/components/forms/FormInput.vue';
 
 const validationSchema = yup.object({
     email: yup.string().email('Invalid email').required('Email is required'),
