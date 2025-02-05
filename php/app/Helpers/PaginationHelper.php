@@ -24,6 +24,8 @@ class PaginationHelper
             }
         }
 
+        $data = array_slice($data, ($currentPage - 1) * $perPage, $perPage);
+
         return [
             'data' => $data,
             'pages' => $pages,

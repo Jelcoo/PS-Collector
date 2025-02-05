@@ -5,10 +5,6 @@ namespace App\Repositories;
 use App\Models\User;
 use App\Helpers\QueryBuilder;
 
-/**
- * @method self useDatabase(string $database)
- * @method self useTable(string $table)
- */
 class UserRepository extends Repository
 {
     public function getUserById(int $id): ?User
