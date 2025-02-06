@@ -5,7 +5,7 @@
     >
         <div>
             <h2 class="text-xl font-bold truncate">{{ collection.name }}</h2>
-            <p class="text-sm truncate">By {{ collection.author?.username }}</p>
+            <p class="text-sm truncate">By {{ collection.authorName }}</p>
         </div>
         <div class="flex items-center justify-between">
             <span :class="['px-2 py-1 text-xs text-white rounded-full', accessLevelColor]">

@@ -31,7 +31,7 @@ class CollectionRepository extends Repository
             foreach ($with as $relation) {
                 switch ($relation) {
                     case 'author':
-                        $collection->author = $this->getCollectionAuthor($collection);
+                        $collection->authorName = $this->getCollectionAuthor($collection)->username;
                         break;
                     case 'stampCount':
                         $collection->stampCount = $this->getCollectionStampCount($collection);

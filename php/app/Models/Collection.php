@@ -11,7 +11,7 @@ class Collection extends Model
     public CollectionAccessEnum $access;
     public string $created_at;
 
-    public User|null $author;
+    public string|null $authorName;
     public int|null $stampCount;
 
     public function __construct(array $collection)

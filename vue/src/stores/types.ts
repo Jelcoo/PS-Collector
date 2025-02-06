@@ -4,7 +4,7 @@ export interface Collection {
     access: string;
     created_at: string;
     stampCount?: number;
-    author?: User;
+    authorName?: string;
 }
 
 export interface User {
