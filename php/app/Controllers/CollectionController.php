@@ -37,6 +37,22 @@ class CollectionController extends Controller
         return $pagedCollections;
     }
 
+    public function get(int $id): array
+    {
+        $with = $this->getWithRelations();
+
+        try {
+            $collection = $this->collectionRepository->getCollectionById($id, $with);
+        } catch (\Exception) {
+            return [
+                'status' => 500,
+                'error' => 'Something went wrong',
+            ];
+        }
+
+        return $collection->toArray();
+    }
+
     public function create(): array
     {
         $data = json_decode(file_get_contents('php://input'), true) ?? [];

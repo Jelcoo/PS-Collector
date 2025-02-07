@@ -2,7 +2,7 @@
     <div class="p-4">
         <div class="flex flex-wrap gap-4 justify-center">
             <CollectionCard
-                v-for="collection in collectionStore.collections"
+                v-for="collection in collectionStore.collections.data"
                 :key="collection.id"
                 :collection
                 :total-stamps="2"

@@ -11,8 +11,18 @@ const router = createRouter({
         },
         {
             path: '/collections',
-            name: 'collections',
-            component: () => import('@/views/collections/CollectionsView.vue'),
+            children: [
+                {
+                    path: '',
+                    name: 'collections',
+                    component: () => import('@/views/collections/CollectionsOverview.vue'),
+                },
+                {
+                    path: ':id(\\d+)',
+                    name: 'collection',
+                    component: () => import('@/views/collections/CollectionView.vue'),
+                },
+            ],
         },
         {
             path: '/account',

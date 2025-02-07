@@ -11,8 +11,6 @@ services:
             pnpm run dev --host"
         ports:
             - "5173:5173"
-        depends_on:
-            - php
     php:
         image: php:8.4-fpm-alpine
         container_name: php_app
@@ -25,8 +23,6 @@ services:
             curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
             composer install && \
             php-fpm"
-        depends_on:
-            - mysql
 
     nginx:
         image: nginx:alpine
@@ -36,8 +32,6 @@ services:
             - ./php:/var/www/html
         ports:
             - "8080:80"
-        depends_on:
-            - php
 
     mysql:
         image: mariadb:latest

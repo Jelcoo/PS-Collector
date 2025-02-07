@@ -12,6 +12,7 @@ class Collection extends Model
     public string $created_at;
 
     public string|null $authorName;
+    public array|null $stamps;
     public int|null $stampCount;
 
     public function __construct(array $collection)
