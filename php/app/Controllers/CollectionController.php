@@ -71,10 +71,13 @@ class CollectionController extends Controller
         }
 
         try {
-            $createdCollection = $this->collectionRepository->createCollection([
-                'name' => $data['name'],
-                'access' => $data['access'],
-            ]);
+            $createdCollection = $this->collectionRepository->createCollection(
+                [
+                    'name' => $data['name'],
+                    'access' => $data['access'],
+                ],
+                $this->getSession()->id
+            );
         } catch (\Exception) {
             return [
                 'status' => 500,

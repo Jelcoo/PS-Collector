@@ -48,11 +48,21 @@ class CollectionRepository extends Repository
         return $collection;
     }
 
-    public function createCollection(array $data): Collection
+    public function createCollection(array $data, int $userId): Collection
     {
         $queryBuilder = new QueryBuilder($this->getConnection());
+        $queryBuilder->startTransaction();
 
         $collectionId = $queryBuilder->table('collections')->insert($data);
+
+        $queryBuilder->table('collection_access')->insert([
+            'collection_id' => $collectionId,
+            'user_id' => $userId,
+            'role' => CollectionAccessLevelEnum::OWNER->value,
+        ]);
+
+        $queryBuilder->commit();
+
         $collection = $this->getCollectionById((int) $collectionId);
 
         return $collection;

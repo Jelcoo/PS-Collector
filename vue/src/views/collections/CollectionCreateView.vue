@@ -1,0 +1,71 @@
+<template>
+    <div class="flex items-center justify-center">
+        <div class="w-full max-w-md p-8 bg-neutral-700 my-auto rounded-2xl shadow-lg">
+            <h2 class="text-2xl font-semibold text-center text-neutral-100 mb-6">Create Collection</h2>
+
+            <VeeForm v-slot="{ handleSubmit }" :validation-schema="validationSchema" as="div">
+                <form @submit="handleSubmit($event, onSubmit)">
+                    <div class="mb-4">
+                        <FormInput name="name" label="Name" />
+                    </div>
+
+                    <div class="mb-4">
+                        <FormSelect
+                            name="access"
+                            label="Access"
+                            :options="[
+                                { value: 'public', label: 'Public' },
+                                { value: 'private', label: 'Private' },
+                                { value: 'shared', label: 'Shared' },
+                            ]"
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="w-full p-3 bg-sky-500 hover:bg-sky-600 text-white font-semibold rounded-lg transition"
+                    >
+                        Create
+                    </button>
+                </form>
+            </VeeForm>
+        </div>
+    </div>
+</template>
+
+<script setup lang="ts">
+import { Form as VeeForm, type GenericObject, type SubmissionContext } from 'vee-validate';
+import { useRouter } from 'vue-router';
+import * as yup from 'yup';
+import FormInput from '@/components/forms/FormInput.vue';
+import FormSelect from '@/components/forms/FormSelect.vue';
+import { useCollectionStore } from '@/stores/collection';
+
+const validationSchema = yup.object({
+    name: yup.string().required('Name is required'),
+    access: yup.string().required('Access is required'),
+});
+
+const collectionStore = useCollectionStore();
+const router = useRouter();
+
+const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
+    collectionStore
+        .create(values.name, values.access)
+        .then((res) => {
+            router.push(`/collections/${res.data.collection.id}`);
+        })
+        .catch((error) => {
+            if (error.response.status === 422) {
+                actions.setErrors({
+                    name: error.response.data.errors.name,
+                    access: error.response.data.errors.access,
+                });
+            } else {
+                actions.setErrors({
+                    access: error.response.data.error,
+                });
+            }
+        });
+};
+</script>

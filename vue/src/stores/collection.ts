@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import axios, { type PaginatedResponse } from '@/axios';
-import type { Collection } from './types';
+import { type Collection } from './types';
+import type { AxiosResponse } from 'axios';
 
 export const useCollectionStore = defineStore('collection', {
     state: () => ({
@@ -43,6 +44,20 @@ export const useCollectionStore = defineStore('collection', {
                     .then((res) => {
                         this.currentCollection.data = res.data;
                         this.currentCollection.loading = false;
+                        resolve(res);
+                    })
+                    .catch((error) => reject(error));
+            });
+        },
+
+        create(name: string, access: string): Promise<AxiosResponse> {
+            return new Promise((resolve, reject) => {
+                axios
+                    .post('/collections/create', {
+                        name,
+                        access,
+                    })
+                    .then((res) => {
                         resolve(res);
                     })
                     .catch((error) => reject(error));

@@ -207,4 +207,14 @@ class QueryBuilder
 
         return $sql;
     }
+
+    public function startTransaction(): void
+    {
+        $this->pdo->beginTransaction();
+    }
+
+    public function commit(): void
+    {
+        $this->pdo->commit();
+    }
 }
