@@ -44,7 +44,7 @@ const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
     userStore
         .login(values.email, values.password)
         .then(() => {
-            router.push('/');
+            router.back();
         })
         .catch((error) => {
             if (error.response.status === 422) {
