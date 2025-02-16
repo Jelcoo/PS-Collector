@@ -5,11 +5,12 @@ const instance = axios.create({
 });
 
 export interface PaginatedResponse {
-    total: number;
-    current: number;
-    previous: number[];
-    next: number[];
-    perPage: number;
+    totalPages: number;
+    currentPage: number;
+    previousPages: number[];
+    nextPages: number[];
+    totalRecords: number;
+    recordsPerPage: number;
 }
 
 export default instance;

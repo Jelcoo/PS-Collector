@@ -14,19 +14,22 @@
             </div>
         </div>
 
-        <div class="flex flex-wrap gap-4 justify-center">
-            <CollectionCard
-                v-for="collection in collectionStore.collections.data"
-                :key="collection.id"
-                :collection
-                :total-stamps="2"
-            />
-        </div>
+        <PageIndicator :pagination="collectionStore.collections.pages">
+            <div class="flex flex-wrap gap-4 justify-center">
+                <CollectionCard
+                    v-for="collection in collectionStore.collections.data"
+                    :key="collection.id"
+                    :collection
+                    :total-stamps="2"
+                />
+            </div>
+        </PageIndicator>
     </div>
 </template>
 
 <script setup lang="ts">
 import CollectionCard from '@/components/CollectionCard.vue';
+import PageIndicator from '@/components/PageIndicator.vue';
 import { useCollectionStore } from '@/stores/collection';
 import { useUserStore } from '@/stores/user';
 import { onBeforeMount } from 'vue';

@@ -8,23 +8,22 @@ class PaginationHelper
     {
         $currentPage = (int) $currentPage;
         $pages = [
-            'total' => ceil($totalRecords / $perPage),
-            'current' => $currentPage,
-            'previous' => [],
-            'next' => [],
-            'perPage' => $perPage,
+            'totalPages' => ceil($totalRecords / $perPage),
+            'currentPage' => $currentPage,
+            'previousPages' => [],
+            'nextPages' => [],
+            'totalRecords' => $totalRecords,
+            'recordsPerPage' => $perPage,
         ];
 
         for ($i = 1; $i <= 2; ++$i) {
             if ($currentPage - $i >= 1) {
-                $pages['previous'][] = $currentPage - $i;
+                $pages['previousPages'][] = $currentPage - $i;
             }
-            if ($currentPage + $i <= $pages['total']) {
-                $pages['next'][] = $currentPage + $i;
+            if ($currentPage + $i <= $pages['totalPages']) {
+                $pages['nextPages'][] = $currentPage + $i;
             }
         }
-
-        $data = array_slice($data, ($currentPage - 1) * $perPage, $perPage);
 
         return [
             'data' => $data,

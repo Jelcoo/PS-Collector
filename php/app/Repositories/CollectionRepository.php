@@ -20,11 +20,18 @@ class CollectionRepository extends Repository
         $this->userRepository = new UserRepository();
     }
 
-    public function getAll($with = []): array
+    public function getAll($with = [], int $page = null, int $perPage = null): array
     {
         $queryBuilder = new QueryBuilder($this->getConnection());
 
-        $queryCollection = $queryBuilder->table('collections')->get();
+        $queryCollection = $queryBuilder->table('collections');
+
+        if ($page && $perPage) {
+            $offset = ($page - 1) * $perPage;
+            $queryCollection->limit($perPage, $offset);
+        }
+
+        $queryCollection = $queryCollection->get();
 
         return array_map(function ($collection) use ($with) {
             $collection = new Collection($collection);
@@ -32,6 +39,13 @@ class CollectionRepository extends Repository
 
             return $collection;
         }, $queryCollection);
+    }
+
+    public function getCollectionCount(): int
+    {
+        $queryBuilder = new QueryBuilder($this->getConnection());
+
+        return $queryBuilder->table('collections')->count();
     }
 
     public function getCollectionById(int $id, array $with = []): ?Collection

@@ -25,8 +25,9 @@ class CollectionController extends Controller
         $with = $this->getWithRelations();
 
         try {
-            $collections = $this->collectionRepository->getAll($with);
-            $pagedCollections = PaginationHelper::paginate($collections, count($collections), $perPage, $page);
+            $collectionCount = $this->collectionRepository->getCollectionCount();
+            $collections = $this->collectionRepository->getAll($with, $page, $perPage);
+            $pagedCollections = PaginationHelper::paginate($collections, $collectionCount, $perPage, $page);
         } catch (\Exception) {
             return [
                 'status' => 500,
