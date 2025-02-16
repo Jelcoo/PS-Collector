@@ -71,15 +71,15 @@ const buttonClasses = computed(() =>
 }
 
 .primary {
-    @apply bg-blue-600 text-blue-50;
-    @apply hover:bg-blue-500 active:bg-blue-500;
+    @apply bg-sky-600 text-sky-50;
+    @apply hover:bg-sky-500 active:bg-sky-500;
 
     &.secondary {
-        @apply hover:bg-blue-600 active:bg-blue-600;
+        @apply hover:bg-sky-600 active:bg-sky-600;
     }
 
     &:disabled {
-        @apply bg-blue-500/75 text-blue-200/75;
+        @apply bg-sky-500/75 text-sky-200/75;
     }
 }
 
