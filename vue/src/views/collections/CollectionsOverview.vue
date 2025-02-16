@@ -14,7 +14,7 @@
             </div>
         </div>
 
-        <PageIndicator :pagination="collectionStore.collections.pages">
+        <PageIndicator :pagination="collectionStore.collections.pages" @page-select="handlePageSelect">
             <div class="flex flex-wrap gap-4 justify-center">
                 <CollectionCard
                     v-for="collection in collectionStore.collections.data"
@@ -41,4 +41,8 @@ const collectionStore = useCollectionStore();
 onBeforeMount(() => {
     collectionStore.getCollections(['author', 'stampCount']);
 });
+
+function handlePageSelect(page: number) {
+    collectionStore.getCollections(['author', 'stampCount'], page);
+}
 </script>

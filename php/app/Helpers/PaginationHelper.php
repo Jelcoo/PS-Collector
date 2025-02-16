@@ -25,6 +25,8 @@ class PaginationHelper
             }
         }
 
+        $pages['previousPages'] = array_reverse($pages['previousPages']);
+
         return [
             'data' => $data,
             'pages' => $pages,

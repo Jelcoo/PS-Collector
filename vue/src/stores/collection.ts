@@ -15,12 +15,13 @@ export const useCollectionStore = defineStore('collection', {
         },
     }),
     actions: {
-        getCollections(withFields: string[]) {
+        getCollections(withFields: string[], page: number = 1) {
             return new Promise((resolve, reject) => {
                 axios
                     .get('/collections', {
                         params: {
                             with: withFields.join(','),
+                            page,
                         },
                     })
                     .then((res) => {

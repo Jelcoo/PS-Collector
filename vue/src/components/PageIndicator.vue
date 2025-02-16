@@ -11,17 +11,35 @@
             <span className="font-semibold text-neutral-400">{{ props.pagination.totalRecords }}</span> results.
         </p>
         <div className="flex space-x-1" v-if="pagination.totalPages > 1">
-            <StyledButton v-bind="buttonProps" :disabled="pagination.previousPages.length !== 2">
+            <StyledButton
+                v-bind="buttonProps"
+                @click="emit('pageSelect', 1)"
+                :disabled="pagination.previousPages.length !== 2"
+            >
                 <FontAwesomeIcon :icon="faChevronLeft" class="w-3 h-3" />
             </StyledButton>
-            <StyledButton v-for="value in pagination.previousPages" :key="`previous-${value}`" v-bind="buttonProps">
+            <StyledButton
+                v-for="value in pagination.previousPages"
+                :key="`previous-${value}`"
+                @click="emit('pageSelect', value)"
+                v-bind="buttonProps"
+            >
                 {{ value }}
             </StyledButton>
             <StyledButton size="small" shape="iconSquare">{{ pagination.currentPage }}</StyledButton>
-            <StyledButton v-for="value in pagination.nextPages" :key="`next-${value}`" v-bind="buttonProps">
+            <StyledButton
+                v-for="value in pagination.nextPages"
+                :key="`next-${value}`"
+                @click="emit('pageSelect', value)"
+                v-bind="buttonProps"
+            >
                 {{ value }}
             </StyledButton>
-            <StyledButton v-bind="buttonProps" :disabled="pagination.nextPages.length !== 2">
+            <StyledButton
+                v-bind="buttonProps"
+                @click="emit('pageSelect', pagination.totalPages)"
+                :disabled="pagination.nextPages.length !== 2"
+            >
                 <FontAwesomeIcon :icon="faChevronRight" class="w-3 h-3" />
             </StyledButton>
         </div>
@@ -38,6 +56,7 @@ import StyledButton, { type ButtonProps } from '@/components/StyledButton.vue';
 const props = defineProps<{
     pagination: PaginatedResponse;
 }>();
+const emit = defineEmits(['pageSelect']);
 
 const buttonProps: ButtonProps = {
     variant: 'text',
