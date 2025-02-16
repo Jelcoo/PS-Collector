@@ -2,8 +2,6 @@
     "name": "jelcoo/ps-collector",
     "type": "project",
     "require": {
-        "spatie/db-dumper": "^3.7",
-        "phpmyadmin/sql-parser": "^5.10",
         "rakit/validation": "^1.4",
         "firebase/php-jwt": "^6.11"
     },
