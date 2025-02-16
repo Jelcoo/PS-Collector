@@ -16,7 +16,7 @@
                 @click="emit('pageSelect', 1)"
                 :disabled="pagination.previousPages.length !== 2"
             >
-                <FontAwesomeIcon :icon="faChevronLeft" class="w-3 h-3" />
+                <FontAwesomeIcon :icon="faAnglesLeft" class="w-3 h-3" />
             </StyledButton>
             <StyledButton
                 v-for="value in pagination.previousPages"
@@ -40,7 +40,7 @@
                 @click="emit('pageSelect', pagination.totalPages)"
                 :disabled="pagination.nextPages.length !== 2"
             >
-                <FontAwesomeIcon :icon="faChevronRight" class="w-3 h-3" />
+                <FontAwesomeIcon :icon="faAnglesRight" class="w-3 h-3" />
             </StyledButton>
         </div>
     </div>
@@ -48,7 +48,7 @@
 
 <script setup lang="ts">
 import type { PaginatedResponse } from '@/axios';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faAnglesLeft, faAnglesRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { computed } from 'vue';
 import StyledButton, { type ButtonProps } from '@/components/StyledButton.vue';
