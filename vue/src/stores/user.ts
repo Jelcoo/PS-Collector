@@ -85,6 +85,7 @@ export const useUserStore = defineStore('user', {
         },
         logout() {
             localStorage.removeItem('token');
+            axios.defaults.headers.common['Authorization'] = '';
             this.$reset();
         },
     },
