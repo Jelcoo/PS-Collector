@@ -14,6 +14,7 @@ class PaginationHelper
             'nextPages' => [],
             'totalRecords' => $totalRecords,
             'recordsPerPage' => $perPage,
+            'recordsThisPage' => count($data),
         ];
 
         for ($i = 1; $i <= 2; ++$i) {

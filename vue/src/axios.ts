@@ -11,6 +11,7 @@ export interface PaginatedResponse {
     nextPages: number[];
     totalRecords: number;
     recordsPerPage: number;
+    recordsThisPage: number;
 }
 
 export default instance;

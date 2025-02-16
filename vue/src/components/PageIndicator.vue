@@ -68,6 +68,6 @@ const start = computed(() => {
     return (props.pagination.currentPage - 1) * props.pagination.recordsPerPage;
 });
 const end = computed(() => {
-    return (props.pagination.currentPage - 1) * props.pagination.recordsPerPage + props.pagination.totalPages;
+    return start.value + props.pagination.recordsThisPage;
 });
 </script>
