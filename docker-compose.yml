@@ -1,37 +1,39 @@
 services:
-    vue-dev:
-        image: node:22
-        working_dir: /app
-        volumes:
-            - ./vue:/app
-            - /app/node_modules
-        entrypoint: sh -c "
-            npm install -g pnpm@latest-10 && \
-            pnpm install && \
-            pnpm run dev --host"
-        ports:
-            - "5173:5173"
-    php:
-        image: php:8.4-fpm-alpine
-        container_name: php_app
-        volumes:
-            - ./php:/var/www/html
-        working_dir: /var/www/html
-        entrypoint: sh -c "
-            apk add --no-cache curl git && \
-            docker-php-ext-install pdo pdo_mysql && \
-            curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
-            composer install && \
-            php-fpm"
-
     nginx:
         image: nginx:alpine
-        container_name: nginx_server
-        volumes:
-            - ./nginx.conf:/etc/nginx/nginx.conf
-            - ./php:/var/www/html
         ports:
-            - "8080:80"
+            - "80:80"
+        volumes:
+            - ./nginx.conf:/etc/nginx/conf.d/default.conf
+            - ./vue:/app/frontend
+            - ./php:/app/backend
+        depends_on:
+            - php
+            - frontend
+        networks:
+            - app-network
+
+    php:
+        build:
+            context: ./php
+            dockerfile: Dockerfile
+        volumes:
+            - ./php:/app/backend
+        networks:
+            - app-network
+
+    frontend:
+        build:
+            context: ./vue
+            dockerfile: Dockerfile
+        volumes:
+            - ./vue:/app/frontend
+            - frontend-pnpm:/app/frontend/node_modules/.pnpm
+            - /app/frontend/node_modules
+        environment:
+            - NODE_ENV=development
+        networks:
+            - app-network
 
     mysql:
         image: mariadb:latest
@@ -43,8 +45,8 @@ services:
         volumes:
             - mysqldata:/var/lib/mysql
             - ./sql:/docker-entrypoint-initdb.d
-        ports:
-            - 3306:3306
+        networks:
+            - app-network
     phpmyadmin:
         image: phpmyadmin:latest
         ports:
@@ -53,5 +55,11 @@ services:
             - PMA_HOST=mysql
             - PMA_USER=root
             - PMA_PASSWORD=secret123
+        networks:
+            - app-network
 volumes:
-    mysqldata: {}
+    frontend-pnpm:
+    mysqldata:
+networks:
+    app-network:
+        driver: bridge
