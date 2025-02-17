@@ -14,7 +14,7 @@
         <div
             v-if="open"
             id="dropdownitems"
-            class="absolute top-full right-0 bg-neutral-600 p-2 rounded-b-lg w-max flex flex-col divide-y-1 divide-gray-500"
+            class="absolute top-full right-0 bg-neutral-600 p-2 rounded-b-lg w-full flex flex-col divide-y-1 divide-gray-500"
         >
             <RouterLink to="/account" class="block text-xl text-white no-underline py-1">Account</RouterLink>
             <button class="hover:cursor-pointer block text-xl text-white no-underline py-1" @click="logout">
