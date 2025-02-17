@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import axios from '@/axios';
 import type { AxiosResponse } from 'axios';
+import { useCollectionStore } from './collection';
 
 export const useUserStore = defineStore('user', {
     state: () => ({
@@ -28,6 +29,7 @@ export const useUserStore = defineStore('user', {
                         password,
                     })
                     .then((res) => {
+                        this.resetStores();
                         this.setUserResponse(res);
                         this.token = res.data.token;
                         localStorage.setItem('token', res.data.token);
@@ -44,9 +46,9 @@ export const useUserStore = defineStore('user', {
                         password,
                     })
                     .then((res) => {
+                        this.resetStores();
                         this.setUserResponse(res);
                         this.token = res.data.token;
-
                         localStorage.setItem('token', res.data.token);
                         resolve(res);
                     })
@@ -64,6 +66,7 @@ export const useUserStore = defineStore('user', {
                 axios
                     .get('/me')
                     .then((res) => {
+                        this.resetStores();
                         this.setUserResponse(res);
                         resolve(res);
                     })
@@ -86,7 +89,11 @@ export const useUserStore = defineStore('user', {
         logout() {
             localStorage.removeItem('token');
             axios.defaults.headers.common['Authorization'] = '';
+            this.resetStores();
+        },
+        resetStores() {
             this.$reset();
+            useCollectionStore().$reset();
         },
     },
 });

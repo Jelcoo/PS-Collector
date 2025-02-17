@@ -9,7 +9,7 @@ use App\Repositories\UserRepository;
 class Controller
 {
     private UserRepository $userRepository;
-    private User $session;
+    private User|null $session = null;
 
     public function __construct()
     {
@@ -23,7 +23,9 @@ class Controller
         }
 
         $sessionUserId = JwtHelper::getSessionUser();
-        $this->session = $this->userRepository->getUserById($sessionUserId);
+        if (!is_null($sessionUserId)) {
+            $this->session = $this->userRepository->getUserById($sessionUserId);
+        }
 
         return $this->session;
     }

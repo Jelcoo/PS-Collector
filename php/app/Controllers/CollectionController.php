@@ -25,7 +25,7 @@ class CollectionController extends Controller
         $with = $this->getWithRelations();
 
         try {
-            $collectionsForUser = $this->collectionRepository->getAllForUser($this->getSession()->id, $with);
+            $collectionsForUser = $this->collectionRepository->getAllForUser($this->getSession()?->id, $with);
             $pagedCollections = PaginationHelper::paginate($collectionsForUser, count($collectionsForUser), $perPage, $page);
         } catch (\Exception) {
             return [

@@ -36,8 +36,12 @@ class JwtHelper
         return true;
     }
 
-    public static function getSessionUser(): int
+    public static function getSessionUser(): int|null
     {
+        if (empty($_SERVER['HTTP_AUTHORIZATION'])) {
+            return null;
+        }
+
         $jwtToken = explode(' ', $_SERVER['HTTP_AUTHORIZATION'])[1];
         $decoded = JWT::decode($jwtToken, new Key(Config::getKey('JWT_SECRET'), 'HS256'));
 
