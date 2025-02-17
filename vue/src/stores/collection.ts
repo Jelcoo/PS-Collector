@@ -44,10 +44,12 @@ export const useCollectionStore = defineStore('collection', {
                     })
                     .then((res) => {
                         this.currentCollection.data = res.data;
-                        this.currentCollection.loading = false;
                         resolve(res);
                     })
-                    .catch((error) => reject(error));
+                    .catch((error) => reject(error))
+                    .finally(() => {
+                        this.currentCollection.loading = false;
+                    });
             });
         },
 

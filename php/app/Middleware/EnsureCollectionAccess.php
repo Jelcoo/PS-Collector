@@ -24,7 +24,7 @@ class EnsureCollectionAccess extends Middleware implements MiddlewareInterface
         }
         $getCollectionAccess = $this->collectionRepository->getCollectionAccess($params[0], $user);
         if ($getCollectionAccess == CollectionAccessLevelEnum::NONE) {
-            $this->unauthorized();
+            $this->forbidden();
         }
 
         return true;

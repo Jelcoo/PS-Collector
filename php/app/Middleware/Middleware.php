@@ -18,6 +18,18 @@ class Middleware
         exit;
     }
 
+    protected function forbidden(): void
+    {
+        $response = new Response();
+        $response->setStatusCode(403);
+        $response->setContent([
+            'success' => false,
+            'error' => 'Forbidden',
+        ]);
+        $response->sendJson();
+        exit;
+    }
+
     protected function notFound(): void
     {
         $response = new Response();
