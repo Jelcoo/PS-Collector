@@ -33,6 +33,7 @@ export const useUserStore = defineStore('user', {
                         this.setUserResponse(res);
                         this.token = res.data.token;
                         localStorage.setItem('token', res.data.token);
+                        axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.token;
                         resolve(res);
                     })
                     .catch((error) => reject(error));
@@ -50,6 +51,7 @@ export const useUserStore = defineStore('user', {
                         this.setUserResponse(res);
                         this.token = res.data.token;
                         localStorage.setItem('token', res.data.token);
+                        axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.token;
                         resolve(res);
                     })
                     .catch((error) => reject(error));

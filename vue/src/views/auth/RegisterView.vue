@@ -59,7 +59,7 @@ const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
     userStore
         .register(values.username, values.first_name, values.last_name, values.email, values.password)
         .then(() => {
-            router.push('/account');
+            router.push('/');
         })
         .catch((error) => {
             if (error.response.status === 422) {
