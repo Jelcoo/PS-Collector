@@ -7,6 +7,8 @@ class PaginationHelper
     public static function paginate(array $data, int $totalRecords, int $perPage = 25, int $currentPage = 1): mixed
     {
         $currentPage = (int) $currentPage;
+        $data = array_slice($data, ($currentPage - 1) * $perPage, $perPage);
+
         $pages = [
             'totalPages' => ceil($totalRecords / $perPage),
             'currentPage' => $currentPage,

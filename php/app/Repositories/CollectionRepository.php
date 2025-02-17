@@ -20,18 +20,13 @@ class CollectionRepository extends Repository
         $this->userRepository = new UserRepository();
     }
 
-    public function getAll($with = [], int $page = null, int $perPage = null): array
+    public function getAllForUser(int $userId, $with = []): array
     {
-        $queryBuilder = new QueryBuilder($this->getConnection());
+        $query = $this->getConnection()->prepare('SELECT DISTINCT c.* FROM collections c LEFT JOIN collection_access ca ON c.id = ca.collection_id WHERE c.access = \'public\' OR (ca.user_id = :user_id AND ca.role IN (\'owner\', \'member\'))');
+        $query->bindValue(':user_id', $userId);
+        $query->execute();
 
-        $queryCollection = $queryBuilder->table('collections');
-
-        if ($page && $perPage) {
-            $offset = ($page - 1) * $perPage;
-            $queryCollection->limit($perPage, $offset);
-        }
-
-        $queryCollection = $queryCollection->get();
+        $queryCollection = $query->fetchAll();
 
         return array_map(function ($collection) use ($with) {
             $collection = new Collection($collection);
