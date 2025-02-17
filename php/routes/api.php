@@ -2,13 +2,17 @@
 
 use App\Middleware\EnsureAuthenticated;
 use App\Middleware\EnsureCollectionAccess;
+use App\Middleware\VerifyTurnstile;
 
 $router = App\Application\Router::getInstance();
 
 $router->get('/api', [App\Controllers\ApiController::class, 'index']);
+$router->get('/api/app', [App\Controllers\ApiController::class, 'app']);
 
-$router->post('/api/auth/register', [App\Controllers\AuthController::class, 'register']);
-$router->post('/api/auth/login', [App\Controllers\AuthController::class, 'login']);
+$router->middleware(VerifyTurnstile::class, function () use ($router) {
+    $router->post('/api/auth/register', [App\Controllers\AuthController::class, 'register']);
+    $router->post('/api/auth/login', [App\Controllers\AuthController::class, 'login']);
+});
 
 $router->get('/api/collections', [App\Controllers\CollectionController::class, 'index']);
 

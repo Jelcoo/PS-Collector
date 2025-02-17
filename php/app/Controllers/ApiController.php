@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Config\Config;
+
 class ApiController extends Controller
 {
     public function __construct()
@@ -20,6 +22,13 @@ class ApiController extends Controller
     {
         return [
             'user' => $this->getSession()->toArray(),
+        ];
+    }
+
+    public function app(): array
+    {
+        return [
+            'turnstile_key' => Config::getKey('TURNSTILE_KEY'),
         ];
     }
 }

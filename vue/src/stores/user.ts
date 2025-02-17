@@ -18,7 +18,14 @@ export const useUserStore = defineStore('user', {
         isAuthenticated: (state) => !!state.token,
     },
     actions: {
-        register(username: string, first_name: string, last_name: string, email: string, password: string) {
+        register(
+            username: string,
+            first_name: string,
+            last_name: string,
+            email: string,
+            password: string,
+            turnstileToken: string,
+        ) {
             return new Promise((resolve, reject) => {
                 axios
                     .post('/auth/register', {
@@ -27,6 +34,7 @@ export const useUserStore = defineStore('user', {
                         last_name,
                         email,
                         password,
+                        'cf-turnstile-response': turnstileToken,
                     })
                     .then((res) => {
                         this.resetStores();
@@ -39,12 +47,13 @@ export const useUserStore = defineStore('user', {
                     .catch((error) => reject(error));
             });
         },
-        login(email: string, password: string) {
+        login(email: string, password: string, turnstileToken: string) {
             return new Promise((resolve, reject) => {
                 axios
                     .post('/auth/login', {
                         email,
                         password,
+                        'cf-turnstile-response': turnstileToken,
                     })
                     .then((res) => {
                         this.resetStores();

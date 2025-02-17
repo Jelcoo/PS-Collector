@@ -6,37 +6,37 @@ use App\Application\Response;
 
 class Middleware
 {
-    protected function unauthorized(): void
+    protected function unauthorized($msg = 'Unauthorized'): void
     {
         $response = new Response();
         $response->setStatusCode(401);
         $response->setContent([
             'success' => false,
-            'error' => 'Unauthorized',
+            'error' => $msg,
         ]);
         $response->sendJson();
         exit;
     }
 
-    protected function forbidden(): void
+    protected function forbidden($msg = 'Forbidden'): void
     {
         $response = new Response();
         $response->setStatusCode(403);
         $response->setContent([
             'success' => false,
-            'error' => 'Forbidden',
+            'error' => $msg,
         ]);
         $response->sendJson();
         exit;
     }
 
-    protected function notFound(): void
+    protected function notFound($msg = 'Not Found'): void
     {
         $response = new Response();
         $response->setStatusCode(404);
         $response->setContent([
             'success' => false,
-            'error' => 'Not Found',
+            'error' => $msg,
         ]);
         $response->sendJson();
         exit;

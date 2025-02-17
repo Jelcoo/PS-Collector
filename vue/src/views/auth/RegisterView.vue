@@ -25,6 +25,10 @@
                         <FormInput name="password" label="Password" type="password" />
                     </div>
 
+                    <div class="mb-4">
+                        <VueTurnstile :site-key="appStore.turnstileKey" v-model="turnstileRef" />
+                    </div>
+
                     <button
                         type="submit"
                         class="w-full p-3 bg-sky-500 hover:bg-sky-600 text-white font-semibold rounded-lg transition"
@@ -43,6 +47,8 @@ import { Form as VeeForm, type GenericObject, type SubmissionContext } from 'vee
 import { useRouter } from 'vue-router';
 import * as yup from 'yup';
 import FormInput from '@/components/forms/FormInput.vue';
+import { useAppStore } from '@/stores/app';
+import { ref } from 'vue';
 
 const validationSchema = yup.object({
     username: yup.string().required('Username is required'),
@@ -55,9 +61,19 @@ const validationSchema = yup.object({
 const userStore = useUserStore();
 const router = useRouter();
 
+const appStore = useAppStore();
+const turnstileRef = ref('');
+
 const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
     userStore
-        .register(values.username, values.first_name, values.last_name, values.email, values.password)
+        .register(
+            values.username,
+            values.first_name,
+            values.last_name,
+            values.email,
+            values.password,
+            turnstileRef.value,
+        )
         .then(() => {
             router.push('/');
         })

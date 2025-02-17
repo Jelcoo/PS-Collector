@@ -11,4 +11,7 @@ return $config = [
     'DB_NAME' => 'pscdb',
 
     'JWT_SECRET' => 'secret',
+
+    'TURNSTILE_KEY' => '',
+    'TURNSTILE_SECRET' => '',
 ];
