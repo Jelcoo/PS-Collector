@@ -3,9 +3,8 @@
 namespace App\Middleware;
 
 use App\Helpers\JwtHelper;
-use App\Application\Response;
 
-class EnsureAuthenticated implements Middleware
+class EnsureAuthenticated extends Middleware implements MiddlewareInterface
 {
     public function verify(array $params = []): bool
     {
@@ -24,17 +23,5 @@ class EnsureAuthenticated implements Middleware
         }
 
         return true;
-    }
-
-    private function unauthorized(): void
-    {
-        $response = new Response();
-        $response->setStatusCode(401);
-        $response->setContent([
-            'success' => false,
-            'error' => 'Unauthorized',
-        ]);
-        $response->sendJson();
-        exit;
     }
 }

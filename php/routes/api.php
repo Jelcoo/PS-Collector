@@ -1,6 +1,7 @@
 <?php
 
 use App\Middleware\EnsureAuthenticated;
+use App\Middleware\EnsureCollectionAccess;
 
 $router = App\Application\Router::getInstance();
 
@@ -10,7 +11,10 @@ $router->post('/api/auth/register', [App\Controllers\AuthController::class, 'reg
 $router->post('/api/auth/login', [App\Controllers\AuthController::class, 'login']);
 
 $router->get('/api/collections', [App\Controllers\CollectionController::class, 'index']);
-$router->get('/api/collections/{id}', [App\Controllers\CollectionController::class, 'get']);
+
+$router->middleware(EnsureCollectionAccess::class, function () use ($router) {
+    $router->get('/api/collections/{id}', [App\Controllers\CollectionController::class, 'get']);
+});
 
 $router->middleware(EnsureAuthenticated::class, function () use ($router) {
     $router->get('/api/me', [App\Controllers\ApiController::class, 'me']);

@@ -5,6 +5,7 @@ namespace App\Enum;
 enum CollectionAccessLevelEnum: string
 {
     case OWNER = 'owner';
-    case INVITED = 'invited';
     case MEMBER = 'member';
+    case PUBLIC = 'public';
+    case NONE = 'none';
 }

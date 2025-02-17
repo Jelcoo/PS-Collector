@@ -40,11 +40,20 @@ class CollectionRepository extends Repository
         }, $queryCollection);
     }
 
-    public function getCollectionCount(): int
+    public function getCollectionAccess(int $collectionId, int|null $userId): CollectionAccessLevelEnum
     {
-        $queryBuilder = new QueryBuilder($this->getConnection());
+        $query = $this->getConnection()->prepare('SELECT CASE WHEN c.access = \'public\' THEN \'public\' WHEN ca.role IS NOT NULL THEN ca.role ELSE \'none\' END as access_level FROM collections c LEFT JOIN collection_access ca ON c.id = ca.collection_id AND ca.user_id = :user_id WHERE c.id = :collection_id');
+        $query->bindValue(':user_id', $userId);
+        $query->bindValue(':collection_id', $collectionId);
+        $query->execute();
 
-        return $queryBuilder->table('collections')->count();
+        $accessLevel = $query->fetch();
+
+        if (!$accessLevel) {
+            return CollectionAccessLevelEnum::NONE;
+        }
+
+        return CollectionAccessLevelEnum::from($accessLevel['access_level']);
     }
 
     public function getCollectionById(int $id, array $with = []): ?Collection
@@ -59,6 +68,14 @@ class CollectionRepository extends Repository
         }
 
         return $collection;
+    }
+
+    public function collectionExists(int $id): bool
+    {
+        $queryBuilder = new QueryBuilder($this->getConnection());
+        $queryCollection = $queryBuilder->table('collections')->where('id','=', $id)->first();
+
+        return $queryCollection ? true : false;
     }
 
     public function createCollection(array $data, int $userId): Collection

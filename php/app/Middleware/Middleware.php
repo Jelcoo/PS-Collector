@@ -2,7 +2,31 @@
 
 namespace App\Middleware;
 
-interface Middleware
+use App\Application\Response;
+
+class Middleware
 {
-    public function verify(array $params = []): bool;
+    protected function unauthorized(): void
+    {
+        $response = new Response();
+        $response->setStatusCode(401);
+        $response->setContent([
+            'success' => false,
+            'error' => 'Unauthorized',
+        ]);
+        $response->sendJson();
+        exit;
+    }
+
+    protected function notFound(): void
+    {
+        $response = new Response();
+        $response->setStatusCode(404);
+        $response->setContent([
+            'success' => false,
+            'error' => 'Not Found',
+        ]);
+        $response->sendJson();
+        exit;
+    }
 }
