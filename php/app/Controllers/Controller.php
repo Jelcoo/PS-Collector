@@ -9,7 +9,7 @@ use App\Repositories\UserRepository;
 class Controller
 {
     private UserRepository $userRepository;
-    private User|null $session = null;
+    private ?User $session = null;
 
     public function __construct()
     {

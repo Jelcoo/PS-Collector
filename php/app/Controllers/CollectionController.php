@@ -2,10 +2,10 @@
 
 namespace App\Controllers;
 
-use App\Enum\CollectionAccessEnum;
-use App\Helpers\PaginationHelper;
-use App\Repositories\CollectionRepository;
 use Rakit\Validation\Validator;
+use App\Helpers\PaginationHelper;
+use App\Enum\CollectionAccessEnum;
+use App\Repositories\CollectionRepository;
 
 class CollectionController extends Controller
 {
@@ -60,7 +60,7 @@ class CollectionController extends Controller
         $validator = new Validator();
         $validation = $validator->validate($data, [
             'name' => 'required|max:255',
-            'access' => 'required|in:'.implode(',', array_column(CollectionAccessEnum::cases(), 'value')),
+            'access' => 'required|in:' . implode(',', array_column(CollectionAccessEnum::cases(), 'value')),
         ]);
 
         if ($validation->fails()) {

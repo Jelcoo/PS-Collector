@@ -2,12 +2,12 @@
 
 namespace App\Repositories;
 
-use App\Enum\CollectionAccessLevelEnum;
+use App\Models\User;
+use App\Models\Stamp;
 use App\Models\Collection;
 use App\Helpers\QueryBuilder;
 use App\Models\CollectionAccess;
-use App\Models\Stamp;
-use App\Models\User;
+use App\Enum\CollectionAccessLevelEnum;
 
 class CollectionRepository extends Repository
 {
@@ -20,7 +20,7 @@ class CollectionRepository extends Repository
         $this->userRepository = new UserRepository();
     }
 
-    public function getAllForUser(int|null $userId, $with = []): array
+    public function getAllForUser(?int $userId, $with = []): array
     {
         if (is_null($userId)) {
             $query = $this->getConnection()->prepare('SELECT * FROM collections WHERE access = \'public\'');
@@ -40,7 +40,7 @@ class CollectionRepository extends Repository
         }, $queryCollection);
     }
 
-    public function getCollectionAccess(int $collectionId, int|null $userId): CollectionAccessLevelEnum
+    public function getCollectionAccess(int $collectionId, ?int $userId): CollectionAccessLevelEnum
     {
         $query = $this->getConnection()->prepare('SELECT CASE WHEN c.access = \'public\' THEN \'public\' WHEN ca.role IS NOT NULL THEN ca.role ELSE \'none\' END as access_level FROM collections c LEFT JOIN collection_access ca ON c.id = ca.collection_id AND ca.user_id = :user_id WHERE c.id = :collection_id');
         $query->bindValue(':user_id', $userId);
@@ -73,7 +73,7 @@ class CollectionRepository extends Repository
     public function collectionExists(int $id): bool
     {
         $queryBuilder = new QueryBuilder($this->getConnection());
-        $queryCollection = $queryBuilder->table('collections')->where('id','=', $id)->first();
+        $queryCollection = $queryBuilder->table('collections')->where('id', '=', $id)->first();
 
         return $queryCollection ? true : false;
     }
@@ -108,7 +108,7 @@ class CollectionRepository extends Repository
             ->where('role', '=', CollectionAccessLevelEnum::OWNER->value)
             ->first();
         $collectionAccess = $collectionAccess ? new CollectionAccess($collectionAccess) : null;
-        
+
         $user = $collectionAccess ? $this->userRepository->getUserById($collectionAccess->user_id) : null;
 
         return $user;

@@ -36,7 +36,7 @@ class JwtHelper
         return true;
     }
 
-    public static function getSessionUser(): int|null
+    public static function getSessionUser(): ?int
     {
         if (empty($_SERVER['HTTP_AUTHORIZATION'])) {
             return null;
