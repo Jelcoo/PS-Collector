@@ -1,7 +1,7 @@
 <template>
     <RouterLink
         :to="`/collections/${collection.id}`"
-        class="bg-neutral-600 shadow-md rounded-lg p-4 w-64 space-y-3 border border-neutral-500 hover:brightness-[1.1]"
+        class="bg-neutral-600 shadow-md rounded-lg p-4 w-64 space-y-3 border border-neutral-500 hover:bg-neutral-500"
     >
         <div>
             <h2 class="text-xl font-bold truncate">{{ collection.name }}</h2>
