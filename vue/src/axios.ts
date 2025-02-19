@@ -14,4 +14,8 @@ export interface PaginatedResponse {
     recordsThisPage: number;
 }
 
+export interface GenericMessageResponse {
+    message: string;
+}
+
 export default instance;

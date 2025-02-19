@@ -25,6 +25,15 @@ class UserRepository extends Repository
         return $queryUser ? new User($queryUser) : null;
     }
 
+    public function getUserByPasswordResetToken(string $token): ?User
+    {
+        $queryBuilder = new QueryBuilder($this->getConnection());
+
+        $queryUser = $queryBuilder->table('users')->where('password_reset_token', '=', $token)->first();
+
+        return $queryUser ? new User($queryUser) : null;
+    }
+
     public function createUser(array $data): User
     {
         $queryBuilder = new QueryBuilder($this->getConnection());
@@ -33,5 +42,14 @@ class UserRepository extends Repository
         $user = $this->getUserById((int) $userId);
 
         return $user;
+    }
+
+    public function updateUser(int $userId, array $data): User
+    {
+        $queryBuilder = new QueryBuilder($this->getConnection());
+
+        $queryBuilder->table('users')->where('id', '=', $userId)->update($data);
+
+        return $this->getUserById($userId);
     }
 }

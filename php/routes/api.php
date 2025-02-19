@@ -12,6 +12,7 @@ $router->get('/api/app', [App\Controllers\ApiController::class, 'app']);
 $router->middleware(VerifyTurnstile::class, function () use ($router) {
     $router->post('/api/auth/register', [App\Controllers\AuthController::class, 'register']);
     $router->post('/api/auth/login', [App\Controllers\AuthController::class, 'login']);
+    $router->post('/api/auth/reset-password', [App\Controllers\AuthController::class, 'resetPassword']);
 });
 
 $router->get('/api/collections', [App\Controllers\CollectionController::class, 'index']);

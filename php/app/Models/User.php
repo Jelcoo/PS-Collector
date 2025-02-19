@@ -10,6 +10,7 @@ class User extends Model
     public string $last_name;
     public string $email;
     public string $password;
+    public ?string $password_reset_token;
     public string $created_at;
 
     public array $hidden = ['password'];
@@ -22,6 +23,7 @@ class User extends Model
         $this->last_name = $user['last_name'];
         $this->email = $user['email'];
         $this->password = $user['password'];
+        $this->password_reset_token = $user['password_reset_token'];
         $this->created_at = $user['created_at'];
     }
 }

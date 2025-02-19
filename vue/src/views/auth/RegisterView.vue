@@ -31,12 +31,16 @@
 
                     <button
                         type="submit"
-                        class="w-full p-3 bg-sky-500 hover:bg-sky-600 text-white font-semibold rounded-lg transition"
+                        class="cursor-pointer w-full p-3 bg-sky-500 hover:bg-sky-600 text-white font-semibold rounded-lg transition"
                     >
                         Register
                     </button>
                 </form>
             </VeeForm>
+
+            <div class="text-center mt-4">
+                <RouterLink to="/auth/login" class="text-sky-500 hover:text-sky-600 no-underline"> Login </RouterLink>
+            </div>
         </div>
     </div>
 </template>

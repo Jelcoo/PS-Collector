@@ -19,12 +19,23 @@
 
                     <button
                         type="submit"
-                        class="w-full p-3 bg-sky-500 hover:bg-sky-600 text-white font-semibold rounded-lg transition"
+                        class="cursor-pointer w-full p-3 bg-sky-500 hover:bg-sky-600 text-white font-semibold rounded-lg transition"
                     >
                         Login
                     </button>
                 </form>
             </VeeForm>
+
+            <div class="text-center mt-4">
+                <RouterLink to="/auth/register" class="text-sky-500 hover:text-sky-600 no-underline">
+                    Don't have an account? Register
+                </RouterLink>
+            </div>
+            <div class="text-center mt-4">
+                <RouterLink to="/auth/password" class="text-sky-500 hover:text-sky-600 no-underline">
+                    Forgot password?
+                </RouterLink>
+            </div>
         </div>
     </div>
 </template>
