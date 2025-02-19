@@ -25,7 +25,7 @@
                     </div>
 
                     <div class="mb-4">
-                        <VueTurnstile :site-key="appStore.turnstileKey" v-model="turnstileRef" />
+                        <VueTurnstile ref="turnstile" :site-key="appStore.turnstileKey" v-model="turnstileRef" />
                     </div>
 
                     <button
@@ -51,7 +51,7 @@ import { Form as VeeForm, type GenericObject, type SubmissionContext } from 'vee
 import { useRoute } from 'vue-router';
 import * as yup from 'yup';
 import FormInput from '@/components/forms/FormInput.vue';
-import { ref } from 'vue';
+import { ref, useTemplateRef } from 'vue';
 import VueTurnstile from 'vue-turnstile';
 import { useAppStore } from '@/stores/app';
 
@@ -75,6 +75,7 @@ const passwordValidationScheme = yup.object({
 
 const appStore = useAppStore();
 const turnstileRef = ref('');
+const turnstile = useTemplateRef('turnstile');
 
 const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
     resetClicked.value = true;
@@ -97,6 +98,7 @@ const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
                         : { email: error.response.data.error },
                 );
             }
+            turnstile.value?.reset();
         });
 };
 </script>
