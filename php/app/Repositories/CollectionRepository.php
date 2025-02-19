@@ -8,6 +8,7 @@ use App\Models\Collection;
 use App\Helpers\QueryBuilder;
 use App\Models\CollectionAccess;
 use App\Enum\CollectionAccessLevelEnum;
+use App\Helpers\JwtHelper;
 
 class CollectionRepository extends Repository
 {
@@ -152,6 +153,9 @@ class CollectionRepository extends Repository
                     break;
                 case 'stampCount':
                     $collection->stampCount = $this->getCollectionStampCount($collection);
+                    break;
+                case 'access':
+                    $collection->userAccess = $this->getCollectionAccess($collection->id, JwtHelper::getSessionUser());
                     break;
             }
         }

@@ -20,7 +20,7 @@ const status = ref(0);
 
 onBeforeMount(() => {
     const collectionId = Number(route.params.id);
-    collectionStore.getCollection(collectionId, ['stamps', 'author']).catch((error) => {
+    collectionStore.getCollection(collectionId, ['stamps', 'author', 'access']).catch((error) => {
         status.value = error.status;
     });
 });

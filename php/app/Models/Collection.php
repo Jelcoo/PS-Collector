@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enum\CollectionAccessEnum;
+use App\Enum\CollectionAccessLevelEnum;
 
 class Collection extends Model
 {
@@ -14,6 +15,7 @@ class Collection extends Model
     public ?string $authorName;
     public ?array $stamps;
     public ?int $stampCount;
+    public ?CollectionAccessLevelEnum $userAccess;
 
     public function __construct(array $collection)
     {
