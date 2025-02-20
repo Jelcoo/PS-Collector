@@ -44,7 +44,6 @@
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user';
 import { Form as VeeForm, type GenericObject, type SubmissionContext } from 'vee-validate';
-// import { useRouter } from 'vue-router';
 import * as yup from 'yup';
 import FormInput from '@/components/forms/FormInput.vue';
 import { onBeforeMount, ref } from 'vue';
@@ -53,7 +52,6 @@ import type { User } from '@/stores/types';
 import MessageComponent from '@/components/MessageComponent.vue';
 
 const userStore = useUserStore();
-// const router = useRouter();
 
 const loading = ref(true);
 const user = ref<User>();

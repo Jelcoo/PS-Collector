@@ -110,7 +110,7 @@ const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
         .catch((error) => {
             if (error.response.status === 422) {
                 actions.setErrors({
-                    username: error.response.data.errors.username,
+                    username: Object.values(error.response.data.errors.username || []),
                 });
             } else {
                 actions.setErrors({

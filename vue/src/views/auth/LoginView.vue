@@ -52,7 +52,7 @@ import { useAppStore } from '@/stores/app';
 
 const validationSchema = yup.object({
     email: yup.string().email('Invalid email').required('Email is required'),
-    password: yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+    password: yup.string().min(0, 'Password must be at least 6 characters').required('Password is required'),
 });
 
 const userStore = useUserStore();
@@ -71,8 +71,8 @@ const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
         .catch((error) => {
             if (error.response.status === 422) {
                 actions.setErrors({
-                    email: error.response.data.errors.email,
-                    password: error.response.data.errors.password,
+                    email: Object.values(error.response.data.errors.email || []),
+                    password: Object.values(error.response.data.errors.password || []),
                 });
             } else {
                 actions.setErrors({

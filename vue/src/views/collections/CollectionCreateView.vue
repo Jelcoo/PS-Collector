@@ -77,8 +77,8 @@ const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
             .catch((error) => {
                 if (error.response.status === 422) {
                     actions.setErrors({
-                        name: error.response.data.errors.name,
-                        access: error.response.data.errors.access,
+                        name: Object.values(error.response.data.errors.name || []),
+                        access: Object.values(error.response.data.errors.access || []),
                     });
                 } else {
                     actions.setErrors({
@@ -95,8 +95,8 @@ const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
             .catch((error) => {
                 if (error.response.status === 422) {
                     actions.setErrors({
-                        name: error.response.data.errors.name,
-                        access: error.response.data.errors.access,
+                        name: Object.values(error.response.data.errors.name || []),
+                        access: Object.values(error.response.data.errors.access || []),
                     });
                 } else {
                     actions.setErrors({
