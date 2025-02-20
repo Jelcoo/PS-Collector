@@ -5,6 +5,7 @@ namespace App\Controllers;
 use Rakit\Validation\Validator;
 use App\Helpers\PaginationHelper;
 use App\Enum\CollectionAccessEnum;
+use App\Enum\CollectionAccessLevelEnum;
 use App\Repositories\CollectionRepository;
 use App\Repositories\UserRepository;
 
@@ -165,6 +166,15 @@ class CollectionController extends Controller
                 return [
                     'status' => 404,
                     'error' => 'User not found',
+                ];
+            }
+
+            $accessLevel = $this->collectionRepository->getCollectionAccess($id, $user->id);
+
+            if ($accessLevel !== CollectionAccessLevelEnum::NONE) {
+                return [
+                    'status' => 400,
+                    'error' => 'User is already a member of this collection',
                 ];
             }
 
