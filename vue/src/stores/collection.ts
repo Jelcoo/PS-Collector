@@ -56,6 +56,19 @@ export const useCollectionStore = defineStore('collection', {
             });
         },
 
+        update(id: number, name: string): Promise<AxiosResponse> {
+            return new Promise((resolve, reject) => {
+                axios
+                    .post(`/collections/${id}/update`, {
+                        name,
+                    })
+                    .then((res) => {
+                        resolve(res);
+                    })
+                    .catch((error) => reject(error));
+            });
+        },
+
         delete(id: number) {
             return new Promise((resolve, reject) => {
                 axios

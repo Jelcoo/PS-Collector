@@ -68,22 +68,42 @@ const collectionStore = useCollectionStore();
 const router = useRouter();
 
 const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
-    collectionStore
-        .create(values.name, values.access)
-        .then((res) => {
-            router.push(`/collections/${res.data.collection.id}`);
-        })
-        .catch((error) => {
-            if (error.response.status === 422) {
-                actions.setErrors({
-                    name: error.response.data.errors.name,
-                    access: error.response.data.errors.access,
-                });
-            } else {
-                actions.setErrors({
-                    access: error.response.data.error,
-                });
-            }
-        });
+    if (props.collection) {
+        collectionStore
+            .update(props.collection.id, values.name)
+            .then(() => {
+                router.push(`/collections/${props.collection!.id}`);
+            })
+            .catch((error) => {
+                if (error.response.status === 422) {
+                    actions.setErrors({
+                        name: error.response.data.errors.name,
+                        access: error.response.data.errors.access,
+                    });
+                } else {
+                    actions.setErrors({
+                        access: error.response.data.error,
+                    });
+                }
+            });
+    } else {
+        collectionStore
+            .create(values.name, values.access)
+            .then((res) => {
+                router.push(`/collections/${res.data.collection.id}`);
+            })
+            .catch((error) => {
+                if (error.response.status === 422) {
+                    actions.setErrors({
+                        name: error.response.data.errors.name,
+                        access: error.response.data.errors.access,
+                    });
+                } else {
+                    actions.setErrors({
+                        access: error.response.data.error,
+                    });
+                }
+            });
+    }
 };
 </script>

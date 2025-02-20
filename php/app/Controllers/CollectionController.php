@@ -90,8 +90,10 @@ class CollectionController extends Controller
         ];
     }
 
-    public function update(int $id, array $data): array
+    public function update(int $id): array
     {
+        $data = json_decode(file_get_contents('php://input'), true) ?? [];
+
         $validator = new Validator();
         $validation = $validator->validate($data, [
             'name' => 'required|max:255',
