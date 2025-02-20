@@ -31,7 +31,8 @@ $router->middleware(EnsureCollectionAccess::class, function () use ($router) {
 });
 
 $router->middleware(EnsureAuthenticated::class, function () use ($router) {
-    $router->get('/api/me', [App\Controllers\ApiController::class, 'me']);
+    $router->get('/api/me', [App\Controllers\MeController::class, 'index']);
+    $router->post('/api/me/update', [App\Controllers\MeController::class, 'update']);
 
     $router->post('/api/collections/create', [App\Controllers\CollectionController::class, 'create']);
 });

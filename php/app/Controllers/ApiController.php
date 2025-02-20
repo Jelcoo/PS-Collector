@@ -18,13 +18,6 @@ class ApiController extends Controller
         ];
     }
 
-    public function me(): array
-    {
-        return [
-            'user' => $this->getSession()->toArray(),
-        ];
-    }
-
     public function app(): array
     {
         return [

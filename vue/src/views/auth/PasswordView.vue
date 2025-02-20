@@ -3,9 +3,7 @@
         <div class="w-full max-w-md p-8 bg-neutral-700 my-auto rounded-2xl shadow-lg">
             <h2 class="text-2xl font-semibold text-center text-neutral-100 mb-6">Reset Password</h2>
 
-            <div class="text-center text-green-500 mb-4" v-if="message">
-                {{ message }}
-            </div>
+            <MessageComponent :message="message" />
             <VeeForm
                 v-slot="{ handleSubmit }"
                 :validation-schema="resetToken ? passwordValidationScheme : emailValidationScheme"
@@ -54,9 +52,11 @@ import FormInput from '@/components/forms/FormInput.vue';
 import { ref, useTemplateRef } from 'vue';
 import VueTurnstile from 'vue-turnstile';
 import { useAppStore } from '@/stores/app';
+import MessageComponent from '@/components/MessageComponent.vue';
 
 const userStore = useUserStore();
 const route = useRoute();
+
 const resetClicked = ref(false);
 const resetToken = ref(route.query.token?.toString() ?? undefined);
 const message = ref('');
