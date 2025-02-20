@@ -26,7 +26,14 @@ class CollectionRepository extends Repository
         if (is_null($userId)) {
             $query = $this->getConnection()->prepare('SELECT * FROM collections WHERE access = \'public\'');
         } else {
-            $query = $this->getConnection()->prepare('SELECT DISTINCT c.* FROM collections c LEFT JOIN collection_access ca ON c.id = ca.collection_id WHERE c.access = \'public\' OR (ca.user_id = :user_id AND ca.role IN (\'owner\', \'member\'))');
+            $query = $this->getConnection()->prepare("
+SELECT DISTINCT c.*
+FROM collections c
+LEFT JOIN collection_access ca
+    ON c.id = ca.collection_id
+WHERE c.access = 'public'
+OR (ca.user_id = :user_id
+    AND ca.role IN ('owner', 'member'))");
             $query->bindValue(':user_id', $userId);
         }
 
@@ -43,7 +50,19 @@ class CollectionRepository extends Repository
 
     public function getCollectionAccess(int $collectionId, ?int $userId): CollectionAccessLevelEnum
     {
-        $query = $this->getConnection()->prepare('SELECT CASE WHEN c.access = \'public\' THEN \'public\' WHEN ca.role IS NOT NULL THEN ca.role ELSE \'none\' END as access_level FROM collections c LEFT JOIN collection_access ca ON c.id = ca.collection_id AND ca.user_id = :user_id WHERE c.id = :collection_id');
+        $query = $this->getConnection()->prepare("
+SELECT
+    CASE
+        WHEN ca.role = 'owner' THEN 'owner'
+        WHEN c.access = 'public' THEN 'public'
+        WHEN ca.role IS NOT NULL THEN ca.role
+        ELSE 'none'
+    END as access_level
+FROM collections c
+LEFT JOIN collection_access ca
+    ON c.id = ca.collection_id
+    AND ca.user_id = :user_id
+WHERE c.id = :collection_id");
         $query->bindValue(':user_id', $userId);
         $query->bindValue(':collection_id', $collectionId);
         $query->execute();
