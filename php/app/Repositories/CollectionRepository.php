@@ -118,6 +118,12 @@ WHERE c.id = :collection_id");
         return $collection;
     }
 
+    public function deleteCollection(int $id): void
+    {
+        $queryBuilder = new QueryBuilder($this->getConnection());
+        $queryBuilder->table('collections')->where('id', '=', $id)->delete();
+    }
+
     public function getCollectionAuthor(Collection $collection): ?User
     {
         $queryBuilder = new QueryBuilder($this->getConnection());

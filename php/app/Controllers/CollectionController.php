@@ -89,4 +89,20 @@ class CollectionController extends Controller
             'collection' => $createdCollection,
         ];
     }
+
+    public function delete(int $id): array
+    {
+        try {
+            $this->collectionRepository->deleteCollection($id);
+        } catch (\Exception) {
+            return [
+                'status' => 500,
+                'error' => 'Something went wrong',
+            ];
+        }
+
+        return [
+            'message' => 'Collection deleted successfully',
+        ];
+    }
 }

@@ -23,7 +23,7 @@
 
                     <button
                         type="submit"
-                        class="w-full p-3 bg-sky-500 hover:bg-sky-600 text-white font-semibold rounded-lg transition"
+                        class="cursor-pointer w-full p-3 bg-sky-500 hover:bg-sky-600 text-white font-semibold rounded-lg transition"
                     >
                         Create
                     </button>
@@ -42,7 +42,7 @@ import FormSelect from '@/components/forms/FormSelect.vue';
 import { useCollectionStore } from '@/stores/collection';
 
 const validationSchema = yup.object({
-    name: yup.string().required('Name is required'),
+    name: yup.string().required('Name is required').max(255, 'Name must be less than 255 characters'),
     access: yup.string().required('Access is required'),
 });
 

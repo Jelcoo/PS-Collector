@@ -1,5 +1,5 @@
 <template>
-    <div class="p-4">
+    <ContainerComponent>
         <div class="flex items-center justify-between mb-4">
             <h1 class="text-3xl font-bold mb-4">Collections</h1>
             <div class="flex gap-4">
@@ -24,7 +24,7 @@
                 />
             </div>
         </PageIndicator>
-    </div>
+    </ContainerComponent>
 </template>
 
 <script setup lang="ts">
@@ -34,6 +34,7 @@ import { useCollectionStore } from '@/stores/collection';
 import { useUserStore } from '@/stores/user';
 import { onBeforeMount } from 'vue';
 import { RouterLink } from 'vue-router';
+import ContainerComponent from '@/components/ContainerComponent.vue';
 
 const userStore = useUserStore();
 const collectionStore = useCollectionStore();

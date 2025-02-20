@@ -19,6 +19,10 @@ $router->get('/api/collections', [App\Controllers\CollectionController::class, '
 
 $router->middleware(EnsureCollectionAccess::class, function () use ($router) {
     $router->get('/api/collections/{id}', [App\Controllers\CollectionController::class, 'get']);
+
+    $router->middleware(EnsureCollectionOwner::class, function () use ($router) {
+        $router->post('/api/collections/{id}/delete', [App\Controllers\CollectionController::class, 'delete']);
+    });
 });
 
 $router->middleware(EnsureAuthenticated::class, function () use ($router) {

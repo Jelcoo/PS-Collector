@@ -1,6 +1,6 @@
 <template>
     <button
-        class="hovertransition cursor-pointer relative px-4 py-2 mr-4 text-xl bg-neutral-600 rounded hover:bg-neutral-500"
+        class="hovertransition cursor-pointer relative px-4 py-2 text-xl bg-neutral-600 rounded hover:bg-neutral-500"
         :class="{ 'active bg-neutral-500!': open }"
         @click="toggleOpen"
         tabindex="0"

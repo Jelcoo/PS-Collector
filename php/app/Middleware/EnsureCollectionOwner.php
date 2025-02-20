@@ -6,7 +6,7 @@ use App\Helpers\JwtHelper;
 use App\Enum\CollectionAccessLevelEnum;
 use App\Repositories\CollectionRepository;
 
-class EnsureCollectionAccess extends Middleware implements MiddlewareInterface
+class EnsureCollectionOwner extends Middleware implements MiddlewareInterface
 {
     private CollectionRepository $collectionRepository;
 
@@ -23,7 +23,7 @@ class EnsureCollectionAccess extends Middleware implements MiddlewareInterface
             $this->notFound();
         }
         $getCollectionAccess = $this->collectionRepository->getCollectionAccess($params[0], $user);
-        if ($getCollectionAccess === CollectionAccessLevelEnum::NONE) {
+        if ($getCollectionAccess !== CollectionAccessLevelEnum::OWNER) {
             $this->forbidden();
         }
 
