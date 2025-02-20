@@ -38,7 +38,7 @@ const buttonClasses = computed(() =>
 
 .button {
     @apply px-4 py-2 inline-flex items-center justify-center;
-    @apply rounded text-base font-semibold transition-all duration-100;
+    @apply cursor-pointer rounded text-base font-semibold transition-all duration-100;
 
     /* Sizing Controls */
     &.small {
