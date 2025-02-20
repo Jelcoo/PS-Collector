@@ -4,7 +4,7 @@
     <ContainerComponent v-else :loading="loading || !collection">
         <ModalComponent :visible="addVisible" title="Add member" @close="addVisible = false">
             <VeeForm v-slot="{ handleSubmit }" as="div">
-                <form @submit="handleSubmit($event, onSubmit)">
+                <form @submit="handleSubmit($event, onSubmit)" ref="formRef">
                     <div class="mb-4">
                         <FormInput name="username" label="Username" placeholder="Enter their username" />
                     </div>
@@ -12,7 +12,7 @@
             </VeeForm>
             <template v-slot:footer>
                 <StyledButton variant="text" @click="addVisible = false">Cancel</StyledButton>
-                <StyledButton>Add</StyledButton>
+                <StyledButton @click="submitForm">Add</StyledButton>
             </template>
         </ModalComponent>
         <div class="flex items-center justify-between mb-4">
@@ -75,6 +75,7 @@ const loading = ref(true);
 const collection = ref<Collection>();
 const status = ref(0);
 const addVisible = ref(false);
+const formRef = ref<HTMLFormElement | null>(null);
 
 onBeforeMount(() => {
     const collectionId = Number(route.params.id);
@@ -89,7 +90,26 @@ onBeforeMount(() => {
         });
 });
 
-const onSubmit = (values: GenericObject, _: SubmissionContext) => {
-    console.log(values);
+const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
+    collectionStore
+        .addMember(collection.value!.id, values.username)
+        .then(() => {
+            addVisible.value = false;
+        })
+        .catch((error) => {
+            if (error.response.status === 422) {
+                actions.setErrors({
+                    username: error.response.data.errors.username,
+                });
+            } else {
+                actions.setErrors({
+                    username: error.response.data.error,
+                });
+            }
+        });
+};
+
+const submitForm = () => {
+    formRef.value?.requestSubmit();
 };
 </script>

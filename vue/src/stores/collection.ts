@@ -79,5 +79,18 @@ export const useCollectionStore = defineStore('collection', {
                     .catch((error) => reject(error));
             });
         },
+
+        addMember(id: number, username: string) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .post(`/collections/${id}/add-member`, {
+                        username,
+                    })
+                    .then((res) => {
+                        resolve(res);
+                    })
+                    .catch((error) => reject(error));
+            });
+        },
     },
 });
