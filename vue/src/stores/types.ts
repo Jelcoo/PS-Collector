@@ -6,6 +6,13 @@ export interface Collection {
     stampCount?: number;
     authorName?: string;
     userAccess?: 'owner' | 'member' | 'public' | 'none';
+    members: CollectionMember[];
+}
+
+export interface CollectionMember {
+    id: number;
+    username: string;
+    role: string;
 }
 
 export interface User {

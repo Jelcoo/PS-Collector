@@ -2,7 +2,40 @@
     <ForbiddenView v-if="status === 403" />
     <NotFoundView v-else-if="status === 404" />
     <ContainerComponent v-else :loading="loading || !collection">
-        {{ collection }}
+        <div class="flex items-center justify-between mb-4">
+            <h1 class="text-3xl font-bold mb-4 truncate">{{ collection!.name }}</h1>
+            <div class="flex gap-4" v-if="collection!.userAccess === 'owner'">
+                <StyledButton @click="null">
+                    <FontAwesomeIcon :icon="faUserPlus" class="mr-2" /> Add member
+                </StyledButton>
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-4">
+            <h2 class="text-2xl font-bold mb-4">Members</h2>
+            <table class="min-w-full divide-y divide-neutral-400">
+                <thead class="bg-neutral-600">
+                    <tr>
+                        <th
+                            scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-neutral-50 uppercase tracking-wider"
+                        >
+                            Name
+                        </th>
+                        <th
+                            scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-neutral-50 uppercase tracking-wider"
+                        >
+                            Role
+                        </th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody class="bg-neutral-500 divide-y divide-neutral-200">
+                    <CollectionMemberRow v-for="member in collection!.members" :key="member.id" :member="member" />
+                </tbody>
+            </table>
+        </div>
     </ContainerComponent>
 </template>
 
@@ -14,6 +47,10 @@ import type { Collection } from '@/stores/types';
 import ContainerComponent from '@/components/ContainerComponent.vue';
 import ForbiddenView from '@/views/status/ForbiddenView.vue';
 import NotFoundView from '@/views/status/NotFoundView.vue';
+import CollectionMemberRow from '@/components/CollectionMemberRow.vue';
+import StyledButton from '@/components/StyledButton.vue';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 const collectionStore = useCollectionStore();
 const route = useRoute();
@@ -25,7 +62,7 @@ const status = ref(0);
 onBeforeMount(() => {
     const collectionId = Number(route.params.id);
     collectionStore
-        .getCollection(collectionId, ['members'])
+        .getCollection(collectionId, ['access', 'members'])
         .then((res) => {
             collection.value = res.data;
             loading.value = false;
