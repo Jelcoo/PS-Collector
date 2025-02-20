@@ -5,14 +5,8 @@ import type { AxiosResponse } from 'axios';
 
 export const useCollectionStore = defineStore('collection', {
     state: () => ({
-        collections: {
-            data: [] as Collection[],
-            pages: {} as PaginatedResponse,
-        },
-        currentCollection: {
-            data: {} as Collection,
-            loading: false,
-        },
+        data: [] as Collection[],
+        pages: {} as PaginatedResponse,
     }),
     actions: {
         getCollections(withFields: string[], page: number = 1) {
@@ -25,8 +19,8 @@ export const useCollectionStore = defineStore('collection', {
                         },
                     })
                     .then((res) => {
-                        this.collections.data = res.data.data;
-                        this.collections.pages = res.data.pages;
+                        this.data = res.data.data;
+                        this.pages = res.data.pages;
                         resolve(res);
                     })
                     .catch((error) => reject(error));
@@ -34,7 +28,6 @@ export const useCollectionStore = defineStore('collection', {
         },
 
         getCollection(id: number, withFields: string[] = []): Promise<AxiosResponse<Collection>> {
-            this.currentCollection.loading = true;
             return new Promise((resolve, reject) => {
                 axios
                     .get(`/collections/${id}`, {
@@ -43,13 +36,9 @@ export const useCollectionStore = defineStore('collection', {
                         },
                     })
                     .then((res) => {
-                        this.currentCollection.data = res.data;
                         resolve(res);
                     })
-                    .catch((error) => reject(error))
-                    .finally(() => {
-                        this.currentCollection.loading = false;
-                    });
+                    .catch((error) => reject(error));
             });
         },
 

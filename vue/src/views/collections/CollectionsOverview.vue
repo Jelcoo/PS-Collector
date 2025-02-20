@@ -14,10 +14,10 @@
             </div>
         </div>
 
-        <PageIndicator :pagination="collectionStore.collections.pages" @page-select="handlePageSelect">
+        <PageIndicator :pagination="collectionStore.pages" @page-select="handlePageSelect">
             <div class="flex flex-wrap gap-4 justify-center">
                 <CollectionCard
-                    v-for="collection in collectionStore.collections.data"
+                    v-for="collection in collectionStore.data"
                     :key="collection.id"
                     :collection
                     :total-stamps="2"
