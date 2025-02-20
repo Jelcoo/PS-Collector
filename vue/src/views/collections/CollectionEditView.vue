@@ -11,7 +11,7 @@ import type { Collection } from '@/stores/types';
 
 const collectionStore = useCollectionStore();
 const route = useRoute();
-const collection = ref<Collection | null>(null);
+const collection = ref<Collection>();
 
 onBeforeMount(() => {
     const collectionId = Number(route.params.id);
