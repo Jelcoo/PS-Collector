@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "php",
+			"path": "php"
+		},
+		{
+			"name": "vue",
+			"path": "vue"
+		}
+	],
+	"settings": {}
+}
