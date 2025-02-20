@@ -24,6 +24,8 @@ $router->middleware(EnsureCollectionAccess::class, function () use ($router) {
     $router->middleware(EnsureCollectionOwner::class, function () use ($router) {
         $router->post('/api/collections/{id}/update', [App\Controllers\CollectionController::class, 'update']);
         $router->post('/api/collections/{id}/delete', [App\Controllers\CollectionController::class, 'delete']);
+
+        $router->post('/api/collections/{id}/add-member', [App\Controllers\CollectionController::class, 'addMember']);
     });
 });
 

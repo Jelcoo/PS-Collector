@@ -132,6 +132,17 @@ WHERE c.id = :collection_id");
         $queryBuilder->table('collections')->where('id', '=', $id)->delete();
     }
 
+    public function addMemberToCollection(int $collectionId, int $userId): void
+    {
+        $queryBuilder = new QueryBuilder($this->getConnection());
+
+        $queryBuilder->table('collection_access')->insert([
+            'collection_id' => $collectionId,
+            'user_id' => $userId,
+            'role' => CollectionAccessLevelEnum::MEMBER->value,
+        ]);
+    }
+
     public function getCollectionAuthor(int $collectionId): ?User
     {
         $queryBuilder = new QueryBuilder($this->getConnection());

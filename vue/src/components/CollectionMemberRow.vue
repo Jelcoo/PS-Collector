@@ -6,8 +6,8 @@
         <td class="px-6 py-4 whitespace-nowrap">
             {{ member.role }}
         </td>
-        <td v-if="member.role !== 'owner'" class="px-6 py-4 whitespace-nowrap">
-            <StyledButton size="small" variant="danger">Remove</StyledButton>
+        <td class="px-6 py-4 whitespace-nowrap">
+            <StyledButton v-if="member.role !== 'owner'" size="small" variant="danger">Remove</StyledButton>
         </td>
     </tr>
 </template>

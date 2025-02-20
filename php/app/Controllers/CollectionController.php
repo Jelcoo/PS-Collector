@@ -6,16 +6,19 @@ use Rakit\Validation\Validator;
 use App\Helpers\PaginationHelper;
 use App\Enum\CollectionAccessEnum;
 use App\Repositories\CollectionRepository;
+use App\Repositories\UserRepository;
 
 class CollectionController extends Controller
 {
     private CollectionRepository $collectionRepository;
+    private UserRepository $userRepository;
 
     public function __construct()
     {
         parent::__construct();
 
         $this->collectionRepository = new CollectionRepository();
+        $this->userRepository = new UserRepository();
     }
 
     public function index(): array
@@ -135,6 +138,46 @@ class CollectionController extends Controller
 
         return [
             'message' => 'Collection deleted successfully',
+        ];
+    }
+
+    public function addMember(int $id): array
+    {
+        $data = json_decode(file_get_contents('php://input'), true) ?? [];
+
+        $validator = new Validator();
+        $validation = $validator->validate($data, [
+            'username' => 'required',
+        ]);
+
+        if ($validation->fails()) {
+            return [
+                'status' => 422,
+                'errors' => $validation->errors()->toArray(),
+            ];
+        }
+
+        try {
+            $username = $data['username'];
+            $user = $this->userRepository->getUserByUsernameOrEmail($username);
+
+            if (!$user) {
+                return [
+                    'status' => 404,
+                    'error' => 'User not found',
+                ];
+            }
+
+            $this->collectionRepository->addMemberToCollection($id, $user->id);
+        } catch (\Exception) {
+            return [
+                'status' => 500,
+                'error' => 'Something went wrong',
+            ];
+        }
+
+        return [
+            'message' => 'Member added successfully',
         ];
     }
 }

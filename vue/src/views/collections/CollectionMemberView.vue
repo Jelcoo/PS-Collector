@@ -6,7 +6,7 @@
             <VeeForm v-slot="{ handleSubmit }" as="div">
                 <form @submit="handleSubmit($event, onSubmit)" ref="formRef">
                     <div class="mb-4">
-                        <FormInput name="username" label="Username" placeholder="Enter their username" />
+                        <FormInput name="username" label="Username/Email" placeholder="Enter their username or email" />
                     </div>
                 </form>
             </VeeForm>
