@@ -118,6 +118,14 @@ WHERE c.id = :collection_id");
         return $collection;
     }
 
+    public function updateCollection(int $id, array $data): Collection
+    {
+        $queryBuilder = new QueryBuilder($this->getConnection());
+        $queryBuilder->table('collections')->where('id', '=', $id)->update($data);
+
+        return $this->getCollectionById($id);
+    }
+
     public function deleteCollection(int $id): void
     {
         $queryBuilder = new QueryBuilder($this->getConnection());

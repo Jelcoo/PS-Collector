@@ -4,6 +4,9 @@
         <select
             v-bind="field"
             class="w-full p-3 bg-neutral-800 text-neutral-100 rounded-lg border border-neutral-600 focus:ring-2 focus:ring-sky-500 outline-none"
+            :class="{ 'cursor-not-allowed': disabled }"
+            :value="selected"
+            :disabled
         >
             <option value="" disabled selected>Select your {{ label.toLowerCase() }}</option>
             <option v-for="option in options" :key="option.value" :value="option.value">
@@ -29,6 +32,14 @@ defineProps({
     options: {
         type: Array as () => { value: string | number; label: string }[],
         required: true,
+    },
+    selected: {
+        type: String,
+        default: '',
+    },
+    disabled: {
+        type: Boolean,
+        default: false,
     },
 });
 </script>

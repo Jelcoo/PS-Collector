@@ -1,12 +1,14 @@
 <template>
     <div class="flex items-center justify-center">
         <div class="w-full max-w-md p-8 bg-neutral-700 my-auto rounded-2xl shadow-lg">
-            <h2 class="text-2xl font-semibold text-center text-neutral-100 mb-6">Create Collection</h2>
+            <h2 class="text-2xl font-semibold text-center text-neutral-100 mb-6">
+                {{ props.collection ? 'Update Collection' : 'Create Collection' }}
+            </h2>
 
             <VeeForm v-slot="{ handleSubmit }" :validation-schema="validationSchema" as="div">
                 <form @submit="handleSubmit($event, onSubmit)">
                     <div class="mb-4">
-                        <FormInput name="name" label="Name" />
+                        <FormInput name="name" label="Name" :value="props.collection?.name" />
                     </div>
 
                     <div class="mb-4">
@@ -18,6 +20,8 @@
                                 { value: 'private', label: 'Private' },
                                 { value: 'shared', label: 'Shared' },
                             ]"
+                            :selected="props.collection?.access"
+                            :disabled="!!props.collection"
                         />
                     </div>
 
@@ -25,7 +29,7 @@
                         type="submit"
                         class="cursor-pointer w-full p-3 bg-sky-500 hover:bg-sky-600 text-white font-semibold rounded-lg transition"
                     >
-                        Create
+                        {{ props.collection ? 'Update Collection' : 'Create Collection' }}
                     </button>
                 </form>
             </VeeForm>
@@ -40,6 +44,11 @@ import * as yup from 'yup';
 import FormInput from '@/components/forms/FormInput.vue';
 import FormSelect from '@/components/forms/FormSelect.vue';
 import { useCollectionStore } from '@/stores/collection';
+import type { Collection } from '@/stores/types';
+
+const props = defineProps<{
+    collection?: Collection;
+}>();
 
 const validationSchema = yup.object({
     name: yup.string().required('Name is required').max(255, 'Name must be less than 255 characters'),

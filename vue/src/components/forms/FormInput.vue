@@ -5,6 +5,7 @@
         :type
         class="w-full p-3 bg-neutral-800 text-neutral-100 rounded-lg border border-neutral-600 focus:ring-2 focus:ring-sky-500 outline-none"
         :placeholder="`Enter your ${label.toLowerCase()}`"
+        :value
     />
     <ErrorMessage :name class="text-red-400 text-sm mt-1" />
 </template>
@@ -24,6 +25,10 @@ defineProps({
     type: {
         type: String,
         default: 'text',
+    },
+    value: {
+        type: String,
+        default: '',
     },
 });
 </script>

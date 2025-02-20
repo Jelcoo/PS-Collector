@@ -25,8 +25,19 @@ const router = createRouter({
                 },
                 {
                     path: ':id(\\d+)',
-                    name: 'collection',
-                    component: () => import('@/views/collections/CollectionView.vue'),
+                    children: [
+                        {
+                            path: '',
+                            name: 'collection',
+                            component: () => import('@/views/collections/CollectionView.vue'),
+                        },
+                        {
+                            path: 'edit',
+                            name: 'collection.edit',
+                            component: () => import('@/views/collections/CollectionEditView.vue'),
+                            meta: { requiresAuth: true },
+                        },
+                    ],
                 },
             ],
         },

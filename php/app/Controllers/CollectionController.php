@@ -90,6 +90,36 @@ class CollectionController extends Controller
         ];
     }
 
+    public function update(int $id, array $data): array
+    {
+        $validator = new Validator();
+        $validation = $validator->validate($data, [
+            'name' => 'required|max:255',
+        ]);
+
+        if ($validation->fails()) {
+            return [
+                'status' => 422,
+                'errors' => $validation->errors()->toArray(),
+            ];
+        }
+
+        try {
+            $updatedCollection = $this->collectionRepository->updateCollection($id, [
+                'name' => $data['name'],
+            ]);
+        } catch (\Exception) {
+            return [
+                'status' => 500,
+                'error' => 'Something went wrong',
+            ];
+        }
+
+        return [
+            'collection' => $updatedCollection,
+        ];
+    }
+
     public function delete(int $id): array
     {
         try {

@@ -33,7 +33,7 @@ export const useCollectionStore = defineStore('collection', {
             });
         },
 
-        getCollection(id: number, withFields: string[]) {
+        getCollection(id: number, withFields: string[] = []): Promise<AxiosResponse<Collection>> {
             this.currentCollection.loading = true;
             return new Promise((resolve, reject) => {
                 axios

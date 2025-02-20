@@ -6,9 +6,9 @@
         </RouterLink>
         <div class="flex items-center">
             <RouterLink to="/" active-class="active" class="hovertransition mr-8 text-xl">Home</RouterLink>
-            <RouterLink to="/collections" active-class="active" class="hovertransition mr-8 text-xl"
-                >Collections</RouterLink
-            >
+            <RouterLink to="/collections" active-class="active" class="hovertransition mr-8 text-xl">
+                Collections
+            </RouterLink>
             <div class="flex">
                 <template v-if="userStore.isAuthenticated">
                     <NavbarDropdown />

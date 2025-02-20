@@ -2,6 +2,7 @@
 
 use App\Middleware\EnsureAuthenticated;
 use App\Middleware\EnsureCollectionAccess;
+use App\Middleware\EnsureCollectionOwner;
 use App\Middleware\VerifyTurnstile;
 
 $router = App\Application\Router::getInstance();
@@ -21,6 +22,7 @@ $router->middleware(EnsureCollectionAccess::class, function () use ($router) {
     $router->get('/api/collections/{id}', [App\Controllers\CollectionController::class, 'get']);
 
     $router->middleware(EnsureCollectionOwner::class, function () use ($router) {
+        $router->post('/api/collections/{id}/update', [App\Controllers\CollectionController::class, 'update']);
         $router->post('/api/collections/{id}/delete', [App\Controllers\CollectionController::class, 'delete']);
     });
 });
