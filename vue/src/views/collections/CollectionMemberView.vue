@@ -103,7 +103,8 @@ const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
     collectionStore
         .addMember(collection.value!.id, values.username)
         .then(() => {
-            addVisible.value = true;
+            addVisible.value = false;
+            loading.value = true;
             fetchCollection();
         })
         .catch((error) => {
