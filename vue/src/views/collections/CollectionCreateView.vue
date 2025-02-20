@@ -5,10 +5,15 @@
                 {{ props.collection ? 'Update Collection' : 'Create Collection' }}
             </h2>
 
-            <VeeForm v-slot="{ handleSubmit }" :validation-schema="validationSchema" as="div">
+            <VeeForm
+                v-slot="{ handleSubmit }"
+                :validation-schema="validationSchema"
+                :initial-values="initialValues"
+                as="div"
+            >
                 <form @submit="handleSubmit($event, onSubmit)">
                     <div class="mb-4">
-                        <FormInput name="name" label="Name" :value="props.collection?.name" />
+                        <FormInput name="name" label="Name" />
                     </div>
 
                     <div class="mb-4">
@@ -20,7 +25,6 @@
                                 { value: 'private', label: 'Private' },
                                 { value: 'shared', label: 'Shared' },
                             ]"
-                            :selected="props.collection?.access"
                             :disabled="!!props.collection"
                         />
                     </div>
@@ -49,6 +53,11 @@ import type { Collection } from '@/stores/types';
 const props = defineProps<{
     collection?: Collection;
 }>();
+
+const initialValues = {
+    name: props.collection?.name ?? '',
+    access: props.collection?.access ?? '',
+};
 
 const validationSchema = yup.object({
     name: yup.string().required('Name is required').max(255, 'Name must be less than 255 characters'),

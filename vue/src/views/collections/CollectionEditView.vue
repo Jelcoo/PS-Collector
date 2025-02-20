@@ -1,5 +1,7 @@
 <template>
-    <CollectionCreateView :collection="collection" />
+    <ContainerComponent :loading="!collection">
+        <CollectionCreateView :collection="collection" />
+    </ContainerComponent>
 </template>
 
 <script setup lang="ts">
@@ -8,6 +10,7 @@ import { onBeforeMount, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import CollectionCreateView from './CollectionCreateView.vue';
 import type { Collection } from '@/stores/types';
+import ContainerComponent from '@/components/ContainerComponent.vue';
 
 const collectionStore = useCollectionStore();
 const route = useRoute();
