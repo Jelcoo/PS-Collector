@@ -190,4 +190,43 @@ class CollectionController extends Controller
             'message' => 'Member added successfully',
         ];
     }
+
+    public function removeMember(int $id): array
+    {
+        $data = json_decode(file_get_contents('php://input'), true) ?? [];
+
+        $validator = new Validator();
+        $validation = $validator->validate($data, [
+            'user_id' => 'required',
+        ]);
+
+        if ($validation->fails()) {
+            return [
+                'status' => 422,
+                'errors' => $validation->errors()->toArray(),
+            ];
+        }
+
+        try {
+            $accessLevel = $this->collectionRepository->getCollectionAccess($id, $data['user_id']);
+
+            if ($accessLevel === CollectionAccessLevelEnum::OWNER) {
+                return [
+                    'status' => 400,
+                    'error' => 'User is the owner of this collection',
+                ];
+            }
+            
+            $this->collectionRepository->removeMemberFromCollection($id, $data['user_id']);
+        } catch (\Exception) {
+            return [
+                'status' => 500,
+                'error' => 'Something went wrong',
+            ];
+        }
+
+        return [
+            'message' => 'Member removed successfully',
+        ];
+    }
 }

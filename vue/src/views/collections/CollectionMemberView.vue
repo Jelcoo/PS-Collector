@@ -45,7 +45,12 @@
                     </tr>
                 </thead>
                 <tbody class="bg-neutral-500 divide-y divide-neutral-200">
-                    <CollectionMemberRow v-for="member in collection!.members" :key="member.id" :member="member" />
+                    <CollectionMemberRow
+                        v-for="member in collection!.members"
+                        :key="member.user_id"
+                        :member="member"
+                        @remove="fetchCollection"
+                    />
                 </tbody>
             </table>
         </div>

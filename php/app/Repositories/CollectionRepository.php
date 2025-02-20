@@ -143,6 +143,13 @@ WHERE c.id = :collection_id");
         ]);
     }
 
+    public function removeMemberFromCollection(int $collectionId, int $userId): void
+    {
+        $queryBuilder = new QueryBuilder($this->getConnection());
+
+        $queryBuilder->table('collection_access')->where('collection_id', '=', $collectionId)->where('user_id', '=', $userId)->delete();
+    }
+
     public function getCollectionAuthor(int $collectionId): ?User
     {
         $queryBuilder = new QueryBuilder($this->getConnection());
@@ -188,7 +195,7 @@ WHERE c.id = :collection_id");
     public function getCollectionMembers(int $collectionId): array
     {
         $query = $this->getConnection()->prepare("
-SELECT u.id, u.username, ca.role
+SELECT ca.user_id, ca.collection_id, u.username, ca.role
 FROM `collection_access` ca
 LEFT JOIN users u
     ON ca.user_id = u.id

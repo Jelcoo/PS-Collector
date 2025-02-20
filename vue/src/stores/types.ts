@@ -10,7 +10,8 @@ export interface Collection {
 }
 
 export interface CollectionMember {
-    id: number;
+    user_id: number;
+    collection_id: number;
     username: string;
     role: string;
 }

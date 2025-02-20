@@ -92,5 +92,18 @@ export const useCollectionStore = defineStore('collection', {
                     .catch((error) => reject(error));
             });
         },
+
+        removeMember(id: number, userId: number) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .post(`/collections/${id}/remove-member`, {
+                        user_id: userId,
+                    })
+                    .then((res) => {
+                        resolve(res);
+                    })
+                    .catch((error) => reject(error));
+            });
+        },
     },
 });
