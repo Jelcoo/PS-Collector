@@ -77,7 +77,7 @@ const status = ref(0);
 const addVisible = ref(false);
 const formRef = ref<HTMLFormElement | null>(null);
 
-onBeforeMount(() => {
+const fetchCollection = () => {
     const collectionId = Number(route.params.id);
     collectionStore
         .getCollection(collectionId, ['access', 'members'])
@@ -88,13 +88,18 @@ onBeforeMount(() => {
         .catch((error) => {
             status.value = error.status;
         });
+};
+
+onBeforeMount(() => {
+    fetchCollection();
 });
 
 const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
     collectionStore
         .addMember(collection.value!.id, values.username)
         .then(() => {
-            addVisible.value = false;
+            addVisible.value = true;
+            fetchCollection();
         })
         .catch((error) => {
             if (error.response.status === 422) {
