@@ -2,10 +2,23 @@
     <ForbiddenView v-if="status === 403" />
     <NotFoundView v-else-if="status === 404" />
     <ContainerComponent v-else :loading="loading || !collection">
+        <ModalComponent :visible="addVisible" title="Add member" @close="addVisible = false">
+            <VeeForm v-slot="{ handleSubmit }" as="div">
+                <form @submit="handleSubmit($event, onSubmit)">
+                    <div class="mb-4">
+                        <FormInput name="username" label="Username" placeholder="Enter their username" />
+                    </div>
+                </form>
+            </VeeForm>
+            <template v-slot:footer>
+                <StyledButton variant="text" @click="addVisible = false">Cancel</StyledButton>
+                <StyledButton>Add</StyledButton>
+            </template>
+        </ModalComponent>
         <div class="flex items-center justify-between mb-4">
             <h1 class="text-3xl font-bold mb-4 truncate">{{ collection!.name }}</h1>
             <div class="flex gap-4" v-if="collection!.userAccess === 'owner'">
-                <StyledButton @click="null">
+                <StyledButton @click="addVisible = true">
                     <FontAwesomeIcon :icon="faUserPlus" class="mr-2" /> Add member
                 </StyledButton>
             </div>
@@ -20,7 +33,7 @@
                             scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-neutral-50 uppercase tracking-wider"
                         >
-                            Name
+                            Username
                         </th>
                         <th
                             scope="col"
@@ -51,6 +64,9 @@ import CollectionMemberRow from '@/components/CollectionMemberRow.vue';
 import StyledButton from '@/components/StyledButton.vue';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import ModalComponent from '@/components/ModalComponent.vue';
+import { Form as VeeForm, type GenericObject, type SubmissionContext } from 'vee-validate';
+import FormInput from '@/components/forms/FormInput.vue';
 
 const collectionStore = useCollectionStore();
 const route = useRoute();
@@ -58,6 +74,7 @@ const route = useRoute();
 const loading = ref(true);
 const collection = ref<Collection>();
 const status = ref(0);
+const addVisible = ref(false);
 
 onBeforeMount(() => {
     const collectionId = Number(route.params.id);
@@ -71,4 +88,8 @@ onBeforeMount(() => {
             status.value = error.status;
         });
 });
+
+const onSubmit = (values: GenericObject, _: SubmissionContext) => {
+    console.log(values);
+};
 </script>

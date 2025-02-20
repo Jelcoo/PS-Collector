@@ -4,7 +4,7 @@
         :name
         :type="type ?? 'text'"
         class="w-full p-3 bg-neutral-800 text-neutral-100 rounded-lg border border-neutral-600 focus:ring-2 focus:ring-sky-500 outline-none"
-        :placeholder="`Enter your ${label.toLowerCase()}`"
+        :placeholder="placeholder ?? `Enter your ${label.toLowerCase()}`"
     />
     <ErrorMessage :name class="text-red-400 text-sm mt-1" />
 </template>
@@ -16,5 +16,6 @@ defineProps<{
     name: string;
     label: string;
     type?: string;
+    placeholder?: string;
 }>();
 </script>

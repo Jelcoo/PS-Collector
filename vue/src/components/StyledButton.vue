@@ -84,15 +84,15 @@ const buttonClasses = computed(() =>
 }
 
 .text {
-    @apply bg-gray-500 text-gray-50;
-    @apply hover:bg-gray-400 active:bg-gray-400;
+    @apply bg-neutral-500 text-neutral-50;
+    @apply hover:bg-neutral-400 active:bg-neutral-400;
 
     &.secondary {
-        @apply hover:bg-gray-500 active:bg-gray-500;
+        @apply hover:bg-neutral-500 active:bg-neutral-500;
     }
 
     &:disabled {
-        @apply bg-gray-500/75 text-gray-200/75;
+        @apply bg-neutral-500/75 text-neutral-200/75;
     }
 }
 
