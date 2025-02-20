@@ -141,6 +141,19 @@ export const useUserStore = defineStore('user', {
                     .catch((error) => reject(error));
             });
         },
+        updatePassword(oldPassword: string, newPassword: string): Promise<AxiosResponse<GenericMessageResponse>> {
+            return new Promise((resolve, reject) => {
+                axios
+                    .post('/me/update-password', {
+                        oldPassword,
+                        newPassword,
+                    })
+                    .then((res) => {
+                        resolve(res);
+                    })
+                    .catch((error) => reject(error));
+            });
+        },
         setUserResponse(res: AxiosResponse) {
             this.id = res.data.user.id;
             this.username = res.data.user.username;

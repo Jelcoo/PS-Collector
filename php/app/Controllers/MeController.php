@@ -72,4 +72,49 @@ class MeController extends Controller
             'message' => 'User updated successfully',
         ];
     }
+
+    public function updatePassword(): array
+    {
+        $data = json_decode(file_get_contents('php://input'), true) ?? [];
+
+        $validator = new Validator();
+        $validator->addValidator('unique', new UniqueRule());
+        $validation = $validator->validate($data, [
+            'oldPassword' => 'required|min:6',
+            'newPassword' => 'required|min:6',
+        ]);
+
+        if ($validation->fails()) {
+            return [
+                'status' => 422,
+                'errors' => $validation->errors()->toArray(),
+            ];
+        }
+
+        $user = $this->getSession();
+
+        if (!password_verify($data['oldPassword'], $user->password)) {
+            return [
+                'status' => 422,
+                'errors' => [
+                    'oldPassword' => ['Current password is incorrect'],
+                ],
+            ];
+        }
+
+        try {
+            $user = $this->userRepository->updateUser($user->id, [
+                'password' => password_hash($data['newPassword'], PASSWORD_DEFAULT),
+            ]);
+        } catch (\Exception) {
+            return [
+                'status' => 500,
+                'message' => 'Failed to update user',
+            ];
+        }
+
+        return [
+            'message' => 'Password updated successfully',
+        ];
+    }
 }

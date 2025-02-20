@@ -1,21 +1,17 @@
 <template>
     <ContainerComponent :loading="loading || !user">
-        <div class="flex items-center justify-center">
+        <div class="flex items-center justify-center gap-4">
             <div class="w-full max-w-md p-8 bg-neutral-700 my-auto rounded-2xl shadow-lg">
                 <h2 class="text-2xl font-semibold text-center text-neutral-100 mb-6">Edit Account</h2>
 
-                <MessageComponent :message="message" />
+                <MessageComponent :message="accountMessage" />
                 <VeeForm
                     v-slot="{ handleSubmit }"
-                    :validation-schema="validationSchema"
+                    :validation-schema="accountValidationSchema"
                     :initial-values="initialValues"
                     as="div"
                 >
-                    <form @submit="handleSubmit($event, onSubmit)">
-                        <div class="mb-4">
-                            <FormInput name="username" label="Username" disabled />
-                        </div>
-
+                    <form @submit="handleSubmit($event, onSubmitAccount)">
                         <div class="mb-4">
                             <FormInput name="first_name" label="First name" />
                         </div>
@@ -32,7 +28,34 @@
                             type="submit"
                             class="cursor-pointer w-full p-3 bg-sky-500 hover:bg-sky-600 text-white font-semibold rounded-lg transition"
                         >
-                            Update
+                            Update account
+                        </button>
+                    </form>
+                </VeeForm>
+            </div>
+            <div class="w-full max-w-md p-8 bg-neutral-700 my-auto rounded-2xl shadow-lg">
+                <h2 class="text-2xl font-semibold text-center text-neutral-100 mb-6">Update Password</h2>
+
+                <MessageComponent :message="passwordMessage" />
+                <VeeForm v-slot="{ handleSubmit }" :validation-schema="passwordValidationSchema" as="div">
+                    <form @submit="handleSubmit($event, onSubmitPassword)">
+                        <div class="mb-4">
+                            <FormInput name="current_password" label="Current password" type="password" />
+                        </div>
+
+                        <div class="mb-4">
+                            <FormInput name="password" label="Password" type="password" />
+                        </div>
+
+                        <div class="mb-4">
+                            <FormInput name="password_confirmation" label="Confirm Password" type="password" />
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="cursor-pointer w-full p-3 bg-sky-500 hover:bg-sky-600 text-white font-semibold rounded-lg transition"
+                        >
+                            Update password
                         </button>
                     </form>
                 </VeeForm>
@@ -56,13 +79,22 @@ const userStore = useUserStore();
 const loading = ref(true);
 const user = ref<User>();
 const initialValues = ref();
-const message = ref('');
+const accountMessage = ref('');
+const passwordMessage = ref('');
 
-const validationSchema = yup.object({
-    username: yup.string().required('Username is required'),
+const accountValidationSchema = yup.object({
     first_name: yup.string().required('First name is required'),
     last_name: yup.string().required('Last name is required'),
     email: yup.string().email('Invalid email').required('Email is required'),
+});
+
+const passwordValidationSchema = yup.object({
+    current_password: yup.string().required('Current password is required'),
+    password: yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+    password_confirmation: yup
+        .string()
+        .oneOf([yup.ref('password'), undefined], 'Passwords must match')
+        .required('Password confirmation is required'),
 });
 
 onBeforeMount(() => {
@@ -70,7 +102,6 @@ onBeforeMount(() => {
         user.value = response.data.user;
         loading.value = false;
         initialValues.value = {
-            username: user.value.username,
             first_name: user.value.first_name,
             last_name: user.value.last_name,
             email: user.value.email,
@@ -78,16 +109,15 @@ onBeforeMount(() => {
     });
 });
 
-const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
+const onSubmitAccount = (values: GenericObject, actions: SubmissionContext) => {
     userStore
         .update(values.first_name, values.last_name, values.email)
         .then((res) => {
-            message.value = res.data.message;
+            accountMessage.value = res.data.message;
         })
         .catch((error) => {
             if (error.response.status === 422) {
                 actions.setErrors({
-                    username: Object.values(error.response.data.errors.username || []),
                     first_name: Object.values(error.response.data.errors.first_name || []),
                     last_name: Object.values(error.response.data.errors.last_name || []),
                     email: Object.values(error.response.data.errors.email || []),
@@ -95,6 +125,26 @@ const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
             } else {
                 actions.setErrors({
                     email: error.response.data.error,
+                });
+            }
+        });
+};
+
+const onSubmitPassword = (values: GenericObject, actions: SubmissionContext) => {
+    userStore
+        .updatePassword(values.current_password, values.password)
+        .then((res) => {
+            passwordMessage.value = res.data.message;
+        })
+        .catch((error) => {
+            if (error.response.status === 422) {
+                actions.setErrors({
+                    current_password: Object.values(error.response.data.errors.current_password || []),
+                    password: Object.values(error.response.data.errors.password || []),
+                });
+            } else {
+                actions.setErrors({
+                    password: error.response.data.error,
                 });
             }
         });
