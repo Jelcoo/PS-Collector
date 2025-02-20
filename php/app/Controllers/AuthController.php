@@ -100,6 +100,14 @@ class AuthController extends Controller
 
         $jwtToken = JwtHelper::generateToken($user);
 
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $this->emailService
+            ->addRecipient($user->email)
+            ->setContent(
+                'Account login',
+                'Someone has logged into your account from IP address ' . $ip .'.'
+            );
+
         return [
             'token' => $jwtToken,
             'user' => $user->toArray(),

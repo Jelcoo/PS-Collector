@@ -4,17 +4,20 @@ namespace App\Controllers;
 
 use App\Config\Config;
 use App\Repositories\UserRepository;
+use App\Services\EmailService;
 use App\Validation\UniqueRule;
 use Rakit\Validation\Validator;
 
 class MeController extends Controller
 {
     private UserRepository $userRepository;
+    private EmailService $emailService;
 
     public function __construct()
     {
         parent::__construct();
         $this->userRepository = new UserRepository();
+        $this->emailService = new EmailService();
     }
 
     public function index(): array
@@ -112,6 +115,14 @@ class MeController extends Controller
                 'message' => 'Failed to update user',
             ];
         }
+
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $this->emailService
+            ->addRecipient($user->email)
+            ->setContent(
+                'Password Reset',
+                'Someone has updated your password from IP address ' . $ip .'.'
+            );
 
         return [
             'message' => 'Password updated successfully',
