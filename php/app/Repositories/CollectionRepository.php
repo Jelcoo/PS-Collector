@@ -132,13 +132,13 @@ WHERE c.id = :collection_id");
         $queryBuilder->table('collections')->where('id', '=', $id)->delete();
     }
 
-    public function getCollectionAuthor(Collection $collection): ?User
+    public function getCollectionAuthor(int $collectionId): ?User
     {
         $queryBuilder = new QueryBuilder($this->getConnection());
 
         $collectionAccess = $queryBuilder
             ->table('collection_access')
-            ->where('collection_id', '=', $collection->id)
+            ->where('collection_id', '=', $collectionId)
             ->where('role', '=', CollectionAccessLevelEnum::OWNER->value)
             ->first();
         $collectionAccess = $collectionAccess ? new CollectionAccess($collectionAccess) : null;
@@ -148,13 +148,13 @@ WHERE c.id = :collection_id");
         return $user;
     }
 
-    public function getCollectionStamps(Collection $collection): array
+    public function getCollectionStamps(int $collectionId): array
     {
         $queryBuilder = new QueryBuilder($this->getConnection());
 
         $stamps = $queryBuilder
             ->table('stamps')
-            ->where('collection_id', '=', $collection->id)
+            ->where('collection_id', '=', $collectionId)
             ->get();
 
         return array_map(function ($stamp) {
@@ -162,16 +162,30 @@ WHERE c.id = :collection_id");
         }, $stamps);
     }
 
-    public function getCollectionStampCount(Collection $collection): int
+    public function getCollectionStampCount(int $collectionId): int
     {
         $queryBuilder = new QueryBuilder($this->getConnection());
 
         $stampCount = $queryBuilder
             ->table('stamps')
-            ->where('collection_id', '=', $collection->id)
+            ->where('collection_id', '=', $collectionId)
             ->count();
 
         return $stampCount;
+    }
+
+    public function getCollectionMembers(int $collectionId): array
+    {
+        $query = $this->getConnection()->prepare("
+SELECT u.id, u.username, ca.role
+FROM `collection_access` ca
+LEFT JOIN users u
+    ON ca.user_id = u.id
+WHERE ca.collection_id = :collection_id;");
+        $query->bindValue(':collection_id', $collectionId);
+        $query->execute();
+
+        return $query->fetchAll();
     }
 
     public function with(Collection $collection, array $with): Collection
@@ -179,16 +193,21 @@ WHERE c.id = :collection_id");
         foreach ($with as $relation) {
             switch ($relation) {
                 case 'author':
-                    $collection->authorName = $this->getCollectionAuthor($collection)->username;
+                    $collection->authorName = $this->getCollectionAuthor($collection->id)->username;
                     break;
                 case 'stamps':
-                    $collection->stamps = $this->getCollectionStamps($collection);
+                    $collection->stamps = $this->getCollectionStamps($collection->id);
                     break;
                 case 'stampCount':
-                    $collection->stampCount = $this->getCollectionStampCount($collection);
+                    $collection->stampCount = $this->getCollectionStampCount($collection->id);
                     break;
                 case 'access':
                     $collection->userAccess = $this->getCollectionAccess($collection->id, JwtHelper::getSessionUser());
+                    break;
+                case 'members':
+                    if ($this->getCollectionAccess($collection->id, JwtHelper::getSessionUser()) === CollectionAccessLevelEnum::OWNER) {
+                        $collection->members = $this->getCollectionMembers($collection->id);
+                    }
                     break;
             }
         }

@@ -2,7 +2,7 @@
     <ForbiddenView v-if="status === 403" />
     <NotFoundView v-else-if="status === 404" />
     <ContainerComponent v-else :loading="loading || !collection">
-        <CollectionCreateView :collection="collection" />
+        {{ collection }}
     </ContainerComponent>
 </template>
 
@@ -10,7 +10,6 @@
 import { useCollectionStore } from '@/stores/collection';
 import { onBeforeMount, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import CollectionCreateView from './CollectionCreateView.vue';
 import type { Collection } from '@/stores/types';
 import ContainerComponent from '@/components/ContainerComponent.vue';
 import ForbiddenView from '@/views/status/ForbiddenView.vue';
@@ -26,7 +25,7 @@ const status = ref(0);
 onBeforeMount(() => {
     const collectionId = Number(route.params.id);
     collectionStore
-        .getCollection(collectionId)
+        .getCollection(collectionId, ['members'])
         .then((res) => {
             collection.value = res.data;
             loading.value = false;

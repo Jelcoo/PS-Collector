@@ -16,6 +16,7 @@ class Collection extends Model
     public ?array $stamps;
     public ?int $stampCount;
     public ?CollectionAccessLevelEnum $userAccess;
+    public ?array $members;
 
     public function __construct(array $collection)
     {
