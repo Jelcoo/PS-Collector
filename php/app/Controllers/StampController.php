@@ -41,10 +41,10 @@ class StampController extends Controller
                 'used' => $data['used'],
                 'damaged' => $data['damaged'],
             ]);
-        } catch (\Exception $e) {
+        } catch (\Exception) {
             return [
                 'status' => 500,
-                'message' => $e->getMessage(),
+                'error' => 'Something went wrong',
             ];
         }
 
