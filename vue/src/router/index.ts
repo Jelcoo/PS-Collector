@@ -43,6 +43,17 @@ const router = createRouter({
                             component: () => import('@/views/collections/CollectionMemberView.vue'),
                             meta: { requiresAuth: true },
                         },
+                        {
+                            path: 'stamps',
+                            children: [
+                                {
+                                    path: 'add',
+                                    name: 'collection.stamps.add',
+                                    component: () => import('@/views/collections/stamps/AddView.vue'),
+                                    meta: { requiresAuth: true },
+                                },
+                            ],
+                        },
                     ],
                 },
             ],

@@ -90,7 +90,7 @@ class CollectionController extends Controller
         }
 
         return [
-            'collection' => $createdCollection,
+            'collection' => $createdCollection->toArray(),
         ];
     }
 
@@ -122,7 +122,7 @@ class CollectionController extends Controller
         }
 
         return [
-            'collection' => $updatedCollection,
+            'collection' => $updatedCollection->toArray(),
         ];
     }
 

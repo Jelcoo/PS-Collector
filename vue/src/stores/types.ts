@@ -16,6 +16,15 @@ export interface CollectionMember {
     role: string;
 }
 
+export interface Stamp {
+    id: number;
+    collection_id: number;
+    name: string;
+    used: boolean;
+    damaged: boolean;
+    created_at: string;
+}
+
 export interface User {
     id: number;
     username: string;

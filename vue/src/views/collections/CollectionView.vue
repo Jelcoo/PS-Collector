@@ -19,6 +19,9 @@
                 </StyledButton>
             </div>
         </div>
+        <div class="flex flex-wrap gap-4 justify-center">
+            <AddStampCard :collection="collection!" />
+        </div>
     </ContainerComponent>
 </template>
 
@@ -33,6 +36,7 @@ import { faPencil, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
 import ContainerComponent from '@/components/ContainerComponent.vue';
 import StyledButton from '@/components/StyledButton.vue';
 import type { Collection } from '@/stores/types';
+import AddStampCard from '@/components/AddStampCard.vue';
 
 const collectionStore = useCollectionStore();
 const route = useRoute();
