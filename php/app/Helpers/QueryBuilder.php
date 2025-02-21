@@ -115,12 +115,46 @@ class QueryBuilder
     public function insert(array $data): string
     {
         $columns = implode(', ', array_keys($data));
-        $placeholders = implode(', ', array_fill(0, count($data), '?'));
-        $sql = "INSERT INTO {$this->table} ($columns) VALUES ($placeholders)";
-        $stmt = $this->pdo->prepare($sql);
         $values = array_values($data);
-        $stmt->execute($values);
-
+        $types = [];
+        $placeholders = [];
+    
+        foreach ($values as $value) {
+            if (is_null($value)) {
+                $types[] = \PDO::PARAM_NULL;
+                $placeholders[] = '?';
+            } elseif (is_bool($value)) {
+                $types[] = \PDO::PARAM_BOOL;
+                $placeholders[] = '?';
+            } elseif (is_int($value)) {
+                $types[] = \PDO::PARAM_INT;
+                $placeholders[] = '?';
+            } elseif (is_float($value)) {
+                // PDO doesn't have a specific float type, handled as string
+                $types[] = \PDO::PARAM_STR;
+                $placeholders[] = '?';
+            } elseif ($value instanceof \DateTime) {
+                $types[] = \PDO::PARAM_STR;
+                $values[key($values)] = $value->format('Y-m-d H:i:s');
+                $placeholders[] = '?';
+            } elseif (is_array($value) || is_object($value)) {
+                $types[] = \PDO::PARAM_STR;
+                $values[key($values)] = json_encode($value);
+                $placeholders[] = '?';
+            } else {
+                $types[] = \PDO::PARAM_STR;
+                $placeholders[] = '?';
+            }
+        }
+    
+        $sql = "INSERT INTO {$this->table} ($columns) VALUES (" . implode(', ', $placeholders) . ")";
+        $stmt = $this->pdo->prepare($sql);
+    
+        foreach ($values as $index => $value) {
+            $stmt->bindValue($index + 1, $value, $types[$index]);
+        }
+    
+        $stmt->execute();
         return $this->pdo->lastInsertId();
     }
 

@@ -9,7 +9,6 @@ class Stamp extends Model
     public string $name;
     public bool $used;
     public bool $damaged;
-    public ?string $image_uuid;
     public string $created_at;
 
     public function __construct(array $stamp)
@@ -19,7 +18,6 @@ class Stamp extends Model
         $this->name = $stamp['name'];
         $this->used = $stamp['used'];
         $this->damaged = $stamp['damaged'];
-        $this->image_uuid = $stamp['image_uuid'];
         $this->created_at = $stamp['created_at'];
     }
 }
