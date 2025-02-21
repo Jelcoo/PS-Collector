@@ -33,9 +33,19 @@ CREATE TABLE `stamps` (
     `name` varchar(256) NOT NULL,
     `used` tinyint(1) NOT NULL,
     `damaged` tinyint(1) NOT NULL,
-    `image_uuid` varchar(256) DEFAULT NULL,
     `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
     FOREIGN KEY (`collection_id`) REFERENCES `collections` (`id`) ON DELETE CASCADE
+);
+
+CREATE TABLE assets (
+    `id` INT PRIMARY KEY AUTO_INCREMENT,
+    `collection` VARCHAR(255) NOT NULL,
+    `filename` VARCHAR(255) NOT NULL,
+    `mimetype` VARCHAR(255) NOT NULL,
+    `size` INT NOT NULL,
+    `model` VARCHAR(255) NOT NULL,
+    `model_id` INT NOT NULL,
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 COMMIT;
