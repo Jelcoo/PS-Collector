@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="flex flex-wrap gap-4 justify-center">
-            <AddStampCard :collection="collection!" />
+            <AddStampCard v-if="collection!.userAccess === 'owner'" :collection="collection!" />
         </div>
     </ContainerComponent>
 </template>
