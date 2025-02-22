@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col">
         <div class="flex items-center" v-if="type === 'checkbox'">
-            <Field :name :type="type" v-slot="{ field }" :disabled :unchecked-value="false">
+            <Field :name :type="type" v-slot="{ field }" :disabled :value="true" :unchecked-value="false">
                 <label class="relative flex items-center cursor-pointer">
                     <input v-bind="field" type="checkbox" class="sr-only peer" :disabled="disabled" />
                     <div
