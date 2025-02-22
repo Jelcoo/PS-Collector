@@ -5,6 +5,7 @@ export interface Collection {
     created_at: string;
     stampCount?: number;
     authorName?: string;
+    stamps?: Stamp[];
     userAccess?: 'owner' | 'member' | 'public' | 'none';
     members: CollectionMember[];
 }

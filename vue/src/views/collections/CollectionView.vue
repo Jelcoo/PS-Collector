@@ -21,6 +21,7 @@
         </div>
         <div class="flex flex-wrap gap-4 justify-center">
             <AddStampCard v-if="collection!.userAccess === 'owner'" :collection="collection!" />
+            <StampCard v-for="stamp in collection!.stamps" :key="stamp.id" :collection="collection!" :stamp="stamp" />
         </div>
     </ContainerComponent>
 </template>
@@ -37,6 +38,7 @@ import ContainerComponent from '@/components/ContainerComponent.vue';
 import StyledButton from '@/components/StyledButton.vue';
 import type { Collection } from '@/stores/types';
 import AddStampCard from '@/components/AddStampCard.vue';
+import StampCard from '@/components/StampCard.vue';
 
 const collectionStore = useCollectionStore();
 const route = useRoute();
