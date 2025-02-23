@@ -8,15 +8,6 @@ use App\Models\Stamp;
 
 class StampRepository extends Repository
 {
-    private CollectionRepository $collectionRepository;
-    private AssetRepository $assetRepository;
-
-    public function __construct()
-    {
-        $this->collectionRepository = new CollectionRepository();
-        $this->assetRepository = new AssetRepository();
-    }
-
     public function getStampById(int $id, array $with = []): ?Stamp
     {
         $queryBuilder = new QueryBuilder($this->getConnection());
@@ -77,10 +68,15 @@ class StampRepository extends Repository
         foreach ($with as $relation) {
             switch ($relation) {
                 case 'collection':
-                    $stamp->collection = $this->collectionRepository->getCollectionById($stamp->collection_id);
+                    $stamp->collection = $this->getCollectionRepository()->getCollectionById($stamp->collection_id);
                     break;
                 case 'header':
-                    $stamp->headerUrl = $this->assetRepository->getAssetsByModel($stamp, 'header')[0];
+                    $assets = $this->getAssetRepository()->getAssetsByModel($stamp, 'header');
+                    $asset = $assets[0] ?? null;
+                    if (!is_null($asset)) {
+                        $stamp->headerUrl = $asset->getUrl();
+                    }
+
                     break;
             }
         }

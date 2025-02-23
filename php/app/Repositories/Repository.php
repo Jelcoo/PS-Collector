@@ -8,7 +8,12 @@ use App\Controllers\ErrorController;
 
 class Repository
 {
-    protected \PDO $pdoConnection;
+    private \PDO $pdoConnection;
+
+    private AssetRepository $assetRepository;
+    private CollectionRepository $collectionRepository;
+    private StampRepository $stampRepository;
+    private UserRepository $userRepository;
 
     protected function getConnection(): \PDO
     {
@@ -16,6 +21,38 @@ class Repository
             $this->connect();
         }
         return $this->pdoConnection;
+    }
+
+    protected function getAssetRepository(): AssetRepository
+    {
+        if (!isset($this->assetRepository)) {
+            $this->assetRepository = new AssetRepository();
+        }
+        return $this->assetRepository;
+    }
+
+    protected function getCollectionRepository(): CollectionRepository
+    {
+        if (!isset($this->collectionRepository)) {
+            $this->collectionRepository = new CollectionRepository();
+        }
+        return $this->collectionRepository;
+    }
+
+    protected function getStampRepository(): StampRepository
+    {
+        if (!isset($this->stampRepository)) {
+            $this->stampRepository = new StampRepository();
+        }
+        return $this->stampRepository;
+    }
+
+    protected function getUserRepository(): UserRepository
+    {
+        if (!isset($this->userRepository)) {
+            $this->userRepository = new UserRepository();
+        }
+        return $this->userRepository;
     }
 
     private function connect(): \PDO

@@ -9,13 +9,6 @@ use App\Models\Stamp;
 
 class AssetRepository extends Repository
 {
-    private CollectionRepository $collectionRepository;
-
-    public function __construct()
-    {
-        $this->collectionRepository = new CollectionRepository();
-    }
-
     public function getAssetById(int $id): ?Asset
     {
         $queryBuilder = new QueryBuilder($this->getConnection());
@@ -37,7 +30,11 @@ class AssetRepository extends Repository
             $queryAssets->where('collection', '=', $collection);
         }
 
-        return $queryAssets->get();
+        $assets = $queryAssets->get();
+
+        return array_map(function ($asset) {
+            return new Asset($asset);
+        }, $assets);
     }
 
     public function assetExists(string $name): bool
