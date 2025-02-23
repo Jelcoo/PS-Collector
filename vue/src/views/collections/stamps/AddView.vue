@@ -13,15 +13,19 @@
             >
                 <form @submit="handleSubmit($event, onSubmit)">
                     <div class="mb-4">
+                        <FormFile name="image" label="Image" type="file" />
+                    </div>
+
+                    <div class="mb-4">
                         <FormInput name="name" label="Name" />
                     </div>
 
                     <div class="mb-4">
-                        <FormInput name="used" label="Used" type="checkbox" />
+                        <FormCheckbox name="used" label="Used" type="checkbox" />
                     </div>
 
                     <div class="mb-4">
-                        <FormInput name="damaged" label="Damaged" type="checkbox" />
+                        <FormCheckbox name="damaged" label="Damaged" type="checkbox" />
                     </div>
 
                     <button
@@ -43,6 +47,8 @@ import * as yup from 'yup';
 import FormInput from '@/components/forms/FormInput.vue';
 import type { Stamp } from '@/stores/types';
 import { useStampStore } from '@/stores/stamp';
+import FormCheckbox from '@/components/forms/FormCheckbox.vue';
+import FormFile from '@/components/forms/FormFile.vue';
 
 const props = defineProps<{
     stamp?: Stamp;
