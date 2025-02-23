@@ -12,6 +12,7 @@ class Stamp extends Model
     public string $created_at;
 
     public ?Collection $collection;
+    public ?string $headerUrl;
 
     public function __construct(array $stamp)
     {

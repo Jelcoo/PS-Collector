@@ -16,6 +16,13 @@ class AssetService
         $this->fileService = new FileService();
     }
 
+    public function resolveAssets(mixed $model, string $collection = null): array
+    {
+        $assets = $this->assetRepository->getAssetsByModel($model, $collection);
+
+        return $assets;
+    }
+
     public function saveBase64Asset(string $asset, string $collection, mixed $model): Asset
     {
         $mimeType = mime_content_type($asset);
@@ -36,6 +43,11 @@ class AssetService
         $asset->model_id = $model->id;
 
         return $this->assetRepository->saveAsset($asset);
+    }
+
+    public function deleteAsset(Asset $asset): void
+    {
+        $this->fileService->deleteFile($this->fileService->getFilePath($asset->filename));
     }
 
     private function generateUuid(): string

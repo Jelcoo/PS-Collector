@@ -13,12 +13,14 @@ use App\Helpers\JwtHelper;
 class CollectionRepository extends Repository
 {
     private UserRepository $userRepository;
+    private StampRepository $stampRepository;
 
     public function __construct()
     {
         parent::__construct();
 
         $this->userRepository = new UserRepository();
+        $this->stampRepository = new StampRepository();
     }
 
     public function getAllForUser(?int $userId, $with = []): array
@@ -214,7 +216,7 @@ WHERE ca.collection_id = :collection_id;");
                     $collection->authorName = $this->getCollectionAuthor($collection->id)->username;
                     break;
                 case 'stamps':
-                    $collection->stamps = $this->getCollectionStamps($collection->id);
+                    $collection->stamps = $this->stampRepository->getStampsByCollection($collection->id, ['header']);
                     break;
                 case 'stampCount':
                     $collection->stampCount = $this->getCollectionStampCount($collection->id);

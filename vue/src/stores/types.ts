@@ -24,6 +24,8 @@ export interface Stamp {
     used: boolean;
     damaged: boolean;
     created_at: string;
+    collection?: Collection;
+    headerUrl?: string;
 }
 
 export interface User {

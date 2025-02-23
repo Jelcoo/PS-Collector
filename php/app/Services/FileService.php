@@ -21,6 +21,12 @@ class FileService
         return false;
     }
 
+    public function deleteFile($filePath) {
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
+    }
+
     public static function getFilePath(string $filename) {
         return Config::getKey('STORAGE_PATH') . '/' . $filename;
     }

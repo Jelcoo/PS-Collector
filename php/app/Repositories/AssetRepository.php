@@ -27,6 +27,21 @@ class AssetRepository extends Repository
         return $queryAsset ? new Asset($queryAsset) : null;
     }
 
+    public function getAssetsByModel(mixed $model, string $collection = null): array
+    {
+        $queryBuilder = new QueryBuilder($this->getConnection());
+
+        $queryAssets = $queryBuilder->table('assets')
+            ->where('model', '=', get_class($model))
+            ->where('model_id', '=', $model->id);
+
+        if ($collection) {
+            $queryAssets->where('collection', '=', $collection);
+        }
+
+        return $queryAssets->get();
+    }
+
     public function assetExists(string $name): bool
     {
         $queryBuilder = new QueryBuilder($this->getConnection());

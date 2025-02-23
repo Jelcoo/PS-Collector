@@ -9,12 +9,14 @@ use App\Models\Stamp;
 class StampRepository extends Repository
 {
     private CollectionRepository $collectionRepository;
+    private AssetRepository $assetRepository;
 
     public function __construct()
     {
         parent::__construct();
 
         $this->collectionRepository = new CollectionRepository();
+        $this->assetRepository = new AssetRepository();
     }
 
     public function getStampById(int $id, array $with = []): ?Stamp
@@ -29,6 +31,20 @@ class StampRepository extends Repository
         }
 
         return $stamp;
+    }
+
+    public function getStampsByCollection(int $collectionId, array $with = []): array
+    {
+        $queryBuilder = new QueryBuilder($this->getConnection());
+
+        $stamps = $queryBuilder->table('stamps')->where('collection_id', '=', $collectionId)->get();
+
+        return array_map(function ($stamp) use ($with) {
+            $stamp = new Stamp($stamp);
+            $stamp = $this->with($stamp, $with);
+
+            return $stamp;
+        }, $stamps);
     }
 
     public function stampExists(int $id): bool
@@ -64,6 +80,9 @@ class StampRepository extends Repository
             switch ($relation) {
                 case 'collection':
                     $stamp->collection = $this->collectionRepository->getCollectionById($stamp->collection_id);
+                    break;
+                case 'header':
+                    $stamp->headerUrl = $this->assetRepository->getAssetsByModel($stamp, 'header')[0];
                     break;
             }
         }
