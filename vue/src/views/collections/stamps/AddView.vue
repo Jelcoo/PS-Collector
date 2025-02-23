@@ -50,6 +50,8 @@ import { useStampStore } from '@/stores/stamp';
 import FormCheckbox from '@/components/forms/FormCheckbox.vue';
 import FormFile from '@/components/forms/FormFile.vue';
 
+const acceptedImageTypes = ['image/jpeg', 'image/png'];
+
 const props = defineProps<{
     stamp?: Stamp;
 }>();
@@ -61,6 +63,15 @@ const initialValues = {
 };
 
 const validationSchema = yup.object({
+    image: yup
+        .mixed()
+        .required('Image is required')
+        .test('file', 'Invalid file type, accepted types: jpeg, png', (value) => {
+            if (!value || !(value instanceof File)) {
+                return false;
+            }
+            return acceptedImageTypes.includes(value.type);
+        }),
     name: yup.string().required('Name is required').max(255, 'Name must be less than 255 characters'),
     used: yup.boolean(),
     damaged: yup.boolean(),

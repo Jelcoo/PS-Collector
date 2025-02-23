@@ -12,7 +12,7 @@
                         @change="
                             (e) => {
                                 handleChange(e);
-                                selectedFile = e.target.files?.[0]?.name || '';
+                                selectedFile = (e.target as HTMLInputElement).files?.[0]?.name || '';
                             }
                         "
                         @blur="handleBlur"
