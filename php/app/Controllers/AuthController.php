@@ -106,7 +106,8 @@ class AuthController extends Controller
             ->setContent(
                 'Account login',
                 'Someone has logged into your account from IP address ' . $ip .'.'
-            );
+            )
+            ->send();
 
         return [
             'token' => $jwtToken,
