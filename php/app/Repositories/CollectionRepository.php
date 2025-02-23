@@ -17,8 +17,6 @@ class CollectionRepository extends Repository
 
     public function __construct()
     {
-        parent::__construct();
-
         $this->userRepository = new UserRepository();
         $this->stampRepository = new StampRepository();
     }

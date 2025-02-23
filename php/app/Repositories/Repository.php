@@ -10,13 +10,11 @@ class Repository
 {
     protected \PDO $pdoConnection;
 
-    public function __construct()
-    {
-        $this->connect();
-    }
-
     protected function getConnection(): \PDO
     {
+        if (!isset($this->pdoConnection)) {
+            $this->connect();
+        }
         return $this->pdoConnection;
     }
 

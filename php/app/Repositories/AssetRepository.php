@@ -13,8 +13,6 @@ class AssetRepository extends Repository
 
     public function __construct()
     {
-        parent::__construct();
-
         $this->collectionRepository = new CollectionRepository();
     }
 

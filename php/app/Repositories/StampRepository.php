@@ -13,8 +13,6 @@ class StampRepository extends Repository
 
     public function __construct()
     {
-        parent::__construct();
-
         $this->collectionRepository = new CollectionRepository();
         $this->assetRepository = new AssetRepository();
     }
