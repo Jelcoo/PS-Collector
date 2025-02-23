@@ -2,10 +2,8 @@
 
 namespace App\Repositories;
 
-use App\Models\User;
-use App\Helpers\QueryBuilder;
 use App\Models\Asset;
-use App\Models\Stamp;
+use App\Helpers\QueryBuilder;
 
 class AssetRepository extends Repository
 {
@@ -18,7 +16,7 @@ class AssetRepository extends Repository
         return $queryAsset ? new Asset($queryAsset) : null;
     }
 
-    public function getAssetsByModel(mixed $model, string $collection = null): array
+    public function getAssetsByModel(mixed $model, ?string $collection = null): array
     {
         $queryBuilder = new QueryBuilder($this->getConnection());
 

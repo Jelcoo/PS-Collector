@@ -3,9 +3,9 @@
 namespace App\Middleware;
 
 use App\Helpers\JwtHelper;
+use App\Repositories\StampRepository;
 use App\Enum\CollectionAccessLevelEnum;
 use App\Repositories\CollectionRepository;
-use App\Repositories\StampRepository;
 
 class EnsureCollectionStampAccess extends Middleware implements MiddlewareInterface
 {

@@ -2,11 +2,10 @@
 
 namespace App\Controllers;
 
-use App\Config\Config;
-use App\Repositories\UserRepository;
 use App\Services\EmailService;
 use App\Validation\UniqueRule;
 use Rakit\Validation\Validator;
+use App\Repositories\UserRepository;
 
 class MeController extends Controller
 {
@@ -47,7 +46,7 @@ class MeController extends Controller
         }
 
         $user = $this->getSession();
-        
+
         $userEmail = $this->userRepository->getUserByUsernameOrEmail($data['email']);
         if ($userEmail && $userEmail->id !== $user->id) {
             return [
@@ -62,7 +61,7 @@ class MeController extends Controller
             $user = $this->userRepository->updateUser($user->id, [
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
-                'email'=> $data['email'],
+                'email' => $data['email'],
             ]);
         } catch (\Exception) {
             return [
@@ -121,7 +120,7 @@ class MeController extends Controller
             ->addRecipient($user->email)
             ->setContent(
                 'Password Reset',
-                'Someone has updated your password from IP address ' . $ip .'.'
+                'Someone has updated your password from IP address ' . $ip . '.'
             );
 
         return [

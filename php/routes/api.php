@@ -1,10 +1,10 @@
 <?php
 
-use App\Middleware\EnsureAuthenticated;
-use App\Middleware\EnsureCollectionAccess;
-use App\Middleware\EnsureCollectionOwner;
-use App\Middleware\EnsureCollectionStampAccess;
 use App\Middleware\VerifyTurnstile;
+use App\Middleware\EnsureAuthenticated;
+use App\Middleware\EnsureCollectionOwner;
+use App\Middleware\EnsureCollectionAccess;
+use App\Middleware\EnsureCollectionStampAccess;
 
 $router = App\Application\Router::getInstance();
 

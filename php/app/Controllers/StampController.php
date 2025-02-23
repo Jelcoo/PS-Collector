@@ -2,11 +2,9 @@
 
 namespace App\Controllers;
 
-use App\Config\Config;
-use App\Repositories\StampRepository;
 use App\Services\AssetService;
-use App\Services\FileService;
 use Rakit\Validation\Validator;
+use App\Repositories\StampRepository;
 
 class StampController extends Controller
 {

@@ -6,7 +6,8 @@ use App\Config\Config;
 
 class FileService
 {
-    public function saveBase64File($base64String, $outputFile) {
+    public function saveBase64File($base64String, $outputFile)
+    {
         $base64String = preg_replace('/^data:(.*?);base64,/', '', $base64String);
 
         $decodedData = base64_decode($base64String);
@@ -21,25 +22,28 @@ class FileService
         return false;
     }
 
-    public function deleteFile($filePath) {
+    public function deleteFile($filePath)
+    {
         if (file_exists($filePath)) {
             unlink($filePath);
         }
     }
 
-    public static function getFilePath(string $filename) {
+    public static function getFilePath(string $filename)
+    {
         return Config::getKey('STORAGE_PATH') . '/' . $filename;
     }
 
-    public static function getExtension(string $mimeType) {
+    public static function getExtension(string $mimeType)
+    {
         $extensions = [
             'image/jpeg' => 'jpg',
             'image/png' => 'png',
             'image/gif' => 'gif',
             'application/pdf' => 'pdf',
-            'text/plain' => 'txt'
+            'text/plain' => 'txt',
         ];
 
-        return isset($extensions[$mimeType]) ? $extensions[$mimeType] : 'bin';
+        return $extensions[$mimeType] ?? 'bin';
     }
 }

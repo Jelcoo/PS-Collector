@@ -118,7 +118,7 @@ class QueryBuilder
         $values = array_values($data);
         $types = [];
         $placeholders = [];
-    
+
         foreach ($values as $value) {
             if (is_null($value)) {
                 $types[] = \PDO::PARAM_NULL;
@@ -146,15 +146,16 @@ class QueryBuilder
                 $placeholders[] = '?';
             }
         }
-    
-        $sql = "INSERT INTO {$this->table} ($columns) VALUES (" . implode(', ', $placeholders) . ")";
+
+        $sql = "INSERT INTO {$this->table} ($columns) VALUES (" . implode(', ', $placeholders) . ')';
         $stmt = $this->pdo->prepare($sql);
-    
+
         foreach ($values as $index => $value) {
             $stmt->bindValue($index + 1, $value, $types[$index]);
         }
-    
+
         $stmt->execute();
+
         return $this->pdo->lastInsertId();
     }
 

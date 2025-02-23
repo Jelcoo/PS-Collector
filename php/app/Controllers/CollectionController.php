@@ -5,9 +5,9 @@ namespace App\Controllers;
 use Rakit\Validation\Validator;
 use App\Helpers\PaginationHelper;
 use App\Enum\CollectionAccessEnum;
+use App\Repositories\UserRepository;
 use App\Enum\CollectionAccessLevelEnum;
 use App\Repositories\CollectionRepository;
-use App\Repositories\UserRepository;
 
 class CollectionController extends Controller
 {
@@ -216,7 +216,7 @@ class CollectionController extends Controller
                     'error' => 'User is the owner of this collection',
                 ];
             }
-            
+
             $this->collectionRepository->removeMemberFromCollection($id, $data['user_id']);
         } catch (\Exception) {
             return [

@@ -2,9 +2,8 @@
 
 namespace App\Repositories;
 
-use App\Models\User;
-use App\Helpers\QueryBuilder;
 use App\Models\Stamp;
+use App\Helpers\QueryBuilder;
 
 class StampRepository extends Repository
 {

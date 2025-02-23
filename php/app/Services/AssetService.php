@@ -16,7 +16,7 @@ class AssetService
         $this->fileService = new FileService();
     }
 
-    public function resolveAssets(mixed $model, string $collection = null): array
+    public function resolveAssets(mixed $model, ?string $collection = null): array
     {
         $assets = $this->assetRepository->getAssetsByModel($model, $collection);
 
@@ -26,7 +26,7 @@ class AssetService
     public function saveBase64Asset(string $asset, string $collection, mixed $model): Asset
     {
         $mimeType = mime_content_type($asset);
-        $fileName = $this->generateUuid().'.'.FileService::getExtension($mimeType);
+        $fileName = $this->generateUuid() . '.' . FileService::getExtension($mimeType);
 
         $savedFile = $this->fileService->saveBase64File($asset, $this->fileService->getFilePath($fileName));
 

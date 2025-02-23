@@ -4,11 +4,11 @@ namespace App\Repositories;
 
 use App\Models\User;
 use App\Models\Stamp;
+use App\Helpers\JwtHelper;
 use App\Models\Collection;
 use App\Helpers\QueryBuilder;
 use App\Models\CollectionAccess;
 use App\Enum\CollectionAccessLevelEnum;
-use App\Helpers\JwtHelper;
 
 class CollectionRepository extends Repository
 {
@@ -185,12 +185,12 @@ WHERE c.id = :collection_id");
 
     public function getCollectionMembers(int $collectionId): array
     {
-        $query = $this->getConnection()->prepare("
+        $query = $this->getConnection()->prepare('
 SELECT ca.user_id, ca.collection_id, u.username, ca.role
 FROM `collection_access` ca
 LEFT JOIN users u
     ON ca.user_id = u.id
-WHERE ca.collection_id = :collection_id;");
+WHERE ca.collection_id = :collection_id;');
         $query->bindValue(':collection_id', $collectionId);
         $query->execute();
 

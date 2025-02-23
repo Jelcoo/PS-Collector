@@ -4,10 +4,10 @@ namespace App\Controllers;
 
 use App\Config\Config;
 use App\Helpers\JwtHelper;
+use App\Services\EmailService;
 use App\Validation\UniqueRule;
 use Rakit\Validation\Validator;
 use App\Repositories\UserRepository;
-use App\Services\EmailService;
 
 class AuthController extends Controller
 {
@@ -105,7 +105,7 @@ class AuthController extends Controller
             ->addRecipient($user->email)
             ->setContent(
                 'Account login',
-                'Someone has logged into your account from IP address ' . $ip .'.'
+                'Someone has logged into your account from IP address ' . $ip . '.'
             )
             ->send();
 

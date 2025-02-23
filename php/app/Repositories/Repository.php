@@ -20,6 +20,7 @@ class Repository
         if (!isset($this->pdoConnection)) {
             $this->connect();
         }
+
         return $this->pdoConnection;
     }
 
@@ -28,6 +29,7 @@ class Repository
         if (!isset($this->assetRepository)) {
             $this->assetRepository = new AssetRepository();
         }
+
         return $this->assetRepository;
     }
 
@@ -36,6 +38,7 @@ class Repository
         if (!isset($this->collectionRepository)) {
             $this->collectionRepository = new CollectionRepository();
         }
+
         return $this->collectionRepository;
     }
 
@@ -44,6 +47,7 @@ class Repository
         if (!isset($this->stampRepository)) {
             $this->stampRepository = new StampRepository();
         }
+
         return $this->stampRepository;
     }
 
@@ -52,6 +56,7 @@ class Repository
         if (!isset($this->userRepository)) {
             $this->userRepository = new UserRepository();
         }
+
         return $this->userRepository;
     }
 

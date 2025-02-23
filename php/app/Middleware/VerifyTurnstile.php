@@ -2,7 +2,6 @@
 
 namespace App\Middleware;
 
-use App\Helpers\JwtHelper;
 use App\Services\TurnstileService;
 
 class VerifyTurnstile extends Middleware implements MiddlewareInterface
