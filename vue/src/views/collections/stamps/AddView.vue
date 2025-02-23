@@ -42,7 +42,7 @@
 
 <script setup lang="ts">
 import { Form as VeeForm, type GenericObject, type SubmissionContext } from 'vee-validate';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import * as yup from 'yup';
 import FormInput from '@/components/forms/FormInput.vue';
 import type { Stamp } from '@/stores/types';
@@ -79,6 +79,7 @@ const validationSchema = yup.object({
 });
 
 const stampStore = useStampStore();
+const router = useRouter();
 const route = useRoute();
 
 const selectedFile = ref<string>('');
@@ -107,8 +108,8 @@ const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
     } else {
         stampStore
             .create(collectionId, values.name, values.used, values.damaged, selectedFile.value)
-            .then((res) => {
-                console.log(res.data);
+            .then(() => {
+                router.push(`/collections/${collectionId}`);
             })
             .catch((error) => {
                 if (error.response.status === 422) {
