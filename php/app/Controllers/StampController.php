@@ -16,6 +16,22 @@ class StampController extends Controller
         $this->stampRepository = new StampRepository();
     }
 
+    public function get(int $id): array
+    {
+        $with = $this->getWithRelations();
+
+        try {
+            $stamp = $this->stampRepository->getStampById($id, $with);
+        } catch (\Exception) {
+            return [
+                'status' => 500,
+                'error' => 'Something went wrong',
+            ];
+        }
+
+        return $stamp->toArray();
+    }
+
     public function create(int $collectionId): array
     {
         $data = json_decode(file_get_contents('php://input'), true) ?? [];

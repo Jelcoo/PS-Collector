@@ -3,6 +3,7 @@
 use App\Middleware\EnsureAuthenticated;
 use App\Middleware\EnsureCollectionAccess;
 use App\Middleware\EnsureCollectionOwner;
+use App\Middleware\EnsureCollectionStampAccess;
 use App\Middleware\VerifyTurnstile;
 
 $router = App\Application\Router::getInstance();
@@ -17,6 +18,10 @@ $router->middleware(VerifyTurnstile::class, function () use ($router) {
 });
 
 $router->get('/api/collections', [App\Controllers\CollectionController::class, 'index']);
+
+$router->middleware(EnsureCollectionStampAccess::class, function () use ($router) {
+    $router->get('/api/stamps/{id}', [App\Controllers\StampController::class, 'get']);
+});
 
 $router->middleware(EnsureCollectionAccess::class, function () use ($router) {
     $router->get('/api/collections/{id}', [App\Controllers\CollectionController::class, 'get']);

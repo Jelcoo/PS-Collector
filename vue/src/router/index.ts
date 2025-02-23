@@ -52,6 +52,17 @@ const router = createRouter({
                                     component: () => import('@/views/collections/stamps/AddView.vue'),
                                     meta: { requiresAuth: true },
                                 },
+                                {
+                                    path: ':stampId(\\d+)',
+                                    children: [
+                                        {
+                                            path: 'edit',
+                                            name: 'collection.stamps.edit',
+                                            component: () => import('@/views/collections/stamps/EditView.vue'),
+                                            meta: { requiresAuth: true },
+                                        },
+                                    ],
+                                },
                             ],
                         },
                     ],

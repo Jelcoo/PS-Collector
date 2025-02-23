@@ -8,13 +8,35 @@ use App\Models\Stamp;
 
 class StampRepository extends Repository
 {
-    public function getStampById(int $id): ?Stamp
+    private CollectionRepository $collectionRepository;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->collectionRepository = new CollectionRepository();
+    }
+
+    public function getStampById(int $id, array $with = []): ?Stamp
     {
         $queryBuilder = new QueryBuilder($this->getConnection());
 
         $queryStamp = $queryBuilder->table('stamps')->where('id', '=', $id)->first();
 
-        return $queryStamp ? new Stamp($queryStamp) : null;
+        $stamp = $queryStamp ? new Stamp($queryStamp) : null;
+        if ($stamp) {
+            $stamp = $this->with($stamp, $with);
+        }
+
+        return $stamp;
+    }
+
+    public function stampExists(int $id): bool
+    {
+        $queryBuilder = new QueryBuilder($this->getConnection());
+        $queryCollection = $queryBuilder->table('stamps')->where('id', '=', $id)->first();
+
+        return $queryCollection ? true : false;
     }
 
     public function createStamp(array $data): Stamp
@@ -34,5 +56,18 @@ class StampRepository extends Repository
         $queryBuilder->table('stamps')->where('id', '=', $stampId)->update($data);
 
         return $this->getStampById($stampId);
+    }
+
+    public function with(Stamp $stamp, array $with): Stamp
+    {
+        foreach ($with as $relation) {
+            switch ($relation) {
+                case 'collection':
+                    $stamp->collection = $this->collectionRepository->getCollectionById($stamp->collection_id);
+                    break;
+            }
+        }
+
+        return $stamp;
     }
 }

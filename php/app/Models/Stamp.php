@@ -11,6 +11,8 @@ class Stamp extends Model
     public bool $damaged;
     public string $created_at;
 
+    public ?Collection $collection;
+
     public function __construct(array $stamp)
     {
         $this->id = $stamp['id'];
