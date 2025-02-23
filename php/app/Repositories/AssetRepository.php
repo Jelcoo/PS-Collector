@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Repositories;
+
+use App\Models\User;
+use App\Helpers\QueryBuilder;
+use App\Models\Asset;
+use App\Models\Stamp;
+
+class AssetRepository extends Repository
+{
+    private CollectionRepository $collectionRepository;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->collectionRepository = new CollectionRepository();
+    }
+
+    public function getAssetById(int $id): ?Asset
+    {
+        $queryBuilder = new QueryBuilder($this->getConnection());
+
+        $queryAsset = $queryBuilder->table('assets')->where('id', '=', $id)->first();
+
+        return $queryAsset ? new Asset($queryAsset) : null;
+    }
+
+    public function assetExists(string $name): bool
+    {
+        $queryBuilder = new QueryBuilder($this->getConnection());
+
+        $queryAsset = $queryBuilder->table('assets')->where('filename', '=', $name)->first();
+
+        return $queryAsset ? true : false;
+    }
+
+    public function saveAsset(Asset $asset): Asset
+    {
+        $queryBuilder = new QueryBuilder($this->getConnection());
+
+        $assetId = $queryBuilder->table('assets')->insert($asset->toArray());
+        $asset = $this->getAssetById((int) $assetId);
+
+        return $asset;
+    }
+}

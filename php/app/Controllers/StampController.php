@@ -4,19 +4,20 @@ namespace App\Controllers;
 
 use App\Config\Config;
 use App\Repositories\StampRepository;
+use App\Services\AssetService;
 use App\Services\FileService;
 use Rakit\Validation\Validator;
 
 class StampController extends Controller
 {
     private StampRepository $stampRepository;
-    private FileService $fileService;
+    private AssetService $assetService;
 
     public function __construct()
     {
         parent::__construct();
         $this->stampRepository = new StampRepository();
-        $this->fileService = new FileService();
+        $this->assetService = new AssetService();
     }
 
     public function get(int $id): array
@@ -62,7 +63,7 @@ class StampController extends Controller
                 'damaged' => $data['damaged'],
             ]);
 
-            $this->fileService->saveBase64($data['image'], '1234', Config::getKey('STORAGE_PATH'));
+            $asset = $this->assetService->saveBase64Asset($data['image'], 'header', $stamp);
         } catch (\Exception) {
             return [
                 'status' => 500,
@@ -72,6 +73,7 @@ class StampController extends Controller
 
         return [
             'stamp' => $stamp->toArray(),
+            'asset' => $asset->toArray(),
         ];
     }
 }

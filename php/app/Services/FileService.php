@@ -2,27 +2,12 @@
 
 namespace App\Services;
 
+use App\Config\Config;
+
 class FileService
 {
-    public function saveBase64($base64String, $filename, $outputDir) {
-        if (preg_match('/^data:(.*?);base64,/', $base64String, $matches)) {
-            $mimeType = $matches[1];
-            $base64String = preg_replace('/^data:(.*?);base64,/', '', $base64String);
-
-            $extensions = [
-                'image/jpeg' => 'jpg',
-                'image/png' => 'png',
-                'image/gif' => 'gif',
-                'application/pdf' => 'pdf',
-                'text/plain' => 'txt'
-            ];
-
-            $extension = isset($extensions[$mimeType]) ? $extensions[$mimeType] : 'bin';
-        } else {
-            $extension = 'bin';
-        }
-
-        $outputFile = rtrim($outputDir, '/') . '/' . $filename . '.' . $extension;
+    public function saveBase64File($base64String, $outputFile) {
+        $base64String = preg_replace('/^data:(.*?);base64,/', '', $base64String);
 
         $decodedData = base64_decode($base64String);
         if ($decodedData === false) {
@@ -34,5 +19,21 @@ class FileService
         }
 
         return false;
+    }
+
+    public static function getFilePath(string $filename) {
+        return Config::getKey('STORAGE_PATH') . '/' . $filename;
+    }
+
+    public static function getExtension(string $mimeType) {
+        $extensions = [
+            'image/jpeg' => 'jpg',
+            'image/png' => 'png',
+            'image/gif' => 'gif',
+            'application/pdf' => 'pdf',
+            'text/plain' => 'txt'
+        ];
+
+        return isset($extensions[$mimeType]) ? $extensions[$mimeType] : 'bin';
     }
 }
