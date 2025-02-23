@@ -20,13 +20,20 @@ export const useStampStore = defineStore('stamp', {
             });
         },
 
-        create(collectionId: number, name: string, used: boolean, damaged: boolean): Promise<AxiosResponse> {
+        create(
+            collectionId: number,
+            name: string,
+            used: boolean,
+            damaged: boolean,
+            image: string,
+        ): Promise<AxiosResponse> {
             return new Promise((resolve, reject) => {
                 axios
                     .post(`/collections/${collectionId}/stamps/create`, {
                         name,
                         used,
                         damaged,
+                        image,
                     })
                     .then((res) => {
                         resolve(res);

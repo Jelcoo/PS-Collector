@@ -14,4 +14,15 @@ else
     cp config.php.example config.php
 fi
 
+if [ -d /app/backend/public/storage ]; then
+    echo "public/storage already exists"
+else
+    echo "Creating public/storage"
+    mkdir -p /app/backend/public/storage
+fi
+
+echo "Setting permissions"
+chmod -R 777 /app/backend/public/storage
+
+echo "Starting php-fpm"
 php-fpm

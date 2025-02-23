@@ -13,6 +13,7 @@
                             (e) => {
                                 handleChange(e);
                                 selectedFile = (e.target as HTMLInputElement).files?.[0]?.name || '';
+                                $emit('change', e);
                             }
                         "
                         @blur="handleBlur"
@@ -42,6 +43,8 @@
 <script setup lang="ts">
 import { Field, ErrorMessage } from 'vee-validate';
 import { ref } from 'vue';
+
+defineEmits(['change']);
 
 defineProps<{
     name: string;

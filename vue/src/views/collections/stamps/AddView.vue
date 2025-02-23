@@ -13,7 +13,7 @@
             >
                 <form @submit="handleSubmit($event, onSubmit)">
                     <div class="mb-4">
-                        <FormFile name="image" label="Image" type="file" />
+                        <FormFile name="image" label="Image" type="file" @change="onFileChange" />
                     </div>
 
                     <div class="mb-4">
@@ -49,6 +49,7 @@ import type { Stamp } from '@/stores/types';
 import { useStampStore } from '@/stores/stamp';
 import FormCheckbox from '@/components/forms/FormCheckbox.vue';
 import FormFile from '@/components/forms/FormFile.vue';
+import { ref } from 'vue';
 
 const acceptedImageTypes = ['image/jpeg', 'image/png'];
 
@@ -80,6 +81,8 @@ const validationSchema = yup.object({
 const stampStore = useStampStore();
 const route = useRoute();
 
+const selectedFile = ref<string>('');
+
 const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
     const collectionId = Number(route.params.id);
 
@@ -103,7 +106,7 @@ const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
         //     });
     } else {
         stampStore
-            .create(collectionId, values.name, values.used, values.damaged)
+            .create(collectionId, values.name, values.used, values.damaged, selectedFile.value)
             .then((res) => {
                 console.log(res.data);
             })
@@ -120,6 +123,19 @@ const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
                     });
                 }
             });
+    }
+};
+
+const onFileChange = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    const files = target.files;
+    if (files && files.length > 0) {
+        const file = files[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+            selectedFile.value = reader.result as string;
+        };
+        reader.readAsDataURL(file);
     }
 };
 </script>

@@ -5,6 +5,8 @@ return $config = [
     'APP_ENV' => 'production',
     'APP_NAME' => 'PS-Collector',
 
+    'STORAGE_PATH' => __DIR__ . '/public/storage/',
+
     'DB_HOST' => 'mysql',
     'DB_PORT' => 3306,
     'DB_USER' => 'developer',
