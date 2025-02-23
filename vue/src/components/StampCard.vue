@@ -4,7 +4,7 @@
         class="bg-neutral-600 shadow-md rounded-lg p-4 w-64 space-y-3 border border-neutral-500 hover:bg-neutral-500"
     >
         <div>
-            <img :src="stamp.headerUrl" class="w-full h-48 object-cover rounded-lg" />
+            <img :src="stamp.headerUrl" class="w-full rounded-lg" />
             <h2 class="text-xl font-bold truncate">{{ stamp.name }}</h2>
             <div>
                 <FontAwesomeIcon
