@@ -31,7 +31,7 @@ class FileService
 
     public static function getFilePath(string $filename)
     {
-        return Config::getKey('STORAGE_PATH') . '/' . $filename;
+        return rtrim(Config::getKey('STORAGE_PATH'), '/') . '/' . $filename;
     }
 
     public static function getExtension(string $mimeType)

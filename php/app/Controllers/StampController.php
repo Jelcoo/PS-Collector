@@ -116,7 +116,7 @@ class StampController extends Controller
 
         return [
             'stamp' => $updatedStamp->toArray(),
-            'asset' => $$asset->toArray(),
+            'asset' => $asset->toArray(),
         ];
     }
 
