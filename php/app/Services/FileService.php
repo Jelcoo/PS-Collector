@@ -11,7 +11,7 @@ class FileService
         $base64String = preg_replace('/^data:(.*?);base64,/', '', $base64String);
 
         $decodedData = base64_decode($base64String);
-        if ($decodedData === false) {
+        if ($decodedData == false) {
             return false;
         }
 
