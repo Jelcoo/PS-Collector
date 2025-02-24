@@ -62,6 +62,13 @@ class StampRepository extends Repository
         return $this->getStampById($stampId);
     }
 
+    public function deleteStamp(int $stampId): void
+    {
+        $queryBuilder = new QueryBuilder($this->getConnection());
+
+        $queryBuilder->table('stamps')->where('id', '=', $stampId)->delete();
+    }
+
     public function with(Stamp $stamp, array $with): Stamp
     {
         foreach ($with as $relation) {

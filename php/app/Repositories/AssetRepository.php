@@ -53,4 +53,11 @@ class AssetRepository extends Repository
 
         return $asset;
     }
+
+    public function deleteAsset(int $assetId): void
+    {
+        $queryBuilder = new QueryBuilder($this->getConnection());
+
+        $queryBuilder->table('assets')->where('id', '=', $assetId)->delete();
+    }
 }

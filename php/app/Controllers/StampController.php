@@ -74,4 +74,27 @@ class StampController extends Controller
             'asset' => $asset->toArray(),
         ];
     }
+
+    public function delete(int $stampId): array
+    {
+        try {
+            $stamp = $this->stampRepository->getStampById($stampId);
+            $assets = $this->assetService->resolveAssets($stamp);
+
+            foreach ($assets as $asset) {
+                $this->assetService->deleteAsset($asset);
+            }
+
+            $this->stampRepository->deleteStamp($stampId);  
+        } catch (\Exception) {
+            return [
+                'status' => 500,
+                'error' => 'Something went wrong',
+            ];
+        }
+
+        return [
+            'message' => 'Collection deleted successfully',
+        ];
+    }
 }

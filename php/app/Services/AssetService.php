@@ -48,6 +48,8 @@ class AssetService
     public function deleteAsset(Asset $asset): void
     {
         $this->fileService->deleteFile($this->fileService->getFilePath($asset->filename));
+
+        $this->assetRepository->deleteAsset($asset->id);
     }
 
     private function generateUuid(): string
