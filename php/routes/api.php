@@ -9,7 +9,6 @@ use App\Middleware\EnsureCollectionStampAccess;
 $router = App\Application\Router::getInstance();
 
 $router->get('/api', [App\Controllers\ApiController::class, 'index']);
-$router->get('/api/app', [App\Controllers\ApiController::class, 'app']);
 
 $router->middleware(VerifyTurnstile::class, function () use ($router) {
     $router->post('/api/auth/register', [App\Controllers\AuthController::class, 'register']);

@@ -14,7 +14,7 @@
                     </div>
 
                     <div class="mb-4">
-                        <VueTurnstile ref="turnstile" :site-key="appStore.turnstileKey" v-model="turnstileRef" />
+                        <VueTurnstile ref="turnstile" :site-key="turnstileToken" v-model="turnstileRef" />
                     </div>
 
                     <button
@@ -48,7 +48,6 @@ import * as yup from 'yup';
 import FormInput from '@/components/forms/FormInput.vue';
 import { ref, useTemplateRef } from 'vue';
 import VueTurnstile from 'vue-turnstile';
-import { useAppStore } from '@/stores/app';
 
 const validationSchema = yup.object({
     email: yup.string().email('Invalid email').required('Email is required'),
@@ -58,7 +57,7 @@ const validationSchema = yup.object({
 const userStore = useUserStore();
 const router = useRouter();
 
-const appStore = useAppStore();
+const turnstileToken = import.meta.env.VITE_TURNSTILE_KEY;
 const turnstileRef = ref('');
 const turnstile = useTemplateRef('turnstile');
 
