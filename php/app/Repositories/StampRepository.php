@@ -67,7 +67,7 @@ class StampRepository extends Repository
         foreach ($with as $relation) {
             switch ($relation) {
                 case 'collection':
-                    $stamp->collection = $this->getCollectionRepository()->getCollectionById($stamp->collection_id);
+                    $stamp->collection = $this->getCollectionRepository()->getCollectionById($stamp->collection_id, ['access']);
                     break;
                 case 'header':
                     $assets = $this->getAssetRepository()->getAssetsByModel($stamp, 'header');

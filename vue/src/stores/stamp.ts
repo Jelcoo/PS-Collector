@@ -41,5 +41,16 @@ export const useStampStore = defineStore('stamp', {
                     .catch((error) => reject(error));
             });
         },
+
+        delete(id: number) {
+            return new Promise((resolve, reject) => {
+                axios
+                    .post(`/stamps/${id}/delete`)
+                    .then((res) => {
+                        resolve(res);
+                    })
+                    .catch((error) => reject(error));
+            });
+        },
     },
 });

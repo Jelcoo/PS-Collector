@@ -56,6 +56,11 @@ const router = createRouter({
                                     path: ':stampId(\\d+)',
                                     children: [
                                         {
+                                            path: '',
+                                            name: 'collection.stamps.show',
+                                            component: () => import('@/views/collections/stamps/StampView.vue'),
+                                        },
+                                        {
                                             path: 'edit',
                                             name: 'collection.stamps.edit',
                                             component: () => import('@/views/collections/stamps/EditView.vue'),
