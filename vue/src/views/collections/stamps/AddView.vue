@@ -72,6 +72,12 @@ const validationSchema = yup.object({
                 return false;
             }
             return acceptedImageTypes.includes(value.type);
+        })
+        .test('size', 'File size is too large', (value) => {
+            if (!value || !(value instanceof File)) {
+                return false;
+            }
+            return value.size <= 1024 * 1024 * 5;
         }),
     name: yup.string().required('Name is required').max(255, 'Name must be less than 255 characters'),
     used: yup.boolean(),
@@ -88,23 +94,23 @@ const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
     const collectionId = Number(route.params.id);
 
     if (props.stamp) {
-        // stampStore
-        //     .update(props.collection.id, values.name)
-        //     .then(() => {
-        //         router.push(`/collections/${props.collection!.id}`);
-        //     })
-        //     .catch((error) => {
-        //         if (error.response.status === 422) {
-        //             actions.setErrors({
-        //                 name: Object.values(error.response.data.errors.name || []),
-        //                 access: Object.values(error.response.data.errors.access || []),
-        //             });
-        //         } else {
-        //             actions.setErrors({
-        //                 access: error.response.data.error,
-        //             });
-        //         }
-        //     });
+        stampStore
+            .update(props.stamp.id, values.name, values.used, values.damaged, selectedFile.value)
+            .then(() => {
+                router.push(`/collections/${props.stamp!.collection_id}/stamps/${props.stamp!.id}`);
+            })
+            .catch((error) => {
+                if (error.response.status === 422) {
+                    actions.setErrors({
+                        name: Object.values(error.response.data.errors.name || []),
+                        access: Object.values(error.response.data.errors.access || []),
+                    });
+                } else {
+                    actions.setErrors({
+                        access: error.response.data.error,
+                    });
+                }
+            });
     } else {
         stampStore
             .create(collectionId, values.name, values.used, values.damaged, selectedFile.value)

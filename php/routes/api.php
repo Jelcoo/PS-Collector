@@ -21,6 +21,7 @@ $router->get('/api/collections', [App\Controllers\CollectionController::class, '
 
 $router->middleware(EnsureCollectionStampAccess::class, function () use ($router) {
     $router->get('/api/stamps/{id}', [App\Controllers\StampController::class, 'get']);
+    $router->post('/api/stamps/{id}/update', [App\Controllers\StampController::class,'update']);
     $router->post('/api/stamps/{id}/delete', [App\Controllers\StampController::class,'delete']);
 });
 

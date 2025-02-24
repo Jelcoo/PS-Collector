@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="flex">
-            <img :src="stamp!.headerUrl" class="w-1/3" />
+            <img v-if="stamp!.headerUrl" :src="stamp!.headerUrl" class="w-1/3" />
             <div class="w-2/3 p-4">
                 <div>
                     <FontAwesomeIcon

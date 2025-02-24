@@ -75,6 +75,51 @@ class StampController extends Controller
         ];
     }
 
+    public function update(int $id): array
+    {
+        $data = json_decode(file_get_contents('php://input'), true) ?? [];
+        
+        $validator = new Validator();
+        $validation = $validator->validate($data, [
+            'name' => 'required|max:255',
+            'used' => 'required|boolean',
+            'damaged' => 'required|boolean',
+            'image' => 'required',
+        ]);
+
+        if ($validation->fails()) {
+            return [
+                'status' => 422,
+                'errors' => $validation->errors()->toArray(),
+            ];
+        }
+
+        try {
+            $updatedStamp = $this->stampRepository->updateStamp($id, [
+                'name' => $data['name'],
+                'used' => $data['used'],
+                'damaged' => $data['damaged'],
+            ]);
+
+            $existingAssets = $this->assetService->resolveAssets($updatedStamp);
+            if (count($existingAssets) > 0) {
+                $this->assetService->deleteAsset($existingAssets[0]);
+            }
+
+            $asset = $this->assetService->saveBase64Asset($data['image'], 'header', $updatedStamp);
+        } catch (\Exception) {
+            return [
+                'status' => 500,
+                'error' => 'Something went wrong',
+            ];
+        }
+
+        return [
+            'stamp' => $updatedStamp->toArray(),
+            'asset' => $$asset->toArray(),
+        ];
+    }
+
     public function delete(int $stampId): array
     {
         try {
