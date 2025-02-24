@@ -8,10 +8,13 @@ use App\Enum\CollectionAccessEnum;
 use App\Repositories\UserRepository;
 use App\Enum\CollectionAccessLevelEnum;
 use App\Repositories\CollectionRepository;
+use App\Repositories\StampRepository;
 
 class CollectionController extends Controller
 {
     private CollectionRepository $collectionRepository;
+    private StampController $stampController;
+    private StampRepository $stampRepository;
     private UserRepository $userRepository;
 
     public function __construct()
@@ -19,6 +22,8 @@ class CollectionController extends Controller
         parent::__construct();
 
         $this->collectionRepository = new CollectionRepository();
+        $this->stampController = new StampController();
+        $this->stampRepository = new StampRepository();
         $this->userRepository = new UserRepository();
     }
 
@@ -129,6 +134,12 @@ class CollectionController extends Controller
     public function delete(int $id): array
     {
         try {
+            $stampsInCollection = $this->stampRepository->getStampsByCollection($id);
+
+            foreach ($stampsInCollection as $stamp) {
+                $this->stampController->delete($stamp->id);
+            }
+
             $this->collectionRepository->deleteCollection($id);
         } catch (\Exception) {
             return [
