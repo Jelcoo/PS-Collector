@@ -1,11 +1,6 @@
 #!/bin/ash
 
-if [ -d /app/frontend/node_modules ]; then
-    echo "node_modules already exists"
-else
-    echo "Installing pnpm dependencies"
-    pnpm install --frozen-lockfile
-fi
+pnpm install --frozen-lockfile
 
 if [ -f /app/frontend/.env ]; then
     echo ".env already exists"
