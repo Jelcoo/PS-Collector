@@ -84,7 +84,7 @@ class QueryBuilder
         $sql = $this->buildSelectQuery();
         $stmt = $this->pdo->prepare($sql);
         foreach ($this->bindings as $key => $value) {
-            $stmt->bindValue($key, $value);
+            $this->bindValueWithType($stmt, $key, $value);
         }
         $stmt->execute();
 
@@ -97,7 +97,7 @@ class QueryBuilder
         $sql = $this->buildSelectQuery();
         $stmt = $this->pdo->prepare($sql);
         foreach ($this->bindings as $key => $value) {
-            $stmt->bindValue($key, $value);
+            $this->bindValueWithType($stmt, $key, $value);
         }
         $stmt->execute();
 
@@ -115,43 +115,21 @@ class QueryBuilder
     public function insert(array $data): string
     {
         $columns = implode(', ', array_keys($data));
-        $values = array_values($data);
-        $types = [];
         $placeholders = [];
-
-        foreach ($values as $value) {
-            if (is_null($value)) {
-                $types[] = \PDO::PARAM_NULL;
-                $placeholders[] = '?';
-            } elseif (is_bool($value)) {
-                $types[] = \PDO::PARAM_BOOL;
-                $placeholders[] = '?';
-            } elseif (is_int($value)) {
-                $types[] = \PDO::PARAM_INT;
-                $placeholders[] = '?';
-            } elseif (is_float($value)) {
-                // PDO doesn't have a specific float type, handled as string
-                $types[] = \PDO::PARAM_STR;
-                $placeholders[] = '?';
-            } elseif ($value instanceof \DateTime) {
-                $types[] = \PDO::PARAM_STR;
-                $values[key($values)] = $value->format('Y-m-d H:i:s');
-                $placeholders[] = '?';
-            } elseif (is_array($value) || is_object($value)) {
-                $types[] = \PDO::PARAM_STR;
-                $values[key($values)] = json_encode($value);
-                $placeholders[] = '?';
-            } else {
-                $types[] = \PDO::PARAM_STR;
-                $placeholders[] = '?';
-            }
+        $values = [];
+        
+        foreach ($data as $column => $value) {
+            $placeholder = ":insert_$column";
+            $placeholders[] = $placeholder;
+            $values[$placeholder] = $value;
         }
-
-        $sql = "INSERT INTO {$this->table} ($columns) VALUES (" . implode(', ', $placeholders) . ')';
+        
+        $placeholderStr = implode(', ', $placeholders);
+        $sql = "INSERT INTO {$this->table} ($columns) VALUES ($placeholderStr)";
         $stmt = $this->pdo->prepare($sql);
 
-        foreach ($values as $index => $value) {
-            $stmt->bindValue($index + 1, $value, $types[$index]);
+        foreach ($values as $placeholder => $value) {
+            $this->bindValueWithType($stmt, $placeholder, $value);
         }
 
         $stmt->execute();
@@ -166,11 +144,11 @@ class QueryBuilder
         $stmt = $this->pdo->prepare($sql);
 
         foreach ($this->updates as $column => $value) {
-            $stmt->bindValue(":update_$column", $value);
+            $this->bindValueWithType($stmt, ":update_$column", $value);
         }
 
         foreach ($this->bindings as $key => $value) {
-            $stmt->bindValue($key, $value);
+            $this->bindValueWithType($stmt, $key, $value);
         }
 
         $stmt->execute();
@@ -224,7 +202,7 @@ class QueryBuilder
         $stmt = $this->pdo->prepare($sql);
 
         foreach ($this->bindings as $key => $value) {
-            $stmt->bindValue($key, $value);
+            $this->bindValueWithType($stmt, $key, $value);
         }
 
         $stmt->execute();
@@ -241,6 +219,19 @@ class QueryBuilder
         }
 
         return $sql;
+    }
+
+    private function bindValueWithType(\PDOStatement $stmt, string $param, $value): void
+    {
+        $type = match (true) {
+            is_bool($value) => \PDO::PARAM_BOOL,
+            is_int($value) => \PDO::PARAM_INT,
+            is_null($value) => \PDO::PARAM_NULL,
+            is_float($value) => \PDO::PARAM_STR, // PDO doesn't have a specific float type
+            default => \PDO::PARAM_STR,
+        };
+        
+        $stmt->bindValue($param, $value, $type);
     }
 
     public function startTransaction(): void
