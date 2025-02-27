@@ -23,7 +23,7 @@
             <input
                 type="text"
                 class="w-full p-3 bg-neutral-800 text-neutral-100 rounded-lg border border-neutral-600"
-                placeholder="Search"
+                placeholder="Search by name"
                 v-model="search"
                 @input="onSearch"
             />
