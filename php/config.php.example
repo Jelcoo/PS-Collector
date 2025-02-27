@@ -26,4 +26,5 @@ return $config = [
 
     'MEILI_URL' => 'http://meilisearch:7700',
     'MEILI_KEY' => 'masterKey123',
+    'MEILI_REINDEX' => false, # Force index meili on every request
 ];

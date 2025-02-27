@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Config\Config;
 use App\Repositories\StampRepository;
 use App\Services\StampIndexerService;
 
@@ -18,7 +19,7 @@ class SearchController
 
     public function search(int $collectionId): array
     {
-        if ($this->stampIndex->indexExists() === false) {
+        if ($this->stampIndex->indexExists() === false || Config::getKey('MEILI_REINDEX') === true) {
             $this->stampIndex->configureIndex();
             $allStamps = $this->stampRepository->getAllStamps(['header']);
             $this->stampIndex->indexStamps($allStamps);
