@@ -29,12 +29,9 @@
                         />
                     </div>
 
-                    <button
-                        type="submit"
-                        class="cursor-pointer w-full p-3 bg-sky-500 hover:bg-sky-600 text-white font-semibold rounded-lg transition"
-                    >
+                    <StyledSubmitButton>
                         {{ props.collection ? 'Update Collection' : 'Create Collection' }}
-                    </button>
+                    </StyledSubmitButton>
                     <StyledButton variant="text" @click="router.back()" class="mt-2 w-full">
                         <FontAwesomeIcon :icon="faArrowLeft" class="mr-2" /> Back
                     </StyledButton>
@@ -55,6 +52,7 @@ import type { Collection } from '@/stores/types';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import StyledButton from '@/components/StyledButton.vue';
+import StyledSubmitButton from '@/components/StyledSubmitButton.vue';
 
 const props = defineProps<{
     collection?: Collection;

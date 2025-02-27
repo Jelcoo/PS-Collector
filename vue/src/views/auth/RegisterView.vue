@@ -29,12 +29,7 @@
                         <VueTurnstile ref="turnstile" :site-key="turnstileToken" v-model="turnstileRef" />
                     </div>
 
-                    <button
-                        type="submit"
-                        class="cursor-pointer w-full p-3 bg-sky-500 hover:bg-sky-600 text-white font-semibold rounded-lg transition"
-                    >
-                        Register
-                    </button>
+                    <StyledSubmitButton>Register</StyledSubmitButton>
                 </form>
             </VeeForm>
 
@@ -53,6 +48,7 @@ import * as yup from 'yup';
 import FormInput from '@/components/forms/FormInput.vue';
 import VueTurnstile from 'vue-turnstile';
 import { ref, useTemplateRef } from 'vue';
+import StyledSubmitButton from '@/components/StyledSubmitButton.vue';
 
 const validationSchema = yup.object({
     username: yup.string().required('Username is required'),

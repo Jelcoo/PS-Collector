@@ -26,13 +26,9 @@
                         <VueTurnstile ref="turnstile" :site-key="turnstileToken" v-model="turnstileRef" />
                     </div>
 
-                    <button
-                        :disabled="resetClicked"
-                        type="submit"
-                        class="cursor-pointer w-full p-3 bg-sky-500 hover:bg-sky-600 text-white font-semibold rounded-lg transition"
-                    >
+                    <StyledSubmitButton :disabled="resetClicked">
                         {{ resetToken ? 'Reset Password' : 'Send Reset Link' }}
-                    </button>
+                    </StyledSubmitButton>
                 </form>
             </VeeForm>
 
@@ -52,6 +48,7 @@ import FormInput from '@/components/forms/FormInput.vue';
 import { ref, useTemplateRef } from 'vue';
 import VueTurnstile from 'vue-turnstile';
 import MessageComponent from '@/components/MessageComponent.vue';
+import StyledSubmitButton from '@/components/StyledSubmitButton.vue';
 
 const userStore = useUserStore();
 const route = useRoute();

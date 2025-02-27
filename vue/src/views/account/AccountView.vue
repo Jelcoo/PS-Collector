@@ -24,12 +24,7 @@
                             <FormInput name="email" label="Email" type="email" />
                         </div>
 
-                        <button
-                            type="submit"
-                            class="cursor-pointer w-full p-3 bg-sky-500 hover:bg-sky-600 text-white font-semibold rounded-lg transition"
-                        >
-                            Update account
-                        </button>
+                        <StyledSubmitButton>Update account</StyledSubmitButton>
                     </form>
                 </VeeForm>
             </div>
@@ -51,12 +46,7 @@
                             <FormInput name="password_confirmation" label="Confirm Password" type="password" />
                         </div>
 
-                        <button
-                            type="submit"
-                            class="cursor-pointer w-full p-3 bg-sky-500 hover:bg-sky-600 text-white font-semibold rounded-lg transition"
-                        >
-                            Update password
-                        </button>
+                        <StyledSubmitButton>Update password</StyledSubmitButton>
                     </form>
                 </VeeForm>
             </div>
@@ -73,6 +63,7 @@ import { onBeforeMount, ref } from 'vue';
 import ContainerComponent from '@/components/ContainerComponent.vue';
 import type { User } from '@/stores/types';
 import MessageComponent from '@/components/MessageComponent.vue';
+import StyledSubmitButton from '@/components/StyledSubmitButton.vue';
 
 const userStore = useUserStore();
 
