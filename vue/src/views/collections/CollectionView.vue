@@ -59,11 +59,11 @@ const collection = ref<Collection>();
 const status = ref(0);
 const search = ref('');
 
-const fetchStamps = () => {
+const onSearch = useDebounceFn(() => {
     collectionStore.search(collection.value!.id, search.value).then((res) => {
         collection.value!.stamps = res.data.results;
     });
-};
+}, 500);
 
 onBeforeMount(() => {
     const collectionId = Number(route.params.id);
@@ -71,17 +71,13 @@ onBeforeMount(() => {
         .getCollection(collectionId, ['author', 'access'])
         .then((res) => {
             collection.value = res.data;
-            fetchStamps();
+            onSearch();
             loading.value = false;
         })
         .catch((error) => {
             status.value = error.status;
         });
 });
-
-const onSearch = useDebounceFn(() => {
-    fetchStamps();
-}, 500);
 
 const deleteCollection = () => {
     collectionStore.delete(collection.value!.id).then(() => {
