@@ -5,6 +5,9 @@
         <div class="flex items-center justify-between mb-4">
             <h1 class="text-3xl font-bold mb-4 truncate">{{ collection!.name }}</h1>
             <div class="flex gap-4" v-if="collection!.userAccess === 'owner'">
+                <StyledButton variant="text" @click="router.back()">
+                    <FontAwesomeIcon :icon="faArrowLeft" class="mr-2" /> Back
+                </StyledButton>
                 <StyledButton
                     v-if="collection!.access === 'shared'"
                     @click="router.push(`/collections/${collection!.id}/members`)"
@@ -45,7 +48,7 @@ import { useRoute, useRouter } from 'vue-router';
 import NotFoundView from '@/views/status/NotFoundView.vue';
 import ForbiddenView from '@/views/status/ForbiddenView.vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { faPencil, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faPencil, faTrash, faUser } from '@fortawesome/free-solid-svg-icons';
 import ContainerComponent from '@/components/ContainerComponent.vue';
 import StyledButton from '@/components/StyledButton.vue';
 import type { Collection } from '@/stores/types';

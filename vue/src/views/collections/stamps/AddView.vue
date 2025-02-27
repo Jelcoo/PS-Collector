@@ -35,6 +35,9 @@
                     >
                         {{ props.stamp ? 'Update Stamp' : 'Create Stamp' }}
                     </button>
+                    <StyledButton variant="text" @click="router.back()" class="mt-2 w-full">
+                        <FontAwesomeIcon :icon="faArrowLeft" class="mr-2" /> Back
+                    </StyledButton>
                 </form>
             </VeeForm>
         </div>
@@ -51,6 +54,9 @@ import { useStampStore } from '@/stores/stamp';
 import FormCheckbox from '@/components/forms/FormCheckbox.vue';
 import FormFile from '@/components/forms/FormFile.vue';
 import { ref } from 'vue';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import StyledButton from '@/components/StyledButton.vue';
 
 const acceptedImageTypes = ['image/jpeg', 'image/png'];
 

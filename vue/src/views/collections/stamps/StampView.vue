@@ -5,6 +5,9 @@
         <div class="flex items-center justify-between mb-4">
             <h1 class="text-3xl font-bold mb-4 truncate">{{ stamp?.name }}</h1>
             <div class="flex gap-4" v-if="stamp!.collection!.userAccess === 'owner'">
+                <StyledButton variant="text" @click="router.back()">
+                    <FontAwesomeIcon :icon="faArrowLeft" class="mr-2" /> Back
+                </StyledButton>
                 <StyledButton @click="router.push(`/collections/${stamp!.collection_id}/stamps/${stamp!.id}/edit`)">
                     <FontAwesomeIcon :icon="faPencil" class="mr-2" /> Edit
                 </StyledButton>
@@ -45,7 +48,15 @@ import ContainerComponent from '@/components/ContainerComponent.vue';
 import ForbiddenView from '@/views/status/ForbiddenView.vue';
 import NotFoundView from '@/views/status/NotFoundView.vue';
 import { useStampStore } from '@/stores/stamp';
-import { faBox, faBoxOpen, faHeart, faHeartBroken, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
+import {
+    faArrowLeft,
+    faBox,
+    faBoxOpen,
+    faHeart,
+    faHeartBroken,
+    faPencil,
+    faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import StyledButton from '@/components/StyledButton.vue';
 

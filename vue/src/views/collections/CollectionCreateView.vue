@@ -35,6 +35,9 @@
                     >
                         {{ props.collection ? 'Update Collection' : 'Create Collection' }}
                     </button>
+                    <StyledButton variant="text" @click="router.back()" class="mt-2 w-full">
+                        <FontAwesomeIcon :icon="faArrowLeft" class="mr-2" /> Back
+                    </StyledButton>
                 </form>
             </VeeForm>
         </div>
@@ -49,6 +52,9 @@ import FormInput from '@/components/forms/FormInput.vue';
 import FormSelect from '@/components/forms/FormSelect.vue';
 import { useCollectionStore } from '@/stores/collection';
 import type { Collection } from '@/stores/types';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import StyledButton from '@/components/StyledButton.vue';
 
 const props = defineProps<{
     collection?: Collection;
