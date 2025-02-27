@@ -48,7 +48,7 @@ class SearchController
             'results' => $searchResults,
             'total' => count($searchResults),
             'query' => $query,
-            'filters' => $filters
+            'filters' => $filters,
         ];
     }
 }

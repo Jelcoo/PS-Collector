@@ -2,15 +2,15 @@
 
 namespace App\Services;
 
-use App\Config\Config;
 use App\Models\Stamp;
+use App\Config\Config;
 use MeiliSearch\Client;
 
 class StampIndexerService
 {
     private Client $client;
     private string $indexName = 'stamps';
-    
+
     public function __construct()
     {
         $this->client = new Client(Config::getKey('MEILI_URL'), Config::getKey('MEILI_KEY'));
@@ -21,18 +21,18 @@ class StampIndexerService
         $index = $this->client->index($this->indexName);
 
         $index->updateSearchableAttributes([
-            'name'
+            'name',
         ]);
 
         $index->updateFilterableAttributes([
             'collection_id',
             'used',
-            'damaged'
+            'damaged',
         ]);
 
         $index->updateSortableAttributes([
             'name',
-            'created_at'
+            'created_at',
         ]);
 
         $this->client->updateIndex($this->indexName, ['primaryKey' => 'id']);
@@ -76,7 +76,7 @@ class StampIndexerService
     {
         $searchParams = [
             'limit' => $limit,
-            'offset' => $offset
+            'offset' => $offset,
         ];
 
         if (!empty($filters)) {
@@ -92,7 +92,7 @@ class StampIndexerService
 
         foreach ($filters as $field => $value) {
             if (is_array($value)) {
-                $filterExpressions[] = "$field IN [" . implode(',', $value) . "]";
+                $filterExpressions[] = "$field IN [" . implode(',', $value) . ']';
             } else {
                 $filterExpressions[] = "$field = $value";
             }

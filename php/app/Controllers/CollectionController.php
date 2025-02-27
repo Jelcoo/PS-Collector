@@ -6,9 +6,9 @@ use Rakit\Validation\Validator;
 use App\Helpers\PaginationHelper;
 use App\Enum\CollectionAccessEnum;
 use App\Repositories\UserRepository;
+use App\Repositories\StampRepository;
 use App\Enum\CollectionAccessLevelEnum;
 use App\Repositories\CollectionRepository;
-use App\Repositories\StampRepository;
 
 class CollectionController extends Controller
 {

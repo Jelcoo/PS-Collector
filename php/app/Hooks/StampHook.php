@@ -3,8 +3,8 @@
 namespace App\Hooks;
 
 use App\Models\Stamp;
-use App\Services\StampIndexerService;
 use App\Repositories\StampRepository;
+use App\Services\StampIndexerService;
 
 class StampHook
 {

@@ -117,13 +117,13 @@ class QueryBuilder
         $columns = implode(', ', array_keys($data));
         $placeholders = [];
         $values = [];
-        
+
         foreach ($data as $column => $value) {
             $placeholder = ":insert_$column";
             $placeholders[] = $placeholder;
             $values[$placeholder] = $value;
         }
-        
+
         $placeholderStr = implode(', ', $placeholders);
         $sql = "INSERT INTO {$this->table} ($columns) VALUES ($placeholderStr)";
         $stmt = $this->pdo->prepare($sql);
@@ -230,7 +230,7 @@ class QueryBuilder
             is_float($value) => \PDO::PARAM_STR, // PDO doesn't have a specific float type
             default => \PDO::PARAM_STR,
         };
-        
+
         $stmt->bindValue($param, $value, $type);
     }
 

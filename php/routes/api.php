@@ -20,8 +20,8 @@ $router->get('/api/collections', [App\Controllers\CollectionController::class, '
 
 $router->middleware(EnsureCollectionStampAccess::class, function () use ($router) {
     $router->get('/api/stamps/{id}', [App\Controllers\StampController::class, 'get']);
-    $router->put('/api/stamps/{id}', [App\Controllers\StampController::class,'update']);
-    $router->delete('/api/stamps/{id}', [App\Controllers\StampController::class,'delete']);
+    $router->put('/api/stamps/{id}', [App\Controllers\StampController::class, 'update']);
+    $router->delete('/api/stamps/{id}', [App\Controllers\StampController::class, 'delete']);
 });
 
 $router->middleware(EnsureCollectionAccess::class, function () use ($router) {

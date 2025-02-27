@@ -84,7 +84,7 @@ class StampController extends Controller
     public function update(int $id): array
     {
         $data = json_decode(file_get_contents('php://input'), true) ?? [];
-        
+
         $validator = new Validator();
         $validation = $validator->validate($data, [
             'name' => 'required|max:255',
@@ -140,7 +140,7 @@ class StampController extends Controller
             }
 
             $this->stampHook->afterDelete($stampId);
-            $this->stampRepository->deleteStamp($stampId);  
+            $this->stampRepository->deleteStamp($stampId);
         } catch (\Exception) {
             return [
                 'status' => 500,
