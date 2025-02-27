@@ -29,7 +29,7 @@ export const useStampStore = defineStore('stamp', {
         ): Promise<AxiosResponse> {
             return new Promise((resolve, reject) => {
                 axios
-                    .post(`/collections/${collectionId}/stamps/create`, {
+                    .post(`/collections/${collectionId}/stamps`, {
                         name,
                         used,
                         damaged,
@@ -45,7 +45,7 @@ export const useStampStore = defineStore('stamp', {
         update(id: number, name: string, used: boolean, damaged: boolean, image: string): Promise<AxiosResponse> {
             return new Promise((resolve, reject) => {
                 axios
-                    .post(`/stamps/${id}/update`, {
+                    .put(`/stamps/${id}`, {
                         name,
                         used,
                         damaged,
@@ -61,7 +61,7 @@ export const useStampStore = defineStore('stamp', {
         delete(id: number) {
             return new Promise((resolve, reject) => {
                 axios
-                    .post(`/stamps/${id}/delete`)
+                    .delete(`/stamps/${id}`)
                     .then((res) => {
                         resolve(res);
                     })

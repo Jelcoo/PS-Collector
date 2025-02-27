@@ -127,7 +127,7 @@ export const useUserStore = defineStore('user', {
         update(first_name: string, last_name: string, email: string): Promise<AxiosResponse<GenericMessageResponse>> {
             return new Promise((resolve, reject) => {
                 axios
-                    .post('/me/update', {
+                    .put('/me', {
                         first_name,
                         last_name,
                         email,
@@ -144,7 +144,7 @@ export const useUserStore = defineStore('user', {
         updatePassword(oldPassword: string, newPassword: string): Promise<AxiosResponse<GenericMessageResponse>> {
             return new Promise((resolve, reject) => {
                 axios
-                    .post('/me/update-password', {
+                    .put('/me/password', {
                         oldPassword,
                         newPassword,
                     })

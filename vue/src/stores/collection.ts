@@ -45,7 +45,7 @@ export const useCollectionStore = defineStore('collection', {
         create(name: string, access: string): Promise<AxiosResponse> {
             return new Promise((resolve, reject) => {
                 axios
-                    .post('/collections/create', {
+                    .post('/collections', {
                         name,
                         access,
                     })
@@ -59,7 +59,7 @@ export const useCollectionStore = defineStore('collection', {
         update(id: number, name: string): Promise<AxiosResponse> {
             return new Promise((resolve, reject) => {
                 axios
-                    .post(`/collections/${id}/update`, {
+                    .put(`/collections/${id}`, {
                         name,
                     })
                     .then((res) => {
@@ -72,7 +72,7 @@ export const useCollectionStore = defineStore('collection', {
         delete(id: number) {
             return new Promise((resolve, reject) => {
                 axios
-                    .post(`/collections/${id}/delete`)
+                    .delete(`/collections/${id}`)
                     .then((res) => {
                         resolve(res);
                     })
@@ -83,7 +83,7 @@ export const useCollectionStore = defineStore('collection', {
         addMember(id: number, username: string) {
             return new Promise((resolve, reject) => {
                 axios
-                    .post(`/collections/${id}/add-member`, {
+                    .post(`/collections/${id}/members`, {
                         username,
                     })
                     .then((res) => {
@@ -96,9 +96,7 @@ export const useCollectionStore = defineStore('collection', {
         removeMember(id: number, userId: number) {
             return new Promise((resolve, reject) => {
                 axios
-                    .post(`/collections/${id}/remove-member`, {
-                        user_id: userId,
-                    })
+                    .delete(`/collections/${id}/members/${userId}`)
                     .then((res) => {
                         resolve(res);
                     })

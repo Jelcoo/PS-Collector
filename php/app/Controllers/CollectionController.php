@@ -202,24 +202,10 @@ class CollectionController extends Controller
         ];
     }
 
-    public function removeMember(int $id): array
+    public function removeMember(int $id, int $userId): array
     {
-        $data = json_decode(file_get_contents('php://input'), true) ?? [];
-
-        $validator = new Validator();
-        $validation = $validator->validate($data, [
-            'user_id' => 'required',
-        ]);
-
-        if ($validation->fails()) {
-            return [
-                'status' => 422,
-                'errors' => $validation->errors()->toArray(),
-            ];
-        }
-
         try {
-            $accessLevel = $this->collectionRepository->getCollectionAccess($id, $data['user_id']);
+            $accessLevel = $this->collectionRepository->getCollectionAccess($id, $userId);
 
             if ($accessLevel === CollectionAccessLevelEnum::OWNER) {
                 return [
@@ -228,7 +214,7 @@ class CollectionController extends Controller
                 ];
             }
 
-            $this->collectionRepository->removeMemberFromCollection($id, $data['user_id']);
+            $this->collectionRepository->removeMemberFromCollection($id, $userId);
         } catch (\Exception) {
             return [
                 'status' => 500,

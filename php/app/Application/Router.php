@@ -39,6 +39,11 @@ class Router
         $this->routes[] = $this->constructRoute($uri, 'POST', $callback);
     }
 
+    public function put(string $uri, array $callback): void
+    {
+        $this->routes[] = $this->constructRoute($uri, 'PUT', $callback);
+    }
+
     public function delete(string $uri, array $callback): void
     {
         $this->routes[] = $this->constructRoute($uri, 'DELETE', $callback);
