@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Hooks\StampHook;
 use App\Services\AssetService;
 use Rakit\Validation\Validator;
 use App\Repositories\StampRepository;
@@ -10,12 +11,14 @@ class StampController extends Controller
 {
     private StampRepository $stampRepository;
     private AssetService $assetService;
+    private StampHook $stampHook;
 
     public function __construct()
     {
         parent::__construct();
         $this->stampRepository = new StampRepository();
         $this->assetService = new AssetService();
+        $this->stampHook = new StampHook();
     }
 
     public function get(int $id): array
@@ -62,6 +65,8 @@ class StampController extends Controller
             ]);
 
             $asset = $this->assetService->saveBase64Asset($data['image'], 'header', $stamp);
+
+            $this->stampHook->afterSave($stamp);
         } catch (\Exception) {
             return [
                 'status' => 500,
@@ -107,6 +112,8 @@ class StampController extends Controller
             }
 
             $asset = $this->assetService->saveBase64Asset($data['image'], 'header', $updatedStamp);
+
+            $this->stampHook->afterSave($updatedStamp);
         } catch (\Exception) {
             return [
                 'status' => 500,
@@ -130,6 +137,7 @@ class StampController extends Controller
                 $this->assetService->deleteAsset($asset);
             }
 
+            $this->stampHook->afterDelete($stampId);
             $this->stampRepository->deleteStamp($stampId);  
         } catch (\Exception) {
             return [

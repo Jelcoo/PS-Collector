@@ -59,9 +59,24 @@ services:
             - PMA_PASSWORD=secret123
         networks:
             - app-network
+
+    meilisearch:
+        image: getmeili/meilisearch:latest
+        ports:
+            - "7700:7700"
+        volumes:
+            - meilisearch_data:/meili_data
+        environment:
+            - MEILI_MASTER_KEY=masterKey123
+            - MEILI_NO_ANALYTICS=true
+            - MEILI_ENV=development
+        networks:
+            - app-network
+
 volumes:
     frontend-pnpm:
     mysqldata:
+    meilisearch_data:
 networks:
     app-network:
         driver: bridge

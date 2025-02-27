@@ -23,4 +23,7 @@ return $config = [
     'MAIL_PASSWORD' => '',
     'MAIL_PORT' => 587,
     'MAIL_DEBUG' => false,
+
+    'MEILI_URL' => 'http://meilisearch:7700',
+    'MEILI_KEY' => 'masterKey123',
 ];
