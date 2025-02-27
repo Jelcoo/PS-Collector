@@ -65,6 +65,7 @@ class StampController extends Controller
             ]);
 
             $asset = $this->assetService->saveBase64Asset($data['image'], 'header', $stamp);
+            $stamp->headerUrl = $asset->getUrl();
 
             $this->stampHook->afterSave($stamp);
         } catch (\Exception) {
@@ -112,6 +113,7 @@ class StampController extends Controller
             }
 
             $asset = $this->assetService->saveBase64Asset($data['image'], 'header', $updatedStamp);
+            $updatedStamp->headerUrl = $asset->getUrl();
 
             $this->stampHook->afterSave($updatedStamp);
         } catch (\Exception) {

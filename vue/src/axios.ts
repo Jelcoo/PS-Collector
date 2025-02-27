@@ -18,4 +18,10 @@ export interface GenericMessageResponse {
     message: string;
 }
 
+export interface MeiliResponse<T> {
+    results: T[];
+    total: number;
+    query: string;
+}
+
 export default instance;

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
-import axios, { type PaginatedResponse } from '@/axios';
-import { type Collection } from './types';
+import axios, { type MeiliResponse, type PaginatedResponse } from '@/axios';
+import { type Collection, type Stamp } from './types';
 import type { AxiosResponse } from 'axios';
 
 export const useCollectionStore = defineStore('collection', {
@@ -33,6 +33,21 @@ export const useCollectionStore = defineStore('collection', {
                     .get(`/collections/${id}`, {
                         params: {
                             with: withFields.join(','),
+                        },
+                    })
+                    .then((res) => {
+                        resolve(res);
+                    })
+                    .catch((error) => reject(error));
+            });
+        },
+
+        search(id: number, query: string): Promise<AxiosResponse<MeiliResponse<Stamp>>> {
+            return new Promise((resolve, reject) => {
+                axios
+                    .get(`/collections/${id}/search`, {
+                        params: {
+                            query,
                         },
                     })
                     .then((res) => {

@@ -20,7 +20,7 @@ class SearchController
     {
         if ($this->stampIndex->indexExists() === false) {
             $this->stampIndex->configureIndex();
-            $allStamps = $this->stampRepository->getAllStamps();
+            $allStamps = $this->stampRepository->getAllStamps(['header']);
             $this->stampIndex->indexStamps($allStamps);
         }
 

@@ -7,14 +7,17 @@ use App\Helpers\QueryBuilder;
 
 class StampRepository extends Repository
 {
-    public function getAllStamps(): array
+    public function getAllStamps(array $with = []): array
     {
         $queryBuilder = new QueryBuilder($this->getConnection());
 
         $stamps = $queryBuilder->table('stamps')->get();
 
-        return array_map(function ($stamp) {
-            return new Stamp($stamp);
+        return array_map(function ($stamp) use ($with) {
+            $stamp = new Stamp($stamp);
+            $stamp = $this->with($stamp, $with);
+
+            return $stamp;
         }, $stamps);
     }
 
