@@ -84,7 +84,7 @@ onBeforeMount(() => {
 
 const deleteCollection = () => {
     collectionStore.delete(collection.value!.id).then(() => {
-        router.push('/collections');
+        router.push('/');
     });
 };
 </script>

@@ -13,11 +13,6 @@ const router = createRouter({
             path: '/collections',
             children: [
                 {
-                    path: '',
-                    name: 'collections',
-                    component: () => import('@/views/collections/CollectionsOverview.vue'),
-                },
-                {
                     path: 'create',
                     name: 'collections.create',
                     component: () => import('@/views/collections/CollectionCreateView.vue'),
