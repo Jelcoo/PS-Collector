@@ -24,10 +24,10 @@ $router->middleware(EnsureCollectionStampAccess::class, function () use ($router
     $router->delete('/api/stamps/{id}', [App\Controllers\StampController::class,'delete']);
 });
 
-$router->get('/api/collections/{id}/search', [App\Controllers\SearchController::class, 'search']);
-
 $router->middleware(EnsureCollectionAccess::class, function () use ($router) {
     $router->get('/api/collections/{id}', [App\Controllers\CollectionController::class, 'get']);
+
+    $router->get('/api/collections/{id}/search', [App\Controllers\SearchController::class, 'search']);
 
     $router->middleware(EnsureCollectionOwner::class, function () use ($router) {
         $router->put('/api/collections/{id}', [App\Controllers\CollectionController::class, 'update']);
