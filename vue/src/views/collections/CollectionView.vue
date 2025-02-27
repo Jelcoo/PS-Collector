@@ -28,9 +28,12 @@
                 @input="onSearch"
             />
         </div>
-        <div class="flex flex-wrap gap-4 justify-center">
+        <div class="flex flex-wrap gap-4 justify-center mb-4">
             <AddStampCard v-if="collection!.userAccess === 'owner'" :collection="collection!" />
             <StampCard v-for="stamp in collection!.stamps" :key="stamp.id" :collection="collection!" :stamp="stamp" />
+        </div>
+        <div class="justify-center" v-if="collection!.stamps!.length === 0">
+            <p class="text-center text-neutral-400">No stamps found</p>
         </div>
     </ContainerComponent>
 </template>

@@ -22,6 +22,9 @@
                     :total-stamps="2"
                 />
             </div>
+            <div class="justify-center" v-if="collectionStore.data.length === 0">
+                <p class="text-center text-neutral-400">No collections found</p>
+            </div>
         </PageIndicator>
     </ContainerComponent>
 </template>
