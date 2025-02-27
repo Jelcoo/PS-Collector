@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\Stamp;
 use App\Config\Config;
-use MeiliSearch\Client;
+use Meilisearch\Client;
 
 class StampIndexerService
 {

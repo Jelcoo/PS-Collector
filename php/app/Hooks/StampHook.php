@@ -3,18 +3,15 @@
 namespace App\Hooks;
 
 use App\Models\Stamp;
-use App\Repositories\StampRepository;
 use App\Services\StampIndexerService;
 
 class StampHook
 {
     private StampIndexerService $indexer;
-    private StampRepository $stampRepository;
 
     public function __construct()
     {
         $this->indexer = new StampIndexerService();
-        $this->stampRepository = new StampRepository();
     }
 
     public function afterSave(Stamp $stamp): void
