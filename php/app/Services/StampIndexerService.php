@@ -21,10 +21,7 @@ class StampIndexerService
         $index = $this->client->index($this->indexName);
 
         $index->updateSearchableAttributes([
-            'name',
-            'used',
-            'damaged',
-            'created_at'
+            'name'
         ]);
 
         $index->updateFilterableAttributes([
