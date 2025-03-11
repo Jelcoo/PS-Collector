@@ -1,0 +1,87 @@
+{
+    "__code__": "fr",
+    "account": {
+        "edit": "Modifier le compte",
+        "language": "Langue",
+        "password": "Mettre à jour le mot de passe",
+        "title": "Compte"
+    },
+    "auth": {
+        "forgot_password": "Mot de passe oublié ?",
+        "login": "Connexion",
+        "logout": "Déconnexion",
+        "register": "S'inscrire",
+        "register_text": "Vous n'avez pas de compte ? Inscrivez-vous",
+        "reset_password": "Réinitialiser le mot de passe",
+        "send_reset_link": "Envoyer le lien de réinitialisation"
+    },
+    "collections": {
+        "by": "Par {user}",
+        "create_collection": "Créer une collection",
+        "edit_collection": "Modifier la collection",
+        "levels": {
+            "private": "Privé",
+            "public": "Public",
+            "shared": "Partagé"
+        },
+        "members": {
+            "add": "Ajouter un membre",
+            "members": "Membres",
+            "modal": {
+                "title": "Ajouter un membre",
+                "username": "Nom d'utilisateur/Email",
+                "username_placeholder": "Entrez leur nom d'utilisateur ou email"
+            },
+            "role": "Rôle"
+        },
+        "no_collections": "Aucune collection trouvée",
+        "stamps": "Timbres : {count}"
+    },
+    "common": {
+        "access": "Accès",
+        "add": "Ajouter",
+        "back": "Retour",
+        "cancel": "Annuler",
+        "choose": "Choisir",
+        "collections": "Collections",
+        "confirm_password": "Confirmer le mot de passe",
+        "create_new": "Créer nouveau",
+        "current_password": "Mot de passe actuel",
+        "damaged": "Endommagé",
+        "delete": "Supprimer",
+        "edit": "Modifier",
+        "email": "Email",
+        "first_name": "Prénom",
+        "home": "Accueil",
+        "image": "Image",
+        "language": "Langue",
+        "last_name": "Nom de famille",
+        "members": "Membres",
+        "name": "Nom",
+        "not_damaged": "Non endommagé",
+        "not_used": "Non utilisé",
+        "password": "Mot de passe",
+        "remove": "Retirer",
+        "used": "Utilisé",
+        "username": "Nom d'utilisateur"
+    },
+    "forms": {
+        "choose_a_file": "Choisir un fichier",
+        "enter_your": "Entrez votre {field}",
+        "select_your": "Sélectionnez votre {field}"
+    },
+    "search": {
+        "placeholder_by_name": "Rechercher par nom"
+    },
+    "stamps": {
+        "add_stamp": "Ajouter un timbre",
+        "create_stamp": "Créer un timbre",
+        "edit_stamp": "Modifier le timbre",
+        "no_stamps": "Aucun timbre trouvé"
+    },
+    "status": {
+        "back_to_home": "Retourner à la page d'accueil",
+        "forbidden": "Oups ! Vous n'avez pas la permission d'accéder à cette page.",
+        "not_found": "Oups ! La page que vous recherchez n'existe pas."
+    }
+}

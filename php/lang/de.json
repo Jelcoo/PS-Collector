@@ -1,0 +1,87 @@
+{
+    "__code__": "de",
+    "account": {
+        "edit": "Konto bearbeiten",
+        "language": "Sprache",
+        "password": "Passwort aktualisieren",
+        "title": "Konto"
+    },
+    "auth": {
+        "forgot_password": "Passwort vergessen?",
+        "login": "Anmelden",
+        "logout": "Abmelden",
+        "register": "Registrieren",
+        "register_text": "Sie haben kein Konto? Registrieren",
+        "reset_password": "Passwort zurücksetzen",
+        "send_reset_link": "Link zum Zurücksetzen senden"
+    },
+    "collections": {
+        "by": "Von {user}",
+        "create_collection": "Sammlung erstellen",
+        "edit_collection": "Sammlung bearbeiten",
+        "levels": {
+            "private": "Privat",
+            "public": "Öffentlich",
+            "shared": "Geteilt"
+        },
+        "members": {
+            "add": "Mitglied hinzufügen",
+            "members": "Mitglieder",
+            "modal": {
+                "title": "Mitglied hinzufügen",
+                "username": "Benutzername/E-Mail",
+                "username_placeholder": "Geben Sie den Benutzernamen oder die E-Mail ein"
+            },
+            "role": "Rolle"
+        },
+        "no_collections": "Keine Sammlungen gefunden",
+        "stamps": "Briefmarken: {count}"
+    },
+    "common": {
+        "access": "Zugriff",
+        "add": "Hinzufügen",
+        "back": "Zurück",
+        "cancel": "Abbrechen",
+        "choose": "Wählen",
+        "collections": "Sammlungen",
+        "confirm_password": "Passwort bestätigen",
+        "create_new": "Neu erstellen",
+        "current_password": "Aktuelles Passwort",
+        "damaged": "Beschädigt",
+        "delete": "Löschen",
+        "edit": "Bearbeiten",
+        "email": "E-Mail",
+        "first_name": "Vorname",
+        "home": "Startseite",
+        "image": "Bild",
+        "language": "Sprache",
+        "last_name": "Nachname",
+        "members": "Mitglieder",
+        "name": "Name",
+        "not_damaged": "Nicht beschädigt",
+        "not_used": "Nicht verwendet",
+        "password": "Passwort",
+        "remove": "Entfernen",
+        "used": "Verwendet",
+        "username": "Benutzername"
+    },
+    "forms": {
+        "choose_a_file": "Datei auswählen",
+        "enter_your": "Geben Sie Ihr {field} ein",
+        "select_your": "Wählen Sie Ihr {field} aus"
+    },
+    "search": {
+        "placeholder_by_name": "Nach Namen suchen"
+    },
+    "stamps": {
+        "add_stamp": "Briefmarke hinzufügen",
+        "create_stamp": "Briefmarke erstellen",
+        "edit_stamp": "Briefmarke bearbeiten",
+        "no_stamps": "Keine Briefmarken gefunden"
+    },
+    "status": {
+        "back_to_home": "Zur Startseite zurückkehren",
+        "forbidden": "Oops! Sie haben keine Berechtigung, diese Seite zu betreten.",
+        "not_found": "Oops! Die gesuchte Seite existiert nicht."
+    }
+}
