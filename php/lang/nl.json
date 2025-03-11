@@ -1,7 +1,86 @@
 {
     "__code__": "nl",
-    "__name__": "Nederlands",
-    "language": "Taal",
-    "english": "Engels",
-    "dutch": "Nederlands"
+    "collections": {
+        "no_collections": "Geen collecties gevonden",
+        "members": {
+            "modal": {
+                "title": "Lid toevoegen",
+                "username": "Gebruikersnaam/Email",
+                "username_placeholder": "Vul hun gebruikersnaam of email in"
+            },
+            "add": "Lid toevoegen",
+            "members": "Leden",
+            "role": "Rol"
+        },
+        "create_collection": "Collectie Aanmaken",
+        "edit_collection": "Collectie Bewerken",
+        "levels": {
+            "public": "Openbaar",
+            "private": "Privé",
+            "shared": "Gedeeld"
+        },
+        "by": "Door {user}",
+        "stamps": "Postzegels: {count}"
+    },
+    "stamps": {
+        "no_stamps": "Geen postzegels gevonden",
+        "create_stamp": "Postzegel Aanmaken",
+        "edit_stamp": "Postzegel Bewerken",
+        "add_stamp": "Postzegel toevoegen"
+    },
+    "common": {
+        "collections": "Collecties",
+        "create_new": "Nieuwe aanmaken",
+        "back": "Terug",
+        "members": "Leden",
+        "edit": "Bewerken",
+        "delete": "Verwijderen",
+        "cancel": "Annuleren",
+        "add": "Toevoegen",
+        "name": "Naam",
+        "access": "Toegang",
+        "image": "Afbeelding",
+        "used": "Gebruikt",
+        "not_used": "Niet gebruikt",
+        "damaged": "Beschadigd",
+        "not_damaged": "Niet beschadigd",
+        "email": "Email",
+        "password": "Wachtwoord",
+        "confirm_password": "Wachtwoord bevestigen",
+        "current_password": "Huidig wachtwoord",
+        "first_name": "Voornaam",
+        "username": "Gebruikersnaam",
+        "last_name": "Achternaam",
+        "language": "Taal",
+        "choose": "Kiezen",
+        "remove": "Verwijderen"
+    },
+    "forms": {
+        "choose_a_file": "Kies een bestand",
+        "enter_your": "Vul jouw {field} in",
+        "select_your": "Selecteer jouw {field} in"
+    },
+    "status": {
+        "forbidden": "Oeps! Jij hebt geen toegang tot deze pagina.",
+        "not_found": "Oeps! Deze pagina bestaat niet.",
+        "back_to_home": "Terug naar de thuispagina"
+    },
+    "search": {
+        "placeholder_by_name": "Zoek bij naam"
+    },
+    "auth": {
+        "login": "Inloggen",
+        "register_text": "Geen account? Registreren",
+        "forgot_password": "Wachtwoord vergeten?",
+        "reset_password": "Wachtwoord herstellen",
+        "send_reset_link": "Stuur herstel link",
+        "register": "Registreren",
+        "logout": "Uitloggen"
+    },
+    "account": {
+        "title": "Profiel",
+        "edit": "Profiel Bewerken",
+        "password": "Wachtwoord Bewerken",
+        "language": "Taal"
+    }
 }
