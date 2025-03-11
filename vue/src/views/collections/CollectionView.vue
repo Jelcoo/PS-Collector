@@ -67,7 +67,7 @@ const search = ref('');
 
 const onSearch = useDebounceFn(() => {
     collectionStore.search(collection.value!.id, search.value).then((res) => {
-        collection.value!.stamps = res.data.results;
+        collection.value!.stamps = res.data.results ?? [];
     });
 }, 500);
 
@@ -77,6 +77,9 @@ onBeforeMount(() => {
         .getCollection(collectionId, ['author', 'access'])
         .then((res) => {
             collection.value = res.data;
+            if (!collection.value.stamps) {
+                collection.value.stamps = [];
+            }
             onSearch();
             loading.value = false;
         })
