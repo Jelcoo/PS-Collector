@@ -53,7 +53,8 @@
         "last_name": "Last name",
         "language": "Language",
         "choose": "Choose",
-        "remove": "Remove"
+        "remove": "Remove",
+        "home": "Home"
     },
     "forms": {
         "choose_a_file": "Choose a file",

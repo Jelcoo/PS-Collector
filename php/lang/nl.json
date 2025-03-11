@@ -53,7 +53,8 @@
         "last_name": "Achternaam",
         "language": "Taal",
         "choose": "Kiezen",
-        "remove": "Verwijderen"
+        "remove": "Verwijderen",
+        "home": "Thuis"
     },
     "forms": {
         "choose_a_file": "Kies een bestand",

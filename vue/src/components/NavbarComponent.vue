@@ -5,7 +5,9 @@
             <span class="text-2xl font-bold">PS Collector</span>
         </RouterLink>
         <div class="flex items-center">
-            <RouterLink to="/" active-class="active" class="hovertransition mr-8 text-xl">Home</RouterLink>
+            <RouterLink to="/" active-class="active" class="hovertransition mr-8 text-xl">{{
+                $t('common.home')
+            }}</RouterLink>
             <div class="flex">
                 <template v-if="userStore.isAuthenticated">
                     <NavbarDropdown />
