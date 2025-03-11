@@ -7,7 +7,7 @@
                 :type="type ?? 'text'"
                 class="w-full p-3 bg-neutral-800 text-neutral-100 rounded-lg border border-neutral-600 focus:ring-2 focus:ring-sky-500 outline-none transition-all duration-200"
                 :class="{ 'cursor-not-allowed': disabled, 'opacity-60': disabled }"
-                :placeholder="placeholder ?? `Enter your ${label.toLowerCase()}`"
+                :placeholder="placeholder ?? $t('forms.enter_your', { field: label.toLowerCase() })"
                 :disabled
             />
         </div>

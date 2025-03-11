@@ -15,7 +15,7 @@ const props = defineProps<{
         <RouterLink
             to="/"
             class="bg-sky-600 mt-4 p-2 inline-block rounded-lg text-white font-semibold hover:bg-sky-500 border-2 border-sky-600"
-            ><FontAwesomeIcon :icon="faHouse" class="mr-2" />Go back to the homepage</RouterLink
+            ><FontAwesomeIcon :icon="faHouse" class="mr-2" />{{ $t('status.back_to_home') }}</RouterLink
         >
     </div>
 </template>

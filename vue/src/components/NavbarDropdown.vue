@@ -16,9 +16,11 @@
             id="dropdownitems"
             class="absolute top-full right-0 bg-neutral-600 p-2 rounded-b-lg w-full flex flex-col divide-y-1 divide-gray-500"
         >
-            <RouterLink to="/account" class="block text-xl text-white no-underline py-1">Account</RouterLink>
+            <RouterLink to="/account" class="block text-xl text-white no-underline py-1">{{
+                $t('account.title')
+            }}</RouterLink>
             <button class="hover:cursor-pointer block text-xl text-white no-underline py-1" @click="logout">
-                Logout
+                {{ $t('auth.logout') }}
             </button>
         </div>
     </button>

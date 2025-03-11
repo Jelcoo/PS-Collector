@@ -7,7 +7,7 @@
             :class="{ 'cursor-not-allowed': disabled }"
             :disabled
         >
-            <option value="" disabled selected>Select your {{ label.toLowerCase() }}</option>
+            <option value="" disabled selected>{{ $t('forms.select_your', { field: label.toLowerCase() }) }}</option>
             <option v-for="option in options" :key="option.value" :value="option.value">
                 {{ option.label }}
             </option>

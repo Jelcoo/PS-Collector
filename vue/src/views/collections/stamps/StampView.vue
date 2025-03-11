@@ -6,13 +6,13 @@
             <h1 class="text-3xl font-bold mb-4 truncate">{{ stamp?.name }}</h1>
             <div class="flex gap-4" v-if="stamp!.collection!.userAccess === 'owner'">
                 <StyledButton variant="text" @click="router.back()">
-                    <FontAwesomeIcon :icon="faArrowLeft" class="mr-2" /> Back
+                    <FontAwesomeIcon :icon="faArrowLeft" class="mr-2" /> {{ $t('common.back') }}
                 </StyledButton>
                 <StyledButton @click="router.push(`/collections/${stamp!.collection_id}/stamps/${stamp!.id}/edit`)">
-                    <FontAwesomeIcon :icon="faPencil" class="mr-2" /> Edit
+                    <FontAwesomeIcon :icon="faPencil" class="mr-2" /> {{ $t('common.edit') }}
                 </StyledButton>
                 <StyledButton variant="danger" @click="deleteStamp">
-                    <FontAwesomeIcon :icon="faTrash" class="mr-2" /> Delete
+                    <FontAwesomeIcon :icon="faTrash" class="mr-2" /> {{ $t('common.delete') }}
                 </StyledButton>
             </div>
         </div>
@@ -25,7 +25,9 @@
                         class="w-6 h-6 mr-2"
                         :class="{ 'text-red-500': stamp!.used, 'text-green-500': !stamp!.used }"
                     />
-                    <span class="font-semibold text-2xl">{{ stamp!.used ? 'Used' : 'Not Used' }}</span>
+                    <span class="font-semibold text-2xl">{{
+                        stamp!.used ? $t('common.used') : $t('common.not_used')
+                    }}</span>
                 </div>
                 <div>
                     <FontAwesomeIcon
@@ -33,7 +35,9 @@
                         class="w-6 h-6 mr-2"
                         :class="{ 'text-red-500': stamp!.damaged, 'text-green-500': !stamp!.damaged }"
                     />
-                    <span class="font-semibold text-2xl">{{ stamp!.damaged ? 'Damaged' : 'Not Damaged' }}</span>
+                    <span class="font-semibold text-2xl">{{
+                        stamp!.damaged ? $t('common.damaged') : $t('common.not_damaged')
+                    }}</span>
                 </div>
             </div>
         </div>

@@ -2,7 +2,7 @@
     <ContainerComponent :loading="loading || !user">
         <div class="flex items-center justify-center gap-4">
             <div class="w-full max-w-md p-8 bg-neutral-700 my-auto rounded-2xl shadow-lg">
-                <h2 class="text-2xl font-semibold text-center text-neutral-100 mb-6">Edit Account</h2>
+                <h2 class="text-2xl font-semibold text-center text-neutral-100 mb-6">{{ $t('account.edit') }}</h2>
 
                 <MessageComponent :message="accountMessage" />
                 <VeeForm
@@ -13,48 +13,52 @@
                 >
                     <form @submit="handleSubmit($event, onSubmitAccount)">
                         <div class="mb-4">
-                            <FormInput name="first_name" label="First name" />
+                            <FormInput name="first_name" :label="$t('common.first_name')" />
                         </div>
 
                         <div class="mb-4">
-                            <FormInput name="last_name" label="Last name" />
+                            <FormInput name="last_name" :label="$t('common.last_name')" />
                         </div>
 
                         <div class="mb-4">
-                            <FormInput name="email" label="Email" type="email" />
+                            <FormInput name="email" :label="$t('common.email')" type="email" />
                         </div>
 
-                        <StyledSubmitButton>Update account</StyledSubmitButton>
+                        <StyledSubmitButton>{{ $t('account.edit') }}</StyledSubmitButton>
                     </form>
                 </VeeForm>
             </div>
             <div class="w-full max-w-md p-8 bg-neutral-700 my-auto rounded-2xl shadow-lg">
-                <h2 class="text-2xl font-semibold text-center text-neutral-100 mb-6">Update Password</h2>
+                <h2 class="text-2xl font-semibold text-center text-neutral-100 mb-6">{{ $t('account.password') }}</h2>
 
                 <MessageComponent :message="passwordMessage" />
                 <VeeForm v-slot="{ handleSubmit }" :validation-schema="passwordValidationSchema" as="div">
                     <form @submit="handleSubmit($event, onSubmitPassword)">
                         <div class="mb-4">
-                            <FormInput name="current_password" label="Current password" type="password" />
+                            <FormInput name="current_password" :label="$t('common.current_password')" type="password" />
                         </div>
 
                         <div class="mb-4">
-                            <FormInput name="password" label="Password" type="password" />
+                            <FormInput name="password" :label="$t('common.password')" type="password" />
                         </div>
 
                         <div class="mb-4">
-                            <FormInput name="password_confirmation" label="Confirm Password" type="password" />
+                            <FormInput
+                                name="password_confirmation"
+                                :label="$t('common.confirm_password')"
+                                type="password"
+                            />
                         </div>
 
-                        <StyledSubmitButton>Update password</StyledSubmitButton>
+                        <StyledSubmitButton>{{ $t('account.password') }}</StyledSubmitButton>
                     </form>
                 </VeeForm>
             </div>
             <div class="w-full max-w-md p-8 bg-neutral-700 my-auto rounded-2xl shadow-lg">
-                <h2 class="text-2xl font-semibold text-center text-neutral-100 mb-6">Language</h2>
+                <h2 class="text-2xl font-semibold text-center text-neutral-100 mb-6">{{ $t('account.language') }}</h2>
 
                 <div class="mb-4">
-                    <label class="block text-neutral-300 mb-2" for="language">{{ $t('language') }}</label>
+                    <label class="block text-neutral-300 mb-2" for="language">{{ $t('common.language') }}</label>
                     <select
                         name="language"
                         id="language"

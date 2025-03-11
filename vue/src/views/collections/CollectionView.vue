@@ -6,19 +6,19 @@
             <h1 class="text-3xl font-bold mb-4 truncate">{{ collection!.name }}</h1>
             <div class="flex gap-4" v-if="collection!.userAccess === 'owner'">
                 <StyledButton variant="text" @click="router.back()">
-                    <FontAwesomeIcon :icon="faArrowLeft" class="mr-2" /> Back
+                    <FontAwesomeIcon :icon="faArrowLeft" class="mr-2" /> {{ $t('common.back') }}
                 </StyledButton>
                 <StyledButton
                     v-if="collection!.access === 'shared'"
                     @click="router.push(`/collections/${collection!.id}/members`)"
                 >
-                    <FontAwesomeIcon :icon="faUser" class="mr-2" /> Members
+                    <FontAwesomeIcon :icon="faUser" class="mr-2" /> {{ $t('common.members') }}
                 </StyledButton>
                 <StyledButton @click="router.push(`/collections/${collection!.id}/edit`)">
-                    <FontAwesomeIcon :icon="faPencil" class="mr-2" /> Edit
+                    <FontAwesomeIcon :icon="faPencil" class="mr-2" /> {{ $t('common.edit') }}
                 </StyledButton>
                 <StyledButton variant="danger" @click="deleteCollection">
-                    <FontAwesomeIcon :icon="faTrash" class="mr-2" /> Delete
+                    <FontAwesomeIcon :icon="faTrash" class="mr-2" /> {{ $t('common.delete') }}
                 </StyledButton>
             </div>
         </div>
@@ -26,7 +26,7 @@
             <input
                 type="text"
                 class="w-full p-3 bg-neutral-800 text-neutral-100 rounded-lg border border-neutral-600"
-                placeholder="Search by name"
+                :placeholder="$t('search.placeholder_by_name')"
                 v-model="search"
                 @input="onSearch"
             />
@@ -36,7 +36,7 @@
             <StampCard v-for="stamp in collection!.stamps" :key="stamp.id" :collection="collection!" :stamp="stamp" />
         </div>
         <div class="justify-center" v-if="collection!.stamps!.length === 0">
-            <p class="text-center text-neutral-400">No stamps found</p>
+            <p class="text-center text-neutral-400">{{ $t('stamps.no_stamps') }}</p>
         </div>
     </ContainerComponent>
 </template>

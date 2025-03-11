@@ -1,7 +1,7 @@
 <template>
     <div class="flex items-center justify-center">
         <div class="w-full max-w-md p-8 bg-neutral-700 my-auto rounded-2xl shadow-lg">
-            <h2 class="text-2xl font-semibold text-center text-neutral-100 mb-6">Reset Password</h2>
+            <h2 class="text-2xl font-semibold text-center text-neutral-100 mb-6">{{ $t('auth.reset_password') }}</h2>
 
             <MessageComponent :message="message" />
             <VeeForm
@@ -11,15 +11,19 @@
             >
                 <form @submit="handleSubmit($event, onSubmit)">
                     <div class="mb-4" v-if="!resetToken">
-                        <FormInput name="email" label="Email" type="email" />
+                        <FormInput name="email" :label="$t('common.email')" type="email" />
                     </div>
 
                     <div class="mb-4" v-if="!!resetToken">
-                        <FormInput name="password" label="Password" type="password" />
+                        <FormInput name="password" :label="$t('common.password')" type="password" />
                     </div>
 
                     <div class="mb-4" v-if="!!resetToken">
-                        <FormInput name="password_confirmation" label="Confirm Password" type="password" />
+                        <FormInput
+                            name="password_confirmation"
+                            :label="$t('common.confirm_password')"
+                            type="password"
+                        />
                     </div>
 
                     <div class="mb-4">
@@ -27,13 +31,15 @@
                     </div>
 
                     <StyledSubmitButton :disabled="resetClicked">
-                        {{ resetToken ? 'Reset Password' : 'Send Reset Link' }}
+                        {{ resetToken ? $t('auth.reset_password') : $t('auth.send_reset_link') }}
                     </StyledSubmitButton>
                 </form>
             </VeeForm>
 
             <div class="text-center mt-4">
-                <RouterLink to="/auth/login" class="text-sky-500 hover:text-sky-600 no-underline"> Login </RouterLink>
+                <RouterLink to="/auth/login" class="text-sky-500 hover:text-sky-600 no-underline">
+                    {{ $t('auth.login') }}
+                </RouterLink>
             </div>
         </div>
     </div>

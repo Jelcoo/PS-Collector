@@ -2,7 +2,7 @@
     <div class="flex items-center justify-center">
         <div class="w-full max-w-md p-8 bg-neutral-700 my-auto rounded-2xl shadow-lg">
             <h2 class="text-2xl font-semibold text-center text-neutral-100 mb-6">
-                {{ props.collection ? 'Update Collection' : 'Create Collection' }}
+                {{ props.collection ? $t('collections.edit_collection') : $t('collections.create_collection') }}
             </h2>
 
             <VeeForm
@@ -13,27 +13,27 @@
             >
                 <form @submit="handleSubmit($event, onSubmit)">
                     <div class="mb-4">
-                        <FormInput name="name" label="Name" />
+                        <FormInput name="name" :label="$t('common.name')" />
                     </div>
 
                     <div class="mb-4">
                         <FormSelect
                             name="access"
-                            label="Access"
+                            :label="$t('common.access')"
                             :options="[
-                                { value: 'public', label: 'Public' },
-                                { value: 'private', label: 'Private' },
-                                { value: 'shared', label: 'Shared' },
+                                { value: 'public', label: $t('collections.levels.public') },
+                                { value: 'private', label: $t('collections.levels.private') },
+                                { value: 'shared', label: $t('collections.levels.shared') },
                             ]"
                             :disabled="!!props.collection"
                         />
                     </div>
 
                     <StyledSubmitButton>
-                        {{ props.collection ? 'Update Collection' : 'Create Collection' }}
+                        {{ props.collection ? $t('collections.edit_collection') : $t('collections.create_collection') }}
                     </StyledSubmitButton>
                     <StyledButton variant="text" @click="router.back()" class="mt-2 w-full">
-                        <FontAwesomeIcon :icon="faArrowLeft" class="mr-2" /> Back
+                        <FontAwesomeIcon :icon="faArrowLeft" class="mr-2" /> {{ $t('common.back') }}
                     </StyledButton>
                 </form>
             </VeeForm>

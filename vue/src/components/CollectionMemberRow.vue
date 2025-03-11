@@ -7,9 +7,9 @@
             {{ member.role }}
         </td>
         <td class="px-6 py-4 whitespace-nowrap">
-            <StyledButton v-if="member.role !== 'owner'" size="small" variant="danger" @click="removeMember"
-                >Remove</StyledButton
-            >
+            <StyledButton v-if="member.role !== 'owner'" size="small" variant="danger" @click="removeMember">{{
+                $t('common.remove')
+            }}</StyledButton>
         </td>
     </tr>
 </template>

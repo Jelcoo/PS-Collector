@@ -12,7 +12,7 @@
                     class="w-6 h-6 mr-2"
                     :class="{ 'text-red-500': stamp.used, 'text-green-500': !stamp.used }"
                 />
-                <span>{{ stamp.used ? 'Used' : 'Not Used' }}</span>
+                <span>{{ stamp.used ? $t('common.used') : $t('common.not_used') }}</span>
             </div>
             <div>
                 <FontAwesomeIcon
@@ -20,7 +20,7 @@
                     class="w-6 h-6 mr-2"
                     :class="{ 'text-red-500': stamp.damaged, 'text-green-500': !stamp.damaged }"
                 />
-                <span>{{ stamp.damaged ? 'Damaged' : 'Not Damaged' }}</span>
+                <span>{{ stamp.damaged ? $t('common.damaged') : $t('common.not_damaged') }}</span>
             </div>
         </div>
     </RouterLink>

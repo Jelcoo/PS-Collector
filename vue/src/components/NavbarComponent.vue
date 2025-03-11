@@ -15,13 +15,13 @@
                         to="/auth/login"
                         active-class="bg-neutral-500"
                         class="px-4 py-2 mr-4 text-xl bg-neutral-600 rounded hover:bg-neutral-500"
-                        >Log in</RouterLink
+                        >{{ $t('auth.login') }}</RouterLink
                     >
                     <RouterLink
                         to="/auth/register"
                         active-class="bg-sky-500"
                         class="px-4 py-2 text-xl bg-sky-600 rounded hover:bg-sky-500"
-                        >Register</RouterLink
+                        >{{ $t('auth.register') }}</RouterLink
                     >
                 </template>
             </div>

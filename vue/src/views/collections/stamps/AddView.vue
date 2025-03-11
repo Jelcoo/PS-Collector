@@ -2,7 +2,7 @@
     <div class="flex items-center justify-center">
         <div class="w-full max-w-md p-8 bg-neutral-700 my-auto rounded-2xl shadow-lg">
             <h2 class="text-2xl font-semibold text-center text-neutral-100 mb-6">
-                {{ props.stamp ? 'Update Stamp' : 'Create Stamp' }}
+                {{ props.stamp ? $t('stamps.edit_stamp') : $t('stamps.create_stamp') }}
             </h2>
 
             <VeeForm
@@ -14,27 +14,27 @@
                 <form @submit="handleSubmit($event, onSubmit)">
                     <div class="mb-4">
                         <img :src="selectedFile" v-if="selectedFile" class="w-32 h-32 object-cover" />
-                        <FormFile name="image" label="Image" type="file" @change="onFileChange" />
+                        <FormFile name="image" :label="$t('common.image')" type="file" @change="onFileChange" />
                     </div>
 
                     <div class="mb-4">
-                        <FormInput name="name" label="Name" />
+                        <FormInput name="name" :label="$t('common.name')" />
                     </div>
 
                     <div class="mb-4">
-                        <FormCheckbox name="used" label="Used" type="checkbox" />
+                        <FormCheckbox name="used" :label="$t('common.used')" type="checkbox" />
                     </div>
 
                     <div class="mb-4">
-                        <FormCheckbox name="damaged" label="Damaged" type="checkbox" />
+                        <FormCheckbox name="damaged" :label="$t('common.damaged')" type="checkbox" />
                     </div>
 
                     <StyledSubmitButton>
-                        {{ props.stamp ? 'Update Stamp' : 'Create Stamp' }}
+                        {{ props.stamp ? $t('stamps.edit_stamp') : $t('stamps.create_stamp') }}
                     </StyledSubmitButton>
 
                     <StyledButton variant="text" @click="router.back()" class="mt-2 w-full">
-                        <FontAwesomeIcon :icon="faArrowLeft" class="mr-2" /> Back
+                        <FontAwesomeIcon :icon="faArrowLeft" class="mr-2" /> {{ $t('common.back') }}
                     </StyledButton>
                 </form>
             </VeeForm>

@@ -1,34 +1,34 @@
 <template>
     <div class="flex items-center justify-center">
         <div class="w-full max-w-md p-8 bg-neutral-700 my-auto rounded-2xl shadow-lg">
-            <h2 class="text-2xl font-semibold text-center text-neutral-100 mb-6">Login</h2>
+            <h2 class="text-2xl font-semibold text-center text-neutral-100 mb-6">{{ $t('auth.login') }}</h2>
 
             <VeeForm v-slot="{ handleSubmit }" :validation-schema="validationSchema" as="div">
                 <form @submit="handleSubmit($event, onSubmit)">
                     <div class="mb-4">
-                        <FormInput name="email" label="Email" type="email" />
+                        <FormInput name="email" :label="$t('common.email')" type="email" />
                     </div>
 
                     <div class="mb-4">
-                        <FormInput name="password" label="Password" type="password" />
+                        <FormInput name="password" :label="$t('common.password')" type="password" />
                     </div>
 
                     <div class="mb-4">
                         <VueTurnstile ref="turnstile" :site-key="turnstileToken" v-model="turnstileRef" />
                     </div>
 
-                    <StyledSubmitButton>Login</StyledSubmitButton>
+                    <StyledSubmitButton>{{ $t('auth.login') }}</StyledSubmitButton>
                 </form>
             </VeeForm>
 
             <div class="text-center mt-4">
                 <RouterLink to="/auth/register" class="text-sky-500 hover:text-sky-600 no-underline">
-                    Don't have an account? Register
+                    {{ $t('auth.register_text') }}
                 </RouterLink>
             </div>
             <div class="text-center mt-4">
                 <RouterLink to="/auth/password" class="text-sky-500 hover:text-sky-600 no-underline">
-                    Forgot password?
+                    {{ $t('auth.forgot_password') }}
                 </RouterLink>
             </div>
         </div>

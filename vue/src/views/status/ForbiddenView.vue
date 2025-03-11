@@ -3,5 +3,5 @@ import StatusPage from '@/components/StatusPage.vue';
 </script>
 
 <template>
-    <StatusPage title="403" message="Oops! You don't have permission to access this page." />
+    <StatusPage title="403" :message="$t('status.forbidden')" />
 </template>

@@ -5,13 +5,13 @@
     >
         <div>
             <h2 class="text-xl font-bold truncate">{{ collection.name }}</h2>
-            <p class="text-sm truncate">By {{ collection.authorName }}</p>
+            <p class="text-sm truncate">{{ $t('collections.by', { user: collection.authorName }) }}</p>
         </div>
         <div class="flex items-center justify-between">
             <span :class="['px-2 py-1 text-xs text-white rounded-full', accessLevelColor]">
-                {{ collection.access }}
+                {{ $t(`collections.levels.${collection.access}`) }}
             </span>
-            <div class="font-medium">Stamps: {{ collection.stampCount }}</div>
+            <div class="font-medium">{{ $t('collections.stamps', { count: collection.stampCount }) }}</div>
         </div>
     </RouterLink>
 </template>

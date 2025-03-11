@@ -2,30 +2,38 @@
     <ForbiddenView v-if="status === 403" />
     <NotFoundView v-else-if="status === 404" />
     <ContainerComponent v-else :loading="loading || !collection">
-        <ModalComponent :visible="addVisible" title="Add member" @close="addVisible = false">
+        <ModalComponent
+            :visible="addVisible"
+            :title="$t('collections.members.modal.title')"
+            @close="addVisible = false"
+        >
             <VeeForm v-slot="{ handleSubmit }" as="div">
                 <form @submit="handleSubmit($event, onSubmit)" ref="formRef">
                     <div class="mb-4">
-                        <FormInput name="username" label="Username/Email" placeholder="Enter their username or email" />
+                        <FormInput
+                            name="username"
+                            :label="$t('collections.members.modal.username')"
+                            :placeholder="$t('collections.members.modal.username_placeholder')"
+                        />
                     </div>
                 </form>
             </VeeForm>
             <template v-slot:footer>
-                <StyledButton variant="text" @click="addVisible = false">Cancel</StyledButton>
-                <StyledButton @click="submitForm">Add</StyledButton>
+                <StyledButton variant="text" @click="addVisible = false">{{ $t('common.cancel') }}</StyledButton>
+                <StyledButton @click="submitForm">{{ $t('common.add') }}</StyledButton>
             </template>
         </ModalComponent>
         <div class="flex items-center justify-between mb-4">
             <h1 class="text-3xl font-bold mb-4 truncate">{{ collection!.name }}</h1>
             <div class="flex gap-4" v-if="collection!.userAccess === 'owner'">
                 <StyledButton @click="addVisible = true">
-                    <FontAwesomeIcon :icon="faUserPlus" class="mr-2" /> Add member
+                    <FontAwesomeIcon :icon="faUserPlus" class="mr-2" /> {{ $t('collections.members.add') }}
                 </StyledButton>
             </div>
         </div>
 
         <div class="flex flex-col gap-4">
-            <h2 class="text-2xl font-bold mb-4">Members</h2>
+            <h2 class="text-2xl font-bold mb-4">{{ $t('collections.members.members') }}</h2>
             <table class="min-w-full divide-y divide-neutral-400">
                 <thead class="bg-neutral-600">
                     <tr>
@@ -33,13 +41,13 @@
                             scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-neutral-50 uppercase tracking-wider"
                         >
-                            Username
+                            {{ $t('common.username') }}
                         </th>
                         <th
                             scope="col"
                             class="px-6 py-3 text-left text-xs font-medium text-neutral-50 uppercase tracking-wider"
                         >
-                            Role
+                            {{ $t('collections.members.role') }}
                         </th>
                         <th scope="col"></th>
                     </tr>

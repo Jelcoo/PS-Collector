@@ -1,40 +1,42 @@
 <template>
     <div class="flex items-center justify-center">
         <div class="w-full max-w-md p-8 bg-neutral-700 my-auto rounded-2xl shadow-lg">
-            <h2 class="text-2xl font-semibold text-center text-neutral-100 mb-6">Register</h2>
+            <h2 class="text-2xl font-semibold text-center text-neutral-100 mb-6">{{ $t('auth.register') }}</h2>
 
             <VeeForm v-slot="{ handleSubmit }" :validation-schema="validationSchema" as="div">
                 <form @submit="handleSubmit($event, onSubmit)">
                     <div class="mb-4">
-                        <FormInput name="username" label="Username" />
+                        <FormInput name="username" :label="$t('common.username')" />
                     </div>
 
                     <div class="mb-4">
-                        <FormInput name="first_name" label="First name" />
+                        <FormInput name="first_name" :label="$t('common.first_name')" />
                     </div>
 
                     <div class="mb-4">
-                        <FormInput name="last_name" label="Last name" />
+                        <FormInput name="last_name" :label="$t('common.last_name')" />
                     </div>
 
                     <div class="mb-4">
-                        <FormInput name="email" label="Email" type="email" />
+                        <FormInput name="email" :label="$t('common.email')" type="email" />
                     </div>
 
                     <div class="mb-4">
-                        <FormInput name="password" label="Password" type="password" />
+                        <FormInput name="password" :label="$t('common.password')" type="password" />
                     </div>
 
                     <div class="mb-4">
                         <VueTurnstile ref="turnstile" :site-key="turnstileToken" v-model="turnstileRef" />
                     </div>
 
-                    <StyledSubmitButton>Register</StyledSubmitButton>
+                    <StyledSubmitButton>{{ $t('auth.register') }}</StyledSubmitButton>
                 </form>
             </VeeForm>
 
             <div class="text-center mt-4">
-                <RouterLink to="/auth/login" class="text-sky-500 hover:text-sky-600 no-underline"> Login </RouterLink>
+                <RouterLink to="/auth/login" class="text-sky-500 hover:text-sky-600 no-underline">
+                    {{ $t('auth.login') }}
+                </RouterLink>
             </div>
         </div>
     </div>

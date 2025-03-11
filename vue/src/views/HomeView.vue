@@ -1,14 +1,14 @@
 <template>
     <ContainerComponent>
         <div class="flex items-center justify-between mb-4">
-            <h1 class="text-3xl font-bold mb-4">Collections</h1>
+            <h1 class="text-3xl font-bold mb-4">{{ $t('common.collections') }}</h1>
             <div class="flex gap-4">
                 <RouterLink
                     v-if="userStore.isAuthenticated"
                     class="px-4 py-2 text-xl bg-emerald-600 rounded hover:bg-emerald-500"
                     to="/collections/create"
                 >
-                    Create new
+                    {{ $t('common.create_new') }}
                 </RouterLink>
             </div>
         </div>
@@ -23,7 +23,7 @@
                 />
             </div>
             <div class="justify-center" v-if="collectionStore.data.length === 0">
-                <p class="text-center text-neutral-400">No collections found</p>
+                <p class="text-center text-neutral-400">{{ $t('collections.no_collections') }}</p>
             </div>
         </PageIndicator>
     </ContainerComponent>

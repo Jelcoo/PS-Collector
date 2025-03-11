@@ -1,7 +1,86 @@
 {
     "__code__": "en",
-    "__name__": "English",
-    "language": "Language",
-    "english": "English",
-    "dutch": "Dutch"
+    "collections": {
+        "no_collections": "No collections found",
+        "members": {
+            "modal": {
+                "title": "Add member",
+                "username": "Username/Email",
+                "username_placeholder": "Enter their username or email"
+            },
+            "add": "Add member",
+            "members": "Members",
+            "role": "Role"
+        },
+        "create_collection": "Create Collection",
+        "edit_collection": "Edit Collection",
+        "levels": {
+            "public": "Public",
+            "private": "Private",
+            "shared": "Shared"
+        },
+        "by": "By {user}",
+        "stamps": "Stamps: {count}"
+    },
+    "stamps": {
+        "no_stamps": "No stamps found",
+        "create_stamp": "Create Stamp",
+        "edit_stamp": "Edit Stamp",
+        "add_stamp": "Add stamp"
+    },
+    "common": {
+        "collections": "Collections",
+        "create_new": "Create new",
+        "back": "Back",
+        "members": "Members",
+        "edit": "Edit",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "add": "Add",
+        "name": "Name",
+        "access": "Access",
+        "image": "Image",
+        "used": "Used",
+        "not_used": "Not used",
+        "damaged": "Damaged",
+        "not_damaged": "Not damaged",
+        "email": "Email",
+        "password": "Password",
+        "confirm_password": "Confirm password",
+        "current_password": "Current password",
+        "first_name": "First name",
+        "username": "Username",
+        "last_name": "Last name",
+        "language": "Language",
+        "choose": "Choose",
+        "remove": "Remove"
+    },
+    "forms": {
+        "choose_a_file": "Choose a file",
+        "enter_your": "Enter your {field}",
+        "select_your": "Select your {field}"
+    },
+    "status": {
+        "forbidden": "Oops! You don't have permission to access this page.",
+        "not_found": "Oops! The page you're looking for doesn't exist.",
+        "back_to_home": "Go back to the homepage"
+    },
+    "search": {
+        "placeholder_by_name": "Search by name"
+    },
+    "auth": {
+        "login": "Login",
+        "register_text": "Don't have an account? Register",
+        "forgot_password": "Forgot password?",
+        "reset_password": "Reset password",
+        "send_reset_link": "Send reset link",
+        "register": "Register",
+        "logout": "Logout"
+    },
+    "account": {
+        "title": "Account",
+        "edit": "Edit Account",
+        "password": "Update Password",
+        "language": "Language"
+    }
 }

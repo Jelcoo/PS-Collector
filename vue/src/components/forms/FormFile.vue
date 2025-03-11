@@ -24,13 +24,13 @@
                         :class="{ 'cursor-not-allowed': disabled }"
                     >
                         <span class="flex-1 truncate">
-                            {{ selectedFile || placeholder || `Choose a file` }}
+                            {{ selectedFile || placeholder || $t('forms.choose_a_file') }}
                         </span>
                         <span
                             class="ml-2 px-3 py-1 bg-neutral-700 rounded-md text-sm text-neutral-300"
                             :class="{ 'cursor-not-allowed': disabled }"
                         >
-                            Browse
+                            {{ $t('common.choose') }}
                         </span>
                     </label>
                 </div>
