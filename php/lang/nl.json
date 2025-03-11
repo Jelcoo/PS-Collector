@@ -1,87 +1,87 @@
 {
     "__code__": "nl",
+    "account": {
+        "edit": "Profiel Bewerken",
+        "language": "Taal",
+        "password": "Wachtwoord Bewerken",
+        "title": "Profiel"
+    },
+    "auth": {
+        "forgot_password": "Wachtwoord vergeten?",
+        "login": "Inloggen",
+        "logout": "Uitloggen",
+        "register": "Registreren",
+        "register_text": "Geen account? Registreren",
+        "reset_password": "Wachtwoord herstellen",
+        "send_reset_link": "Stuur herstel link"
+    },
     "collections": {
-        "no_collections": "Geen collecties gevonden",
+        "by": "Door {user}",
+        "create_collection": "Collectie Aanmaken",
+        "edit_collection": "Collectie Bewerken",
+        "levels": {
+            "private": "Privé",
+            "public": "Openbaar",
+            "shared": "Gedeeld"
+        },
         "members": {
+            "add": "Lid toevoegen",
+            "members": "Leden",
             "modal": {
                 "title": "Lid toevoegen",
                 "username": "Gebruikersnaam/Email",
                 "username_placeholder": "Vul hun gebruikersnaam of email in"
             },
-            "add": "Lid toevoegen",
-            "members": "Leden",
             "role": "Rol"
         },
-        "create_collection": "Collectie Aanmaken",
-        "edit_collection": "Collectie Bewerken",
-        "levels": {
-            "public": "Openbaar",
-            "private": "Privé",
-            "shared": "Gedeeld"
-        },
-        "by": "Door {user}",
+        "no_collections": "Geen collecties gevonden",
         "stamps": "Postzegels: {count}"
     },
-    "stamps": {
-        "no_stamps": "Geen postzegels gevonden",
-        "create_stamp": "Postzegel Aanmaken",
-        "edit_stamp": "Postzegel Bewerken",
-        "add_stamp": "Postzegel toevoegen"
-    },
     "common": {
-        "collections": "Collecties",
-        "create_new": "Nieuwe aanmaken",
-        "back": "Terug",
-        "members": "Leden",
-        "edit": "Bewerken",
-        "delete": "Verwijderen",
-        "cancel": "Annuleren",
-        "add": "Toevoegen",
-        "name": "Naam",
         "access": "Toegang",
-        "image": "Afbeelding",
-        "used": "Gebruikt",
-        "not_used": "Niet gebruikt",
-        "damaged": "Beschadigd",
-        "not_damaged": "Niet beschadigd",
-        "email": "Email",
-        "password": "Wachtwoord",
-        "confirm_password": "Wachtwoord bevestigen",
-        "current_password": "Huidig wachtwoord",
-        "first_name": "Voornaam",
-        "username": "Gebruikersnaam",
-        "last_name": "Achternaam",
-        "language": "Taal",
+        "add": "Toevoegen",
+        "back": "Terug",
+        "cancel": "Annuleren",
         "choose": "Kiezen",
+        "collections": "Collecties",
+        "confirm_password": "Wachtwoord bevestigen",
+        "create_new": "Nieuwe aanmaken",
+        "current_password": "Huidig wachtwoord",
+        "damaged": "Beschadigd",
+        "delete": "Verwijderen",
+        "edit": "Bewerken",
+        "email": "Email",
+        "first_name": "Voornaam",
+        "home": "Thuis",
+        "image": "Afbeelding",
+        "language": "Taal",
+        "last_name": "Achternaam",
+        "members": "Leden",
+        "name": "Naam",
+        "not_damaged": "Niet beschadigd",
+        "not_used": "Niet gebruikt",
+        "password": "Wachtwoord",
         "remove": "Verwijderen",
-        "home": "Thuis"
+        "used": "Gebruikt",
+        "username": "Gebruikersnaam"
     },
     "forms": {
         "choose_a_file": "Kies een bestand",
         "enter_your": "Vul jouw {field} in",
         "select_your": "Selecteer jouw {field} in"
     },
-    "status": {
-        "forbidden": "Oeps! Jij hebt geen toegang tot deze pagina.",
-        "not_found": "Oeps! Deze pagina bestaat niet.",
-        "back_to_home": "Terug naar de thuispagina"
-    },
     "search": {
         "placeholder_by_name": "Zoek bij naam"
     },
-    "auth": {
-        "login": "Inloggen",
-        "register_text": "Geen account? Registreren",
-        "forgot_password": "Wachtwoord vergeten?",
-        "reset_password": "Wachtwoord herstellen",
-        "send_reset_link": "Stuur herstel link",
-        "register": "Registreren",
-        "logout": "Uitloggen"
+    "stamps": {
+        "add_stamp": "Postzegel toevoegen",
+        "create_stamp": "Postzegel Aanmaken",
+        "edit_stamp": "Postzegel Bewerken",
+        "no_stamps": "Geen postzegels gevonden"
     },
-    "account": {
-        "title": "Profiel",
-        "edit": "Profiel Bewerken",
-        "password": "Wachtwoord Bewerken",
-        "language": "Taal"
+    "status": {
+        "back_to_home": "Terug naar de thuispagina",
+        "forbidden": "Oeps! Jij hebt geen toegang tot deze pagina.",
+        "not_found": "Oeps! Deze pagina bestaat niet."
     }
 }

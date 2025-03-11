@@ -1,87 +1,87 @@
 {
     "__code__": "en",
+    "account": {
+        "edit": "Edit Account",
+        "language": "Language",
+        "password": "Update Password",
+        "title": "Account"
+    },
+    "auth": {
+        "forgot_password": "Forgot password?",
+        "login": "Login",
+        "logout": "Logout",
+        "register": "Register",
+        "register_text": "Don't have an account? Register",
+        "reset_password": "Reset password",
+        "send_reset_link": "Send reset link"
+    },
     "collections": {
-        "no_collections": "No collections found",
+        "by": "By {user}",
+        "create_collection": "Create Collection",
+        "edit_collection": "Edit Collection",
+        "levels": {
+            "private": "Private",
+            "public": "Public",
+            "shared": "Shared"
+        },
         "members": {
+            "add": "Add member",
+            "members": "Members",
             "modal": {
                 "title": "Add member",
                 "username": "Username/Email",
                 "username_placeholder": "Enter their username or email"
             },
-            "add": "Add member",
-            "members": "Members",
             "role": "Role"
         },
-        "create_collection": "Create Collection",
-        "edit_collection": "Edit Collection",
-        "levels": {
-            "public": "Public",
-            "private": "Private",
-            "shared": "Shared"
-        },
-        "by": "By {user}",
+        "no_collections": "No collections found",
         "stamps": "Stamps: {count}"
     },
-    "stamps": {
-        "no_stamps": "No stamps found",
-        "create_stamp": "Create Stamp",
-        "edit_stamp": "Edit Stamp",
-        "add_stamp": "Add stamp"
-    },
     "common": {
-        "collections": "Collections",
-        "create_new": "Create new",
-        "back": "Back",
-        "members": "Members",
-        "edit": "Edit",
-        "delete": "Delete",
-        "cancel": "Cancel",
-        "add": "Add",
-        "name": "Name",
         "access": "Access",
-        "image": "Image",
-        "used": "Used",
-        "not_used": "Not used",
-        "damaged": "Damaged",
-        "not_damaged": "Not damaged",
-        "email": "Email",
-        "password": "Password",
-        "confirm_password": "Confirm password",
-        "current_password": "Current password",
-        "first_name": "First name",
-        "username": "Username",
-        "last_name": "Last name",
-        "language": "Language",
+        "add": "Add",
+        "back": "Back",
+        "cancel": "Cancel",
         "choose": "Choose",
+        "collections": "Collections",
+        "confirm_password": "Confirm password",
+        "create_new": "Create new",
+        "current_password": "Current password",
+        "damaged": "Damaged",
+        "delete": "Delete",
+        "edit": "Edit",
+        "email": "Email",
+        "first_name": "First name",
+        "home": "Home",
+        "image": "Image",
+        "language": "Language",
+        "last_name": "Last name",
+        "members": "Members",
+        "name": "Name",
+        "not_damaged": "Not damaged",
+        "not_used": "Not used",
+        "password": "Password",
         "remove": "Remove",
-        "home": "Home"
+        "used": "Used",
+        "username": "Username"
     },
     "forms": {
         "choose_a_file": "Choose a file",
         "enter_your": "Enter your {field}",
         "select_your": "Select your {field}"
     },
-    "status": {
-        "forbidden": "Oops! You don't have permission to access this page.",
-        "not_found": "Oops! The page you're looking for doesn't exist.",
-        "back_to_home": "Go back to the homepage"
-    },
     "search": {
         "placeholder_by_name": "Search by name"
     },
-    "auth": {
-        "login": "Login",
-        "register_text": "Don't have an account? Register",
-        "forgot_password": "Forgot password?",
-        "reset_password": "Reset password",
-        "send_reset_link": "Send reset link",
-        "register": "Register",
-        "logout": "Logout"
+    "stamps": {
+        "add_stamp": "Add stamp",
+        "create_stamp": "Create Stamp",
+        "edit_stamp": "Edit Stamp",
+        "no_stamps": "No stamps found"
     },
-    "account": {
-        "title": "Account",
-        "edit": "Edit Account",
-        "password": "Update Password",
-        "language": "Language"
+    "status": {
+        "back_to_home": "Go back to the homepage",
+        "forbidden": "Oops! You don't have permission to access this page.",
+        "not_found": "Oops! The page you're looking for doesn't exist."
     }
 }
