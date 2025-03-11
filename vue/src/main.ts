@@ -28,7 +28,7 @@ async function loadLocalesFromAPI() {
             i18n.global.setLocaleMessage(locale, data[locale]);
         });
 
-        const userPreferredLocale = localStorage.getItem('userLocale') || navigator.language.split('-')[0];
+        const userPreferredLocale = localStorage.getItem('language') || navigator.language.split('-')[0];
         if (Object.keys(data).includes(userPreferredLocale)) {
             i18n.global.locale = userPreferredLocale;
         }
