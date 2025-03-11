@@ -50,6 +50,24 @@
                     </form>
                 </VeeForm>
             </div>
+            <div class="w-full max-w-md p-8 bg-neutral-700 my-auto rounded-2xl shadow-lg">
+                <h2 class="text-2xl font-semibold text-center text-neutral-100 mb-6">Language</h2>
+
+                <form>
+                    <div class="mb-4">
+                        <label class="block text-neutral-300 mb-2" for="language">{{ $t('language') }}</label>
+                        <select
+                            name="language"
+                            id="language"
+                            v-model="$i18n.locale"
+                            class="w-full p-3 bg-neutral-800 text-neutral-100 rounded-lg border border-neutral-600 focus:ring-2 focus:ring-sky-500 outline-none"
+                        >
+                            <option value="en">{{ $t('english') }}</option>
+                            <option value="nl">{{ $t('dutch') }}</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
         </div>
     </ContainerComponent>
 </template>
