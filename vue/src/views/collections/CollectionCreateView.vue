@@ -76,7 +76,7 @@ const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
         collectionStore
             .update(props.collection.id, values.name)
             .then(() => {
-                router.push(`/collections/${props.collection!.id}`);
+                router.replace(`/collections/${props.collection!.id}`);
             })
             .catch((error) => {
                 if (error.response.status === 422) {
@@ -94,7 +94,7 @@ const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
         collectionStore
             .create(values.name, values.access)
             .then((res) => {
-                router.push(`/collections/${res.data.collection.id}`);
+                router.replace(`/collections/${res.data.collection.id}`);
             })
             .catch((error) => {
                 if (error.response.status === 422) {
