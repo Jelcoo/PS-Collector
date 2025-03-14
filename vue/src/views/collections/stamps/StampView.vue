@@ -3,9 +3,9 @@
     <NotFoundView v-else-if="status === 404" />
     <ContainerComponent v-else :loading="loading || !stamp">
         <ConfirmationModal :visible="deleteVisible" @confirm="deleteStamp" @close="deleteVisible = false" />
-        <div class="flex items-center justify-between mb-4">
-            <h1 class="text-3xl font-bold mb-4 truncate">{{ stamp?.name }}</h1>
-            <div class="flex gap-4" v-if="stamp!.collection!.userAccess === 'owner'">
+        <div class="flex flex-col sm:flex-row items-center justify-between mb-4">
+            <h1 class="text-3xl font-bold truncate">{{ stamp?.name }}</h1>
+            <div class="flex flex-col sm:flex-row gap-4" v-if="stamp!.collection!.userAccess === 'owner'">
                 <StyledButton variant="text" @click="router.back()">
                     <FontAwesomeIcon :icon="faArrowLeft" class="mr-2" /> {{ $t('common.back') }}
                 </StyledButton>
@@ -17,9 +17,9 @@
                 </StyledButton>
             </div>
         </div>
-        <div class="flex">
-            <img v-if="stamp!.headerUrl" :src="stamp!.headerUrl" class="w-1/3" />
-            <div class="w-2/3 p-4">
+        <div class="flex flex-col sm:flex-row">
+            <img v-if="stamp!.headerUrl" :src="stamp!.headerUrl" class="w-full md:w-1/3" />
+            <div class="mt-4 md:mt-0 md:w-2/3 md:p-4">
                 <div>
                     <FontAwesomeIcon
                         :icon="stamp!.used ? faBoxOpen : faBox"

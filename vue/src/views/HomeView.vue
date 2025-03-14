@@ -1,8 +1,8 @@
 <template>
     <ContainerComponent>
-        <div class="flex items-center justify-between mb-4">
-            <h1 class="text-3xl font-bold mb-4">{{ $t('common.collections') }}</h1>
-            <div class="flex gap-4">
+        <div class="flex flex-col sm:flex-row items-center justify-between mb-4">
+            <h1 class="text-3xl font-bold">{{ $t('common.collections') }}</h1>
+            <div class="flex flex-col sm:flex-row gap-4">
                 <RouterLink
                     v-if="userStore.isAuthenticated"
                     class="px-4 py-2 text-xl bg-emerald-600 rounded hover:bg-emerald-500"

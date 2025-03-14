@@ -3,9 +3,9 @@
     <NotFoundView v-else-if="status === 404" />
     <ContainerComponent v-else :loading="loading || !collection">
         <ConfirmationModal :visible="deleteVisible" @confirm="deleteCollection" @close="deleteVisible = false" />
-        <div class="flex items-center justify-between mb-4">
-            <h1 class="text-3xl font-bold mb-4 truncate">{{ collection!.name }}</h1>
-            <div class="flex gap-4" v-if="collection!.userAccess === 'owner'">
+        <div class="flex flex-col sm:flex-row items-center justify-between mb-4">
+            <h1 class="text-3xl font-bold truncate">{{ collection!.name }}</h1>
+            <div class="flex flex-col sm:flex-row gap-4" v-if="collection!.userAccess === 'owner'">
                 <StyledButton variant="text" @click="router.back()">
                     <FontAwesomeIcon :icon="faArrowLeft" class="mr-2" /> {{ $t('common.back') }}
                 </StyledButton>

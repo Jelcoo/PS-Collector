@@ -23,9 +23,9 @@
                 <StyledButton @click="submitForm">{{ $t('common.add') }}</StyledButton>
             </template>
         </ModalComponent>
-        <div class="flex items-center justify-between mb-4">
-            <h1 class="text-3xl font-bold mb-4 truncate">{{ collection!.name }}</h1>
-            <div class="flex gap-4">
+        <div class="flex flex-col sm:flex-row items-center justify-between mb-4">
+            <h1 class="text-3xl font-bold truncate">{{ collection!.name }}</h1>
+            <div class="flex flex-col sm:flex-row gap-4">
                 <StyledButton variant="text" @click="router.back()">
                     <FontAwesomeIcon :icon="faArrowLeft" class="mr-2" /> {{ $t('common.back') }}
                 </StyledButton>

@@ -1,6 +1,6 @@
 <template>
     <ContainerComponent :loading="loading || !user">
-        <div class="flex items-center justify-center gap-4">
+        <div class="flex flex-col md:flex-row items-center justify-center gap-4">
             <div class="w-full max-w-md p-8 bg-neutral-700 my-auto rounded-2xl shadow-lg">
                 <h2 class="text-2xl font-semibold text-center text-neutral-100 mb-6">{{ $t('account.edit') }}</h2>
 

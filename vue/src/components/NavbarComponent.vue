@@ -1,17 +1,17 @@
 <template>
-    <nav class="flex justify-between m-12">
-        <RouterLink to="/" class="mr-12 flex">
+    <nav class="flex flex-col md:flex-row justify-between m-4 md:m-12">
+        <RouterLink to="/" class="mb-4 md:mt-0 mx-auto md:mx-0 md:mr-12 flex">
             <img src="@/assets/logo.svg" alt="Logo" class="w-8 h-8 mr-4" />
             <span class="text-2xl font-bold">PS Collector</span>
         </RouterLink>
-        <div class="flex items-center">
-            <RouterLink to="/" active-class="active" class="hovertransition mr-8 text-xl">{{
+        <div class="flex flex-col gap-x-8 gap-y-4 md:flex-row items-center">
+            <RouterLink to="/" active-class="active" class="hovertransition text-xl">{{
                 $t('common.home')
             }}</RouterLink>
             <select
                 name="language"
                 id="language"
-                class="w-full p-3 mr-8 bg-neutral-800 text-neutral-100 rounded-lg border border-neutral-600 focus:ring-2 focus:ring-sky-500 outline-none"
+                class="w-fit p-3 mx-auto bg-neutral-800 text-neutral-100 rounded-lg border border-neutral-600 focus:ring-2 focus:ring-sky-500 outline-none"
                 @change="onChangeLanguage"
                 v-model="$i18n.locale"
             >
