@@ -71,11 +71,12 @@ export const useCollectionStore = defineStore('collection', {
             });
         },
 
-        update(id: number, name: string): Promise<AxiosResponse> {
+        update(id: number, name: string, access: string): Promise<AxiosResponse> {
             return new Promise((resolve, reject) => {
                 axios
                     .put(`/collections/${id}`, {
                         name,
+                        access,
                     })
                     .then((res) => {
                         resolve(res);

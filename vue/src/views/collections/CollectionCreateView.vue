@@ -25,7 +25,6 @@
                                 { value: 'private', label: $t('collections.levels.private') },
                                 { value: 'shared', label: $t('collections.levels.shared') },
                             ]"
-                            :disabled="!!props.collection"
                         />
                     </div>
 
@@ -74,7 +73,7 @@ const router = useRouter();
 const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
     if (props.collection) {
         collectionStore
-            .update(props.collection.id, values.name)
+            .update(props.collection.id, values.name, values.access)
             .then(() => {
                 router.replace(`/collections/${props.collection!.id}`);
             })

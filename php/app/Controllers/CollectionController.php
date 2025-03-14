@@ -106,6 +106,7 @@ class CollectionController extends Controller
         $validator = new Validator();
         $validation = $validator->validate($data, [
             'name' => 'required|max:255',
+            'access' => 'required|in:' . implode(',', array_column(CollectionAccessEnum::cases(), 'value')),
         ]);
 
         if ($validation->fails()) {
@@ -118,6 +119,7 @@ class CollectionController extends Controller
         try {
             $updatedCollection = $this->collectionRepository->updateCollection($id, [
                 'name' => $data['name'],
+                'access' => $data['access'],
             ]);
         } catch (\Exception) {
             return [
