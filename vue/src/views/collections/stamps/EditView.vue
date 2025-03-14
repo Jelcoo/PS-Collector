@@ -26,7 +26,7 @@ const status = ref(0);
 onBeforeMount(() => {
     const stampId = Number(route.params.stampId);
     stampStore
-        .getStamp(stampId)
+        .getStamp(stampId, ['header'])
         .then((res) => {
             stamp.value = res.data;
             loading.value = false;

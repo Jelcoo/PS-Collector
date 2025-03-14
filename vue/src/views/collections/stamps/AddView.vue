@@ -73,20 +73,32 @@ const initialValues = {
     name: props.stamp?.name ?? '',
     used: props.stamp?.used ?? false,
     damaged: props.stamp?.damaged ?? false,
+    image: props.stamp?.headerUrl?.split('/').pop() ?? '',
 };
 
 const validationSchema = yup.object({
     image: yup
         .mixed()
-        .required('Image is required')
+        .test('required', 'Please select an image', (value) => {
+            if (props.stamp?.headerUrl) {
+                return true;
+            }
+            return !!value;
+        })
         .test('file', 'Invalid file type, accepted types: jpeg, png', (value) => {
             if (!value || !(value instanceof File)) {
+                if (props.stamp?.headerUrl) {
+                    return true;
+                }
                 return false;
             }
             return acceptedImageTypes.includes(value.type);
         })
         .test('size', 'File size is too large', (value) => {
             if (!value || !(value instanceof File)) {
+                if (props.stamp?.headerUrl) {
+                    return true;
+                }
                 return false;
             }
             return value.size <= 1024 * 1024 * 5;
@@ -100,14 +112,20 @@ const stampStore = useStampStore();
 const router = useRouter();
 const route = useRoute();
 
-const selectedFile = ref<string>('');
+const selectedFile = ref<string>(props.stamp?.headerUrl ?? '');
 
 const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
     const collectionId = Number(route.params.id);
 
     if (props.stamp) {
         stampStore
-            .update(props.stamp.id, values.name, values.used, values.damaged, selectedFile.value)
+            .update(
+                props.stamp.id,
+                values.name,
+                values.used,
+                values.damaged,
+                selectedFile.value === props.stamp.headerUrl ? null : selectedFile.value,
+            )
             .then(() => {
                 router.replace(`/collections/${props.stamp!.collection_id}/stamps/${props.stamp!.id}`);
             })

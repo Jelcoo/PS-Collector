@@ -42,7 +42,13 @@ export const useStampStore = defineStore('stamp', {
             });
         },
 
-        update(id: number, name: string, used: boolean, damaged: boolean, image: string): Promise<AxiosResponse> {
+        update(
+            id: number,
+            name: string,
+            used: boolean,
+            damaged: boolean,
+            image: string | null,
+        ): Promise<AxiosResponse> {
             return new Promise((resolve, reject) => {
                 axios
                     .put(`/stamps/${id}`, {

@@ -90,7 +90,7 @@ class StampController extends Controller
             'name' => 'required|max:255',
             'used' => 'required|boolean',
             'damaged' => 'required|boolean',
-            'image' => 'required',
+            'image' => 'required|nullable',
         ]);
 
         if ($validation->fails()) {
@@ -107,13 +107,15 @@ class StampController extends Controller
                 'damaged' => $data['damaged'],
             ]);
 
-            $existingAssets = $this->assetService->resolveAssets($updatedStamp);
-            if (count($existingAssets) > 0) {
-                $this->assetService->deleteAsset($existingAssets[0]);
-            }
+            if (!is_null($data['image'])) {
+                $existingAssets = $this->assetService->resolveAssets($updatedStamp);
+                if (count($existingAssets) > 0) {
+                    $this->assetService->deleteAsset($existingAssets[0]);
+                }
 
-            $asset = $this->assetService->saveBase64Asset($data['image'], 'header', $updatedStamp);
-            $updatedStamp->headerUrl = $asset->getUrl();
+                $asset = $this->assetService->saveBase64Asset($data['image'], 'header', $updatedStamp);
+                $updatedStamp->headerUrl = $asset->getUrl();
+            }
 
             $this->stampHook->afterSave($updatedStamp);
         } catch (\Exception) {
