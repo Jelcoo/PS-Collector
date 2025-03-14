@@ -15,7 +15,7 @@ class JwtHelper
             'aud' => Config::getKey('APP_URL'),
             'iat' => time(),
             'nbf' => time(),
-            'exp' => time() + 3600, // Token expires in 1 hour
+            'exp' => time() + (3600 * 24), // Token expires in 24 hours
             'data' => [
                 'id' => $user->id,
                 'username' => $user->username,
