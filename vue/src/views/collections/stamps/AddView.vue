@@ -109,7 +109,7 @@ const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
         stampStore
             .update(props.stamp.id, values.name, values.used, values.damaged, selectedFile.value)
             .then(() => {
-                router.push(`/collections/${props.stamp!.collection_id}/stamps/${props.stamp!.id}`);
+                router.replace(`/collections/${props.stamp!.collection_id}/stamps/${props.stamp!.id}`);
             })
             .catch((error) => {
                 if (error.response.status === 422) {
@@ -126,8 +126,8 @@ const onSubmit = (values: GenericObject, actions: SubmissionContext) => {
     } else {
         stampStore
             .create(collectionId, values.name, values.used, values.damaged, selectedFile.value)
-            .then(() => {
-                router.push(`/collections/${collectionId}`);
+            .then((res) => {
+                router.replace(`/collections/${collectionId}/stamps/${res.data.stamp.id}`);
             })
             .catch((error) => {
                 if (error.response.status === 422) {
