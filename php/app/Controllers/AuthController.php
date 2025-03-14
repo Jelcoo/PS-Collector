@@ -50,6 +50,14 @@ class AuthController extends Controller
                 'email' => $data['email'],
                 'password' => password_hash($data['password'], PASSWORD_DEFAULT),
             ]);
+
+            $this->emailService
+                ->addRecipient($createdUser->email)
+                ->setContent(
+                    'Account created',
+                    'Hello ' . $createdUser->first_name . ',<br />Your account has been created.<br />You can now log in.'
+                )
+                ->send();
         } catch (\Exception) {
             return [
                 'status' => 500,
@@ -99,15 +107,6 @@ class AuthController extends Controller
         }
 
         $jwtToken = JwtHelper::generateToken($user);
-
-        $ip = $_SERVER['REMOTE_ADDR'];
-        $this->emailService
-            ->addRecipient($user->email)
-            ->setContent(
-                'Account login',
-                'Someone has logged into your account from IP address ' . $ip . '.'
-            )
-            ->send();
 
         return [
             'token' => $jwtToken,

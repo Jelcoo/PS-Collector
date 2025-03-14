@@ -115,12 +115,11 @@ class MeController extends Controller
             ];
         }
 
-        $ip = $_SERVER['REMOTE_ADDR'];
         $this->emailService
             ->addRecipient($user->email)
             ->setContent(
                 'Password Reset',
-                'Someone has updated your password from IP address ' . $ip . '.'
+                'Someone has reset your password. If you did not request this, please contact support.'
             );
 
         return [
