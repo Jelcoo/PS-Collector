@@ -2,6 +2,7 @@
     <ForbiddenView v-if="status === 403" />
     <NotFoundView v-else-if="status === 404" />
     <ContainerComponent v-else :loading="loading || !stamp">
+        <ConfirmationModal :visible="deleteVisible" @confirm="deleteStamp" @close="deleteVisible = false" />
         <div class="flex items-center justify-between mb-4">
             <h1 class="text-3xl font-bold mb-4 truncate">{{ stamp?.name }}</h1>
             <div class="flex gap-4" v-if="stamp!.collection!.userAccess === 'owner'">
@@ -11,7 +12,7 @@
                 <StyledButton @click="router.push(`/collections/${stamp!.collection_id}/stamps/${stamp!.id}/edit`)">
                     <FontAwesomeIcon :icon="faPencil" class="mr-2" /> {{ $t('common.edit') }}
                 </StyledButton>
-                <StyledButton variant="danger" @click="deleteStamp">
+                <StyledButton variant="danger" @click="clickDelete">
                     <FontAwesomeIcon :icon="faTrash" class="mr-2" /> {{ $t('common.delete') }}
                 </StyledButton>
             </div>
@@ -63,6 +64,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import StyledButton from '@/components/StyledButton.vue';
+import ConfirmationModal from '@/components/ConfirmationModal.vue';
 
 const stampStore = useStampStore();
 const route = useRoute();
@@ -71,6 +73,7 @@ const router = useRouter();
 const loading = ref(true);
 const stamp = ref<Stamp>();
 const status = ref(0);
+const deleteVisible = ref(false);
 
 onBeforeMount(() => {
     const stampId = Number(route.params.stampId);
@@ -85,6 +88,9 @@ onBeforeMount(() => {
         });
 });
 
+const clickDelete = () => {
+    deleteVisible.value = true;
+};
 const deleteStamp = () => {
     stampStore.delete(stamp.value!.id).then(() => {
         router.push(`/collections/${stamp.value!.collection_id}`);

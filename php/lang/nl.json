@@ -43,6 +43,7 @@
         "cancel": "Annuleren",
         "choose": "Kiezen",
         "collections": "Collecties",
+        "confirm": "Bevestigen",
         "confirm_password": "Wachtwoord bevestigen",
         "create_new": "Nieuwe aanmaken",
         "current_password": "Huidig wachtwoord",
@@ -61,7 +62,8 @@
         "password": "Wachtwoord",
         "remove": "Verwijderen",
         "used": "Gebruikt",
-        "username": "Gebruikersnaam"
+        "username": "Gebruikersnaam",
+        "confirm_delete": "Weet je zeker dat je deze wilt verwijderen?"
     },
     "forms": {
         "choose_a_file": "Kies een bestand",

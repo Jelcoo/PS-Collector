@@ -2,6 +2,7 @@
     <ForbiddenView v-if="status === 403" />
     <NotFoundView v-else-if="status === 404" />
     <ContainerComponent v-else :loading="loading || !collection">
+        <ConfirmationModal :visible="deleteVisible" @confirm="deleteCollection" @close="deleteVisible = false" />
         <div class="flex items-center justify-between mb-4">
             <h1 class="text-3xl font-bold mb-4 truncate">{{ collection!.name }}</h1>
             <div class="flex gap-4" v-if="collection!.userAccess === 'owner'">
@@ -17,7 +18,7 @@
                 <StyledButton @click="router.push(`/collections/${collection!.id}/edit`)">
                     <FontAwesomeIcon :icon="faPencil" class="mr-2" /> {{ $t('common.edit') }}
                 </StyledButton>
-                <StyledButton variant="danger" @click="deleteCollection">
+                <StyledButton variant="danger" @click="clickDelete">
                     <FontAwesomeIcon :icon="faTrash" class="mr-2" /> {{ $t('common.delete') }}
                 </StyledButton>
             </div>
@@ -55,6 +56,7 @@ import type { Collection } from '@/stores/types';
 import AddStampCard from '@/components/AddStampCard.vue';
 import StampCard from '@/components/StampCard.vue';
 import { useDebounceFn } from '@vueuse/core';
+import ConfirmationModal from '@/components/ConfirmationModal.vue';
 
 const collectionStore = useCollectionStore();
 const route = useRoute();
@@ -64,6 +66,7 @@ const loading = ref(true);
 const collection = ref<Collection>();
 const status = ref(0);
 const search = ref('');
+const deleteVisible = ref(false);
 
 const onSearch = useDebounceFn(() => {
     collectionStore.search(collection.value!.id, search.value).then((res) => {
@@ -88,6 +91,9 @@ onBeforeMount(() => {
         });
 });
 
+const clickDelete = () => {
+    deleteVisible.value = true;
+};
 const deleteCollection = () => {
     collectionStore.delete(collection.value!.id).then(() => {
         router.push('/');

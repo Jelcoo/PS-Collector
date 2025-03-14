@@ -43,6 +43,7 @@
         "cancel": "Annuler",
         "choose": "Choisir",
         "collections": "Collections",
+        "confirm": "Confirmer",
         "confirm_password": "Confirmer le mot de passe",
         "create_new": "Créer nouveau",
         "current_password": "Mot de passe actuel",
@@ -61,7 +62,8 @@
         "password": "Mot de passe",
         "remove": "Retirer",
         "used": "Utilisé",
-        "username": "Nom d'utilisateur"
+        "username": "Nom d'utilisateur",
+        "confirm_delete": "Etes-vous sur de vouloir supprimer?"
     },
     "forms": {
         "choose_a_file": "Choisir un fichier",

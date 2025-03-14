@@ -43,6 +43,7 @@
         "cancel": "Abbrechen",
         "choose": "Wählen",
         "collections": "Sammlungen",
+        "confirm": "Bestätigen",
         "confirm_password": "Passwort bestätigen",
         "create_new": "Neu erstellen",
         "current_password": "Aktuelles Passwort",
@@ -61,7 +62,8 @@
         "password": "Passwort",
         "remove": "Entfernen",
         "used": "Verwendet",
-        "username": "Benutzername"
+        "username": "Benutzername",
+        "confirm_delete": "Sind Sie sicher, dass Sie diese Löschen wollen?"
     },
     "forms": {
         "choose_a_file": "Datei auswählen",
