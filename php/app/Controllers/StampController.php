@@ -107,10 +107,14 @@ class StampController extends Controller
                 'damaged' => $data['damaged'],
             ]);
 
+            $existingAssets = $this->assetService->resolveAssets($updatedStamp);
+            if (count($existingAssets) > 0) {
+                $asset = $existingAssets[0];
+            }
+
             if (!is_null($data['image'])) {
-                $existingAssets = $this->assetService->resolveAssets($updatedStamp);
-                if (count($existingAssets) > 0) {
-                    $this->assetService->deleteAsset($existingAssets[0]);
+                if (isset($asset)) {
+                    $this->assetService->deleteAsset($asset);
                 }
 
                 $asset = $this->assetService->saveBase64Asset($data['image'], 'header', $updatedStamp);
@@ -127,7 +131,7 @@ class StampController extends Controller
 
         return [
             'stamp' => $updatedStamp->toArray(),
-            'asset' => $asset->toArray(),
+            'asset' => isset($asset) ? $asset->toArray() : null,
         ];
     }
 
