@@ -2,7 +2,6 @@
     "__code__": "nl",
     "account": {
         "edit": "Profiel Bewerken",
-        "language": "Taal",
         "password": "Wachtwoord Bewerken",
         "title": "Profiel"
     },
@@ -54,7 +53,6 @@
         "first_name": "Voornaam",
         "home": "Thuis",
         "image": "Afbeelding",
-        "language": "Taal",
         "last_name": "Achternaam",
         "members": "Leden",
         "name": "Naam",

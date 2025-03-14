@@ -54,24 +54,6 @@
                     </form>
                 </VeeForm>
             </div>
-            <div class="w-full max-w-md p-8 bg-neutral-700 my-auto rounded-2xl shadow-lg">
-                <h2 class="text-2xl font-semibold text-center text-neutral-100 mb-6">{{ $t('account.language') }}</h2>
-
-                <div class="mb-4">
-                    <label class="block text-neutral-300 mb-2" for="language">{{ $t('common.language') }}</label>
-                    <select
-                        name="language"
-                        id="language"
-                        class="w-full p-3 bg-neutral-800 text-neutral-100 rounded-lg border border-neutral-600 focus:ring-2 focus:ring-sky-500 outline-none"
-                        @change="onChangeLanguage"
-                        v-model="$i18n.locale"
-                    >
-                        <option v-for="locale in $i18n.availableLocales" :key="`locale-${locale}`" :value="locale">
-                            {{ locale }}
-                        </option>
-                    </select>
-                </div>
-            </div>
         </div>
     </ContainerComponent>
 </template>
@@ -161,10 +143,5 @@ const onSubmitPassword = (values: GenericObject, actions: SubmissionContext) => 
                 });
             }
         });
-};
-
-const onChangeLanguage = (event: Event) => {
-    const selectedLanguage = (event.target as HTMLSelectElement).value;
-    localStorage.setItem('language', selectedLanguage);
 };
 </script>

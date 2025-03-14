@@ -2,7 +2,6 @@
     "__code__": "fr",
     "account": {
         "edit": "Modifier le compte",
-        "language": "Langue",
         "password": "Mettre à jour le mot de passe",
         "title": "Compte"
     },
@@ -54,7 +53,6 @@
         "first_name": "Prénom",
         "home": "Accueil",
         "image": "Image",
-        "language": "Langue",
         "last_name": "Nom de famille",
         "members": "Membres",
         "name": "Nom",

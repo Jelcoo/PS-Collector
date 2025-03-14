@@ -2,7 +2,6 @@
     "__code__": "de",
     "account": {
         "edit": "Konto bearbeiten",
-        "language": "Sprache",
         "password": "Passwort aktualisieren",
         "title": "Konto"
     },
@@ -54,7 +53,6 @@
         "first_name": "Vorname",
         "home": "Startseite",
         "image": "Bild",
-        "language": "Sprache",
         "last_name": "Nachname",
         "members": "Mitglieder",
         "name": "Name",

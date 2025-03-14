@@ -8,6 +8,17 @@
             <RouterLink to="/" active-class="active" class="hovertransition mr-8 text-xl">{{
                 $t('common.home')
             }}</RouterLink>
+            <select
+                name="language"
+                id="language"
+                class="w-full p-3 mr-8 bg-neutral-800 text-neutral-100 rounded-lg border border-neutral-600 focus:ring-2 focus:ring-sky-500 outline-none"
+                @change="onChangeLanguage"
+                v-model="$i18n.locale"
+            >
+                <option v-for="locale in $i18n.availableLocales" :key="`locale-${locale}`" :value="locale">
+                    {{ locale }}
+                </option>
+            </select>
             <div class="flex">
                 <template v-if="userStore.isAuthenticated">
                     <NavbarDropdown />
@@ -37,4 +48,9 @@ import NavbarDropdown from '@/components/NavbarDropdown.vue';
 import { useUserStore } from '@/stores/user';
 
 const userStore = useUserStore();
+
+const onChangeLanguage = (event: Event) => {
+    const selectedLanguage = (event.target as HTMLSelectElement).value;
+    localStorage.setItem('language', selectedLanguage);
+};
 </script>

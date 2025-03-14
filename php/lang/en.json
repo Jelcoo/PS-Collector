@@ -2,7 +2,6 @@
     "__code__": "en",
     "account": {
         "edit": "Edit Account",
-        "language": "Language",
         "password": "Update Password",
         "title": "Account"
     },
@@ -54,7 +53,6 @@
         "first_name": "First name",
         "home": "Home",
         "image": "Image",
-        "language": "Language",
         "last_name": "Last name",
         "members": "Members",
         "name": "Name",
