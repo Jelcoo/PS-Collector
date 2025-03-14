@@ -14,7 +14,13 @@
                 <form @submit="handleSubmit($event, onSubmit)">
                     <div class="mb-4">
                         <img :src="selectedFile" v-if="selectedFile" class="w-32 h-32 object-cover" />
-                        <FormFile name="image" :label="$t('common.image')" type="file" @change="onFileChange" />
+                        <FormFile
+                            name="image"
+                            :label="$t('common.image')"
+                            type="file"
+                            :accept="acceptedImageTypes.join(', ')"
+                            @change="onFileChange"
+                        />
                     </div>
 
                     <div class="mb-4">

@@ -9,6 +9,7 @@
                         class="sr-only"
                         :id="name"
                         :disabled="disabled"
+                        :accept="accept"
                         @change="
                             (e) => {
                                 handleChange(e);
@@ -51,6 +52,7 @@ defineProps<{
     label: string;
     placeholder?: string;
     disabled?: boolean;
+    accept?: string;
 }>();
 
 const selectedFile = ref<string>('');
