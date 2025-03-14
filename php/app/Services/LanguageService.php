@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use App\Config\Config;
-
 class LanguageService
 {
     public function getLanguages(): array
