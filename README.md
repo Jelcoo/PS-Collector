@@ -2,6 +2,10 @@
 
 PS-Collector is a web application for keeping track of your postage stamp collection.
 
+## Visiting the application
+
+The application is hosted at [ps-collector.jelco.xyz](https://ps-collector.jelco.xyz/)
+
 ## Starting the application
 
 Please copy php/config.php.example to php/config.php and edit it to your needs.
